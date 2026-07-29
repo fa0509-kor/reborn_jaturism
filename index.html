@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>하나의 보자기, 무한한 변신 : 다시보자기 활용법</title>
+
+<meta name="description" content="버려질 천으로 만든 보자기 가방. 묶는 방법만 바꾸면 숄더백, 토트백, 도시락 가방, 장바구니가 되는 5가지 활용법. #자투리즘" />
+<meta name="theme-color" content="#FAF7F2" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="하나의 보자기, 무한한 변신 : 다시보자기 활용법" />
+<meta property="og:description" content="묶는 방법만 바꾸면 숄더백부터 장바구니까지. 업사이클링 캠페인 #자투리즘" />
+<!-- 배포 후 아래 og:image 경로에 대표 이미지 파일명을 넣어주세요 -->
+<meta property="og:image" content="./images/og-cover.jpg" />
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+<style>
+/* ============================================================
+   #자투리즘 — 다시보자기 활용법 랜딩페이지
+   모바일 퍼스트 / 미니멀 / 싱글 파일
+   ============================================================ */
+
+:root{
+  --bg:        #FAF7F2;   /* 광목천 같은 아이보리 */
+  --bg-soft:   #F2EDE4;
+  --ink:       #1A1A18;   /* 먹색 */
+  --ink-60:    #5C5A54;
+  --ink-40:    #8E8B83;
+  --line:      #E2DBCF;
+  --accent:    #2F6B4F;   /* 쪽빛 대신 쑥색 그린 */
+  --accent-soft:#E7F0EA;
+  --point:     #E5623C;   /* 홍시색 포인트 */
+  --radius:    18px;
+  --maxw:      480px;
+  --ease:      cubic-bezier(.22,.9,.28,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+              "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+  font-size:16px;
+  line-height:1.7;
+  letter-spacing:-0.02em;
+  word-break:keep-all;      /* 한글 단어 단위 줄바꿈 */
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+button{ font:inherit; color:inherit; cursor:pointer; }
+
+/* 공통 레이아웃 : 모바일 기준으로 짜고, 큰 화면에선 가운데 정렬 */
+.wrap{
+  width:100%;
+  max-width:var(--maxw);
+  margin-inline:auto;
+  padding-inline:24px;
+}
+
+/* ── 스크롤 진행 바 ─────────────────────────────── */
+.progress{
+  position:fixed; inset:0 0 auto 0;
+  height:3px; z-index:60;
+  background:transparent;
+}
+.progress__bar{
+  height:100%; width:0%;
+  background:var(--accent);
+  transition:width .1s linear;
+}
+
+/* ── 상단 고정 바 ───────────────────────────────── */
+.topbar{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  max-width:var(--maxw); margin-inline:auto;
+  padding:14px 24px;
+  background:rgba(250,247,242,0);
+  backdrop-filter:blur(0px);
+  transition:background .35s var(--ease), backdrop-filter .35s var(--ease), border-color .35s var(--ease);
+  border-bottom:1px solid transparent;
+}
+.topbar.is-stuck{
+  background:rgba(250,247,242,.82);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom-color:var(--line);
+}
+.topbar__logo{
+  font-size:14px; font-weight:700; letter-spacing:0.01em;
+}
+.topbar__tag{
+  font-size:11px; font-weight:600; color:var(--accent);
+  background:var(--accent-soft);
+  padding:5px 10px; border-radius:999px;
+}
+
+/* ── 히어로 ─────────────────────────────────────── */
+.hero{
+  min-height:100svh;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:110px 0 90px;
+  position:relative;
+  overflow:hidden;
+}
+/* 배경에 은은하게 깔리는 천 조각 그래픽 */
+.hero::before,
+.hero::after{
+  content:""; position:absolute; z-index:0;
+  border-radius:40% 60% 55% 45% / 50% 45% 55% 50%;
+  filter:blur(2px); opacity:.5;
+  animation:float 14s var(--ease) infinite alternate;
+}
+.hero::before{
+  width:250px; height:250px; top:6%; right:-90px;
+  background:var(--accent-soft);
+}
+.hero::after{
+  width:190px; height:190px; bottom:12%; left:-80px;
+  background:#F7E4DC;
+  animation-delay:-6s;
+}
+@keyframes float{
+  from{ transform:translate3d(0,0,0) rotate(0deg); }
+  to  { transform:translate3d(0,-26px,0) rotate(16deg); }
+}
+
+.hero .wrap{ position:relative; z-index:1; }
+
+.hero__eyebrow{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12px; font-weight:600; color:var(--ink-60);
+  border:1px solid var(--line); background:#fff;
+  padding:7px 13px; border-radius:999px;
+  margin-bottom:26px;
+}
+.hero__eyebrow b{ color:var(--accent); font-weight:700; }
+
+.hero__title{
+  margin:0 0 20px;
+  font-size:clamp(30px, 8.6vw, 40px);
+  font-weight:800;
+  line-height:1.32;
+  letter-spacing:-0.045em;
+}
+.hero__title .line2{ display:block; }
+.hero__title em{
+  font-style:normal;
+  position:relative;
+  white-space:nowrap;
+}
+/* 손으로 그은 듯한 밑줄 */
+.hero__title em::after{
+  content:""; position:absolute;
+  left:-2px; right:-2px; bottom:2px; height:34%;
+  background:var(--accent-soft);
+  border-radius:3px;
+  z-index:-1;
+  transform:scaleX(0); transform-origin:left;
+  animation:underline 1s var(--ease) .55s forwards;
+}
+@keyframes underline{ to{ transform:scaleX(1); } }
+
+.hero__desc{
+  margin:0 0 40px;
+  font-size:15px; color:var(--ink-60); line-height:1.85;
+}
+.hero__desc strong{ color:var(--ink); font-weight:600; }
+
+.hero__stats{
+  display:flex; gap:10px; margin-bottom:44px;
+}
+.stat{
+  flex:1; background:#fff; border:1px solid var(--line);
+  border-radius:14px; padding:14px 12px; text-align:center;
+}
+.stat__num{ display:block; font-size:19px; font-weight:800; letter-spacing:-0.03em; }
+.stat__label{ font-size:11px; color:var(--ink-40); letter-spacing:-0.01em; }
+
+.scrolldown{
+  display:flex; flex-direction:column; align-items:center; gap:9px;
+  font-size:11px; color:var(--ink-40); letter-spacing:0.06em;
+}
+.scrolldown__line{
+  width:1px; height:44px;
+  background:linear-gradient(var(--ink-40), transparent);
+  animation:drop 1.8s var(--ease) infinite;
+}
+@keyframes drop{
+  0%  { transform:scaleY(.2); transform-origin:top; opacity:0; }
+  40% { transform:scaleY(1);  transform-origin:top; opacity:1; }
+  70% { transform:scaleY(1);  transform-origin:bottom; opacity:1; }
+  100%{ transform:scaleY(.2); transform-origin:bottom; opacity:0; }
+}
+
+/* ── 섹션 인트로 ────────────────────────────────── */
+.intro{
+  background:var(--bg-soft);
+  padding:76px 0;
+  text-align:center;
+}
+.intro__q{
+  font-size:13px; color:var(--accent); font-weight:600; margin:0 0 14px;
+}
+.intro__a{
+  margin:0 0 22px;
+  font-size:22px; font-weight:700; line-height:1.6; letter-spacing:-0.035em;
+}
+.intro__p{
+  margin:0; font-size:14px; color:var(--ink-60); line-height:1.9;
+}
+
+/* ── 활용법 섹션 ────────────────────────────────── */
+.methods{ padding:80px 0 40px; }
+
+.section-label{
+  text-align:center; margin-bottom:52px;
+}
+.section-label__sub{
+  font-size:11px; letter-spacing:0.16em; color:var(--ink-40);
+  text-transform:uppercase; margin:0 0 10px;
+}
+.section-label__main{
+  margin:0; font-size:24px; font-weight:800; letter-spacing:-0.04em;
+}
+
+.card{
+  margin-bottom:72px;
+}
+
+.card__head{
+  display:flex; align-items:baseline; gap:10px;
+  margin-bottom:16px;
+}
+.card__num{
+  font-size:12px; font-weight:700; color:var(--accent);
+  letter-spacing:0.08em;
+  padding-bottom:2px;
+  border-bottom:2px solid var(--accent);
+}
+.card__icon{ font-size:20px; line-height:1; }
+
+.card__title{
+  margin:0 0 8px;
+  font-size:24px; font-weight:800; line-height:1.4; letter-spacing:-0.04em;
+}
+.card__sub{
+  margin:0 0 22px;
+  font-size:15px; color:var(--point); font-weight:600; letter-spacing:-0.03em;
+}
+
+/* ── 활용법 일러스트 (인라인 SVG) ────────────────
+   실제 사진이 준비되면 <figure class="illust">…</figure> 를
+   아래 한 줄로 통째로 바꾸면 됩니다.
+   <img class="photo" src="./images/01-shoulder.jpg" alt="숄더백 매듭법" />
+   ─────────────────────────────────────────────── */
+.illust{
+  margin:0 0 22px;
+  width:100%; aspect-ratio:4/5;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--bg-soft);
+}
+.illust svg{ display:block; width:100%; height:100%; }
+
+/* 일러스트 공통 팔레트 — 페이지 색상 변수를 그대로 씁니다 */
+.il-bg     { fill:var(--bg-soft); }
+.il-halo   { fill:#FFFFFF; opacity:.55; }
+.il-cloth  { fill:var(--accent-soft); }
+.il-cloth2 { fill:#F7E4DC; }
+.il-paper  { fill:#FFFFFF; }
+.il-line{
+  fill:none; stroke:var(--ink); stroke-width:3.2;
+  stroke-linecap:round; stroke-linejoin:round;
+}
+.il-thin{
+  fill:none; stroke:var(--ink-40); stroke-width:2;
+  stroke-linecap:round;
+}
+.il-stitch{
+  fill:none; stroke:var(--accent); stroke-width:2;
+  stroke-dasharray:6 8; stroke-linecap:round;
+}
+
+.photo{
+  width:100%; aspect-ratio:4/5; object-fit:cover;
+  border-radius:var(--radius); margin-bottom:22px;
+}
+
+/* ── 일러스트 단계 애니메이션 ─────────────────────
+   매듭이 만들어지는 순서를 p1 → p4 로 나눠 보여줍니다.
+   화면에 보일 때만 재생되고(.is-playing), 스크립트가 없거나
+   모션 최소화 설정이면 완성된 그림이 그대로 보입니다.
+   ─────────────────────────────────────────────── */
+.illust svg .p1,
+.illust svg .p2,
+.illust svg .p3,
+.illust svg .p4{
+  transform-box:fill-box;
+  transform-origin:center;
+}
+
+.illust.is-playing svg .p1{ animation:ilP1 5.2s var(--ease) infinite; }
+.illust.is-playing svg .p2{ animation:ilP2 5.2s var(--ease) infinite; }
+.illust.is-playing svg .p3{ animation:ilP3 5.2s var(--ease) infinite; }
+.illust.is-playing svg .p4{ animation:ilP4 5.2s var(--ease) infinite; }
+
+/* 각 단계는 시작 시점만 다르고, 사라지는 시점은 같습니다 */
+@keyframes ilP1{
+  0%        { opacity:0; transform:translateY(10px); }
+  9%, 92%   { opacity:1; transform:none; }
+  100%      { opacity:0; transform:translateY(10px); }
+}
+@keyframes ilP2{
+  0%, 14%   { opacity:0; transform:translateY(-14px); }
+  25%, 92%  { opacity:1; transform:none; }
+  100%      { opacity:0; transform:translateY(-14px); }
+}
+@keyframes ilP3{
+  0%, 30%   { opacity:0; transform:translateY(12px); }
+  41%, 92%  { opacity:1; transform:none; }
+  100%      { opacity:0; transform:translateY(12px); }
+}
+@keyframes ilP4{
+  0%, 46%   { opacity:0; transform:scale(.4); }
+  58%, 92%  { opacity:1; transform:none; }
+  100%      { opacity:0; transform:scale(.4); }
+}
+
+.card__desc{
+  margin:0 0 20px;
+  font-size:15px; color:var(--ink-60); line-height:1.9;
+}
+
+.meta{
+  display:flex; flex-wrap:wrap; gap:7px; margin-bottom:18px;
+}
+.meta__chip{
+  font-size:12px; color:var(--ink-60);
+  background:#fff; border:1px solid var(--line);
+  padding:6px 11px; border-radius:999px;
+}
+
+.steps{
+  margin:0 0 18px; padding:0; list-style:none;
+  counter-reset:step;
+}
+.steps li{
+  counter-increment:step;
+  position:relative;
+  padding-left:30px; margin-bottom:9px;
+  font-size:14px; color:var(--ink); line-height:1.75;
+}
+.steps li::before{
+  content:counter(step);
+  position:absolute; left:0; top:3px;
+  width:20px; height:20px; border-radius:50%;
+  background:var(--accent-soft); color:var(--accent);
+  font-size:11px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.tip{
+  display:flex; gap:10px;
+  background:var(--accent-soft);
+  border-radius:14px; padding:14px 16px;
+  font-size:13px; color:var(--ink); line-height:1.75;
+}
+.tip__label{ flex:none; font-weight:700; color:var(--accent); }
+
+/* ── CTA ────────────────────────────────────────── */
+.cta{
+  background:var(--ink); color:var(--bg);
+  padding:80px 0; text-align:center;
+  border-radius:32px 32px 0 0;
+  margin-top:40px;
+}
+.cta__tag{
+  font-size:12px; letter-spacing:0.14em; color:#9AA79E; margin:0 0 16px;
+}
+.cta__title{
+  margin:0 0 16px;
+  font-size:26px; font-weight:800; line-height:1.5; letter-spacing:-0.04em;
+}
+.cta__desc{
+  margin:0 0 34px; font-size:14px; color:#B7B3AA; line-height:1.9;
+}
+.btn{
+  display:block; width:100%;
+  padding:17px 20px; border-radius:14px;
+  font-size:15px; font-weight:700; letter-spacing:-0.02em;
+  border:none; text-align:center;
+  transition:transform .18s var(--ease), opacity .18s var(--ease);
+}
+.btn:active{ transform:scale(.975); }
+.btn--primary{ background:var(--bg); color:var(--ink); margin-bottom:10px; }
+.btn--ghost{
+  background:transparent; color:var(--bg);
+  border:1px solid rgba(250,247,242,.28);
+}
+.cta__hash{
+  margin:32px 0 0; font-size:13px; color:#9AA79E; line-height:1.9;
+}
+.cta__hash b{ color:var(--bg); font-weight:700; }
+
+/* ── 푸터 ───────────────────────────────────────── */
+.footer{
+  background:var(--ink); color:#7E7B74;
+  padding:0 0 46px; text-align:center;
+  font-size:11px; line-height:1.9;
+}
+.footer__line{
+  height:1px; background:rgba(250,247,242,.12);
+  margin:0 24px 26px;
+}
+
+/* ── 인증 게시판 ────────────────────────────────── */
+.verify{
+  background:var(--bg-soft);
+  padding:76px 0 84px;
+}
+.verify__title{
+  margin:0 0 12px;
+  font-size:24px; font-weight:800; letter-spacing:-0.04em;
+}
+.verify__desc{
+  margin:0 0 26px;
+  font-size:14px; color:var(--ink-60); line-height:1.85;
+}
+.verify__link{
+  display:inline-block; margin-bottom:26px;
+  font-size:13px; font-weight:600; color:var(--accent);
+  border-bottom:1px solid var(--accent); padding-bottom:1px;
+}
+
+.vform{
+  background:#fff; border:1px solid var(--line);
+  border-radius:16px; padding:18px 16px; margin-bottom:32px;
+}
+.vform__kinds{ display:flex; gap:7px; margin-bottom:12px; }
+.chip{
+  flex:1; padding:9px 10px; border-radius:999px;
+  border:1px solid var(--line); background:#fff;
+  font-size:13px; font-weight:600; color:var(--ink-60);
+  transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease);
+}
+.chip.is-on{
+  background:var(--accent-soft); color:var(--accent); border-color:var(--accent);
+}
+.vform__input{
+  width:100%; margin-bottom:9px;
+  padding:13px 14px; border-radius:12px;
+  border:1px solid var(--line); background:var(--bg);
+  font-family:inherit; font-size:14px; color:var(--ink);
+  letter-spacing:-0.02em;
+}
+.vform__input::placeholder{ color:var(--ink-40); }
+.vform__input:focus{
+  outline:none; border-color:var(--accent); background:#fff;
+}
+.btn--dark{
+  background:var(--ink); color:var(--bg);
+  margin-top:3px;
+}
+.btn[disabled]{ opacity:.5; pointer-events:none; }
+.vform__msg{
+  margin:11px 0 0; font-size:13px; line-height:1.6; min-height:1px;
+}
+.vform__msg.is-ok{ color:var(--accent); }
+.vform__msg.is-err{ color:var(--point); }
+
+.wall{ display:flex; flex-direction:column; gap:9px; }
+.wall__empty{
+  text-align:center; padding:30px 16px;
+  font-size:13px; color:var(--ink-40); line-height:1.8;
+  border:1.5px dashed var(--line); border-radius:14px;
+}
+.wcard{
+  display:flex; align-items:center; gap:12px;
+  background:#fff; border:1px solid var(--line);
+  border-radius:14px; padding:13px 15px;
+  transition:transform .18s var(--ease);
+}
+.wcard:active{ transform:scale(.985); }
+.wcard__kind{
+  flex:none; font-size:11px; font-weight:700;
+  color:var(--accent); background:var(--accent-soft);
+  padding:5px 9px; border-radius:999px;
+}
+.wcard__body{ flex:1; min-width:0; }
+.wcard__nick{
+  display:block; font-size:14px; font-weight:600;
+  letter-spacing:-0.02em;
+}
+.wcard__meta{
+  display:block; font-size:11px; color:var(--ink-40);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.wcard__go{ flex:none; font-size:14px; color:var(--ink-40); }
+
+/* ── 공유 시트 (모달) ───────────────────────────── */
+.sheet[hidden]{ display:none; }
+.sheet{ position:fixed; inset:0; z-index:100; }
+.sheet__dim{
+  position:absolute; inset:0;
+  background:rgba(26,26,24,.5);
+  animation:fadeIn .25s var(--ease);
+}
+.sheet__panel{
+  position:absolute; left:0; right:0; bottom:0;
+  max-width:var(--maxw); margin-inline:auto;
+  background:var(--bg);
+  border-radius:22px 22px 0 0;
+  padding:10px 20px calc(20px + env(safe-area-inset-bottom));
+  max-height:88vh; overflow-y:auto;
+  animation:slideUp .32s var(--ease);
+}
+@keyframes fadeIn{ from{ opacity:0; } }
+@keyframes slideUp{ from{ transform:translateY(100%); } }
+
+.sheet__grip{
+  width:38px; height:4px; border-radius:99px;
+  background:var(--line); margin:0 auto 16px;
+}
+.sheet__title{
+  margin:0 0 6px; font-size:19px; font-weight:800; letter-spacing:-0.04em;
+}
+.sheet__sub{
+  margin:0 0 18px; font-size:13px; color:var(--ink-60); line-height:1.7;
+}
+.sheet__item{
+  display:flex; align-items:center; gap:13px; width:100%;
+  padding:14px 15px; margin-bottom:8px;
+  background:#fff; border:1px solid var(--line);
+  border-radius:14px; text-align:left;
+  transition:transform .18s var(--ease);
+}
+.sheet__item:active{ transform:scale(.985); }
+.sheet__ico{ font-size:20px; flex:none; }
+.sheet__item b{
+  display:block; font-size:14px; font-weight:600; letter-spacing:-0.02em;
+}
+.sheet__item i{
+  display:block; font-style:normal;
+  font-size:12px; color:var(--ink-40); margin-top:2px;
+}
+.sheet__cancel{
+  width:100%; padding:14px; margin-top:4px;
+  background:none; border:none;
+  font-size:14px; color:var(--ink-40);
+}
+
+/* 복사 완료 화면 */
+.sheet__done{ text-align:center; padding:6px 0 0; }
+.sheet__doneIco{ font-size:34px; }
+.sheet__doneTitle{
+  margin:10px 0 6px; font-size:19px; font-weight:800; letter-spacing:-0.04em;
+}
+.sheet__doneSub{
+  margin:0 0 16px; font-size:13px; color:var(--ink-60); line-height:1.7;
+}
+.preview{
+  text-align:left; background:#fff;
+  border:1px solid var(--line); border-radius:12px;
+  padding:13px 14px; margin-bottom:14px;
+  font-size:12px; color:var(--ink-60);
+  line-height:1.7; white-space:pre-wrap;
+  max-height:170px; overflow-y:auto;
+}
+
+/* ── 스크롤 등장 애니메이션 ─────────────────────── */
+/* .js 클래스가 붙었을 때만 숨김 : 스크립트가 막힌 환경에서도 내용은 보입니다 */
+.js .reveal{
+  opacity:0; transform:translateY(22px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease);
+}
+.js .reveal.is-in{ opacity:1; transform:none; }
+.reveal[data-delay="1"]{ transition-delay:.08s; }
+.reveal[data-delay="2"]{ transition-delay:.16s; }
+.reveal[data-delay="3"]{ transition-delay:.24s; }
+
+/* 모션 최소화 설정을 켠 사용자 배려 */
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition-duration:.01ms !important; }
+  .reveal{ opacity:1; transform:none; }
+  html{ scroll-behavior:auto; }
+}
+
+/* ── 큰 화면에서도 모바일 폼팩터 유지 ───────────── */
+@media (min-width:600px){
+  body{ background:#EFEAE1; }
+  .page{
+    max-width:var(--maxw); margin-inline:auto;
+    background:var(--bg);
+    box-shadow:0 0 60px rgba(26,26,24,.07);
+    min-height:100vh;
+  }
+  .intro, .cta, .footer{ border-radius:0; }
+  .cta{ border-radius:32px 32px 0 0; }
+}
+</style>
+
+<script>document.documentElement.classList.add('js');</script>
+</head>
+
+<body>
+
+<div class="progress"><div class="progress__bar" id="progressBar"></div></div>
+
+<header class="topbar" id="topbar">
+  <span class="topbar__logo">다시보자기</span>
+  <span class="topbar__tag">#자투리즘</span>
+</header>
+
+<div class="page">
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="hero__eyebrow reveal">🧵 업사이클링 캠페인 <b>#자투리즘</b></span>
+
+      <h1 class="hero__title reveal" data-delay="1">
+        하나의 보자기,<br />
+        <span class="line2"><em>무한한 변신</em></span>
+      </h1>
+
+      <p class="hero__desc reveal" data-delay="2">
+        공장에서 버려지던 자투리 천이<br />
+        한 장의 보자기 가방이 되었어요.<br />
+        <strong>묶는 방법만 바꾸면</strong> 숄더백이 되고, 장바구니가 되고,<br />
+        도시락 가방이 돼요. 접으면 주머니 속으로 들어가고요.
+      </p>
+
+      <div class="hero__stats reveal" data-delay="3">
+        <div class="stat"><span class="stat__num">5가지</span><span class="stat__label">활용법</span></div>
+        <div class="stat"><span class="stat__num">30초</span><span class="stat__label">평균 변신 시간</span></div>
+        <div class="stat"><span class="stat__num">0</span><span class="stat__label">필요한 도구</span></div>
+      </div>
+
+      <div class="scrolldown reveal" data-delay="3">
+        <span>SCROLL</span>
+        <span class="scrolldown__line"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ INTRO ══════════ -->
+  <section class="intro">
+    <div class="wrap">
+      <p class="intro__q reveal">Q. 보자기, 명절에만 쓰는 거 아니야?</p>
+      <h2 class="intro__a reveal" data-delay="1">
+        묶는 방법에 따라<br />오늘 하루가 달라져요.
+      </h2>
+      <p class="intro__p reveal" data-delay="2">
+        에코백은 무거워서, 종이백은 비 오면 끝.<br />
+        이 가방은 가볍고, 튼튼하고, 젖어도 말리면 그만이에요.<br />
+        게다가 버려질 뻔한 천으로 만들었어요.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ 5가지 활용법 ══════════ -->
+  <main class="methods">
+    <div class="wrap">
+
+      <div class="section-label reveal">
+        <p class="section-label__sub">HOW TO USE</p>
+        <h2 class="section-label__main">다시보자기 활용법 5</h2>
+      </div>
+
+      <!-- ── 01 숄더백 ── -->
+      <article class="card">
+        <div class="card__head reveal">
+          <span class="card__num">01</span>
+          <span class="card__icon">👜</span>
+        </div>
+        <h3 class="card__title reveal">숄더백 매듭법</h3>
+        <p class="card__sub reveal">어깨에 걸치면 두 손이 자유로워요</p>
+
+        <!-- 일러스트 01 : 사진 준비 시 ./images/01-shoulder.jpg 로 교체 -->
+        <figure class="illust reveal">
+          <svg viewBox="0 0 400 500" role="img"
+               aria-label="보자기 양 끝을 길게 묶어 어깨에 메는 숄더백 일러스트. 가방 위로 책 두 권이 보인다.">
+            <rect class="il-bg" width="400" height="500"/>
+            <circle class="il-halo" cx="200" cy="292" r="150"/>
+
+            <!-- 3단계 : 어깨 길이로 올린 끈 -->
+            <g class="p3">
+              <path class="il-line" d="M146 16 C140 96 156 158 182 190"/>
+              <path class="il-line" d="M262 16 C268 96 252 158 226 190"/>
+            </g>
+
+            <!-- 2단계 : 담은 짐 -->
+            <g class="p2" transform="rotate(-7 200 176)">
+              <rect class="il-cloth2" x="168" y="126" width="36" height="88" rx="4"/>
+              <rect class="il-line"   x="168" y="126" width="36" height="88" rx="4"/>
+              <path class="il-thin"   d="M176 144 h20"/>
+              <rect class="il-paper"  x="206" y="140" width="30" height="74" rx="4"/>
+              <rect class="il-line"   x="206" y="140" width="30" height="74" rx="4"/>
+            </g>
+
+            <!-- 4단계 : 목을 조인 매듭 -->
+            <g class="p4">
+              <ellipse class="il-cloth" cx="200" cy="204" rx="32" ry="17"/>
+              <ellipse class="il-line"  cx="200" cy="204" rx="32" ry="17"/>
+              <path class="il-thin" d="M182 195 C194 206 204 209 218 214"/>
+            </g>
+
+            <!-- 1단계 : 펼친 가방 -->
+            <g class="p1">
+              <path class="il-cloth" d="M175 214 C150 244 118 292 122 342 C127 398 160 440 200 440 C240 440 273 398 278 342 C282 292 250 244 225 214 Z"/>
+              <path class="il-line"  d="M175 214 C150 244 118 292 122 342 C127 398 160 440 200 440 C240 440 273 398 278 342 C282 292 250 244 225 214 Z"/>
+              <path class="il-thin" d="M162 258 C146 306 148 372 166 414"/>
+              <path class="il-thin" d="M238 258 C254 306 252 372 234 414"/>
+              <path class="il-stitch" d="M132 356 C160 384 240 384 268 356"/>
+            </g>
+          </svg>
+        </figure>
+
+        <p class="card__desc reveal">
+          양쪽 끝을 길게 묶으면 어깨에 걸치는 가방이 돼요.
+          매듭을 얼마나 길게 잡느냐에 따라 어깨에 걸칠지
+          크로스로 멜지 정할 수 있어요. 무게가 한 곳에 쏠리지 않고
+          천 전체로 퍼져서 책 한두 권은 부담 없이 들고 다닐 수 있어요.
+        </p>
+
+        <div class="meta reveal">
+          <span class="meta__chip">⏱ 20초</span>
+          <span class="meta__chip">🎒 책 1~2권</span>
+          <span class="meta__chip">난이도 ★☆☆</span>
+        </div>
+
+        <ol class="steps reveal">
+          <li>가방을 펼치고 짐을 바닥에 먼저 담아요.</li>
+          <li>양쪽 끝자락을 한 번씩 펴서 정리해요.</li>
+          <li>어깨에 걸릴 길이를 재서 두 끝을 길게 묶어요.</li>
+        </ol>
+
+        <div class="tip reveal">
+          <span class="tip__label">TIP</span>
+          <span>어깨끈 매듭을 두 번 꼬아 묶으면 흘러내리지 않아요.</span>
+        </div>
+      </article>
+
+      <!-- ── 02 토트백 ── -->
+      <article class="card">
+        <div class="card__head reveal">
+          <span class="card__num">02</span>
+          <span class="card__icon">🛍️</span>
+        </div>
+        <h3 class="card__title reveal">토트백 매듭법</h3>
+        <p class="card__sub reveal">짧게 묶어 손에 드는 크기</p>
+
+        <!-- 일러스트 02 : 사진 준비 시 ./images/02-tote.jpg 로 교체 -->
+        <figure class="illust reveal">
+          <svg viewBox="0 0 400 500" role="img"
+               aria-label="보자기 네 귀퉁이를 짧게 묶어 손잡이 두 개를 만든 토트백 일러스트.">
+            <rect class="il-bg" width="400" height="500"/>
+            <circle class="il-halo" cx="200" cy="288" r="150"/>
+
+            <!-- 3단계 : 가운데로 모아 짧게 묶은 손잡이 -->
+            <g class="p3">
+              <path class="il-line" d="M152 250 C138 194 190 182 198 234"/>
+              <path class="il-line" d="M248 250 C262 194 210 182 202 234"/>
+            </g>
+
+            <!-- 1단계 : 입구를 벌린 가방 -->
+            <g class="p1">
+              <path class="il-cloth" d="M114 248 L286 248 L272 418 C271 429 262 436 251 436 L149 436 C138 436 129 429 128 418 Z"/>
+              <path class="il-line"  d="M114 248 L286 248 L272 418 C271 429 262 436 251 436 L149 436 C138 436 129 429 128 418 Z"/>
+              <path class="il-thin" d="M158 268 L154 412"/>
+              <path class="il-thin" d="M242 268 L246 412"/>
+              <path class="il-stitch" d="M138 348 H262"/>
+            </g>
+
+            <!-- 2단계 : 양쪽 끝자락 모으기 -->
+            <g class="p2">
+              <ellipse class="il-cloth2" cx="126" cy="246" rx="19" ry="12"/>
+              <ellipse class="il-line"   cx="126" cy="246" rx="19" ry="12"/>
+              <ellipse class="il-cloth2" cx="274" cy="246" rx="19" ry="12"/>
+              <ellipse class="il-line"   cx="274" cy="246" rx="19" ry="12"/>
+            </g>
+          </svg>
+        </figure>
+
+        <p class="card__desc reveal">
+          두 끝을 짧게 묶으면 손에 드는 토트백이 돼요.
+          지갑과 텀블러, 이어폰 정도만 챙기는 가벼운 걸음에 어울려요.
+          매듭을 안쪽으로 옮길수록 입구가 넓어지니
+          그날 짐에 맞춰 조절하면 돼요.
+        </p>
+
+        <div class="meta reveal">
+          <span class="meta__chip">⏱ 15초</span>
+          <span class="meta__chip">☕ 가벼운 걸음</span>
+          <span class="meta__chip">난이도 ★☆☆</span>
+        </div>
+
+        <ol class="steps reveal">
+          <li>가방을 세우고 입구를 양쪽으로 벌려요.</li>
+          <li>짐을 넣은 뒤 양쪽 끝을 가운데로 모아요.</li>
+          <li>손에 쥐기 좋은 길이로 짧게 묶어요.</li>
+        </ol>
+
+        <div class="tip reveal">
+          <span class="tip__label">TIP</span>
+          <span>매듭 위치를 조금만 안쪽으로 옮기면 가방 폭이 넓어져요.</span>
+        </div>
+      </article>
+
+      <!-- ── 03 도시락 가방 ── -->
+      <article class="card">
+        <div class="card__head reveal">
+          <span class="card__num">03</span>
+          <span class="card__icon">🍱</span>
+        </div>
+        <h3 class="card__title reveal">도시락 가방</h3>
+        <p class="card__sub reveal">반찬통이 기울지 않아요</p>
+
+        <!-- 일러스트 03 : 사진 준비 시 ./images/03-lunch.jpg 로 교체 -->
+        <figure class="illust reveal">
+          <svg viewBox="0 0 400 500" role="img"
+               aria-label="바닥이 네모지게 잡힌 가방 안에 도시락통이 반듯하게 서 있는 일러스트.">
+            <rect class="il-bg" width="400" height="500"/>
+            <circle class="il-halo" cx="200" cy="288" r="150"/>
+
+            <!-- 3단계 : 입구를 오므려 짧게 묶기 -->
+            <g class="p3">
+              <path class="il-line" d="M156 240 C142 190 188 176 198 224"/>
+              <path class="il-line" d="M244 240 C258 190 212 176 202 224"/>
+            </g>
+            <g class="p4">
+              <ellipse class="il-cloth" cx="200" cy="232" rx="25" ry="14"/>
+              <ellipse class="il-line"  cx="200" cy="232" rx="25" ry="14"/>
+            </g>
+
+            <!-- 1단계 : 바닥을 눌러 네모지게 편 몸통 -->
+            <g class="p1">
+              <path class="il-cloth" d="M118 246 L282 246 L276 418 C275 428 267 434 257 434 L143 434 C133 434 125 428 124 418 Z"/>
+              <path class="il-line"  d="M118 246 L282 246 L276 418 C275 428 267 434 257 434 L143 434 C133 434 125 428 124 418 Z"/>
+              <path class="il-thin" d="M140 414 H260"/>
+            </g>
+
+            <!-- 2단계 : 바닥에 맞춰 내려놓은 도시락통 -->
+            <g class="p2">
+              <path class="il-stitch" d="M158 292 H242 V400 H158 Z"/>
+              <path class="il-stitch" d="M158 332 H242"/>
+            </g>
+          </svg>
+        </figure>
+
+        <p class="card__desc reveal">
+          바닥이 네모지게 잡혀 있어서 도시락통을 세워 담아도 기울지 않아요.
+          국물 있는 반찬을 싸 갈 때 특히 마음이 놓여요.
+          텀블러를 같이 넣어도 서로 부딪히지 않고 각자 자리를 잡아요.
+        </p>
+
+        <div class="meta reveal">
+          <span class="meta__chip">⏱ 20초</span>
+          <span class="meta__chip">🍱 2단 도시락</span>
+          <span class="meta__chip">난이도 ★☆☆</span>
+        </div>
+
+        <ol class="steps reveal">
+          <li>가방을 세우고 바닥을 손으로 눌러 네모지게 펴요.</li>
+          <li>도시락통을 바닥에 딱 맞게 내려놓아요.</li>
+          <li>양쪽 끝을 짧게 묶어 입구를 오므려요.</li>
+        </ol>
+
+        <div class="tip reveal">
+          <span class="tip__label">TIP</span>
+          <span>무거운 것을 아래에, 가벼운 것을 위에 올리면 덜 흔들려요.</span>
+        </div>
+      </article>
+
+      <!-- ── 04 장바구니 ── -->
+      <article class="card">
+        <div class="card__head reveal">
+          <span class="card__num">04</span>
+          <span class="card__icon">🥬</span>
+        </div>
+        <h3 class="card__title reveal">장바구니</h3>
+        <p class="card__sub reveal">비닐봉지를 받지 않아도 되는 날</p>
+
+        <!-- 일러스트 04 : 사진 준비 시 ./images/04-market.jpg 로 교체 -->
+        <figure class="illust reveal">
+          <svg viewBox="0 0 400 500" role="img"
+               aria-label="장을 본 물건이 가득 담겨 불룩해진 가방 위로 대파와 병이 삐져나와 있는 일러스트.">
+            <rect class="il-bg" width="400" height="500"/>
+            <circle class="il-halo" cx="200" cy="296" r="148"/>
+
+            <!-- 1단계 : 입구를 넓게 벌린 가방 -->
+            <g class="p1">
+              <path class="il-cloth" d="M106 276 C94 324 98 384 116 414 C130 438 168 450 200 450 C232 450 270 438 284 414 C302 384 306 324 294 276 Z"/>
+              <path class="il-line"  d="M106 276 C94 324 98 384 116 414 C130 438 168 450 200 450 C232 450 270 438 284 414 C302 384 306 324 294 276"/>
+              <path class="il-line"  d="M106 276 A94 22 0 0 1 294 276"/>
+              <path class="il-thin" d="M144 320 C132 360 136 406 154 436"/>
+              <path class="il-thin" d="M256 320 C268 360 264 406 246 436"/>
+              <path class="il-stitch" d="M112 386 C152 410 248 410 288 386"/>
+            </g>
+
+            <!-- 2단계 : 담은 장거리 -->
+            <g class="p2">
+              <path class="il-thin" d="M152 286 C144 236 136 198 124 164"/>
+              <path class="il-thin" d="M162 286 C162 234 162 196 160 156"/>
+              <path class="il-thin" d="M172 286 C180 236 192 200 206 170"/>
+              <path class="il-paper" d="M236 178 h30 v20 c0 9 7 13 7 22 v66 h-44 v-66 c0-9 7-13 7-22 Z"/>
+              <path class="il-line"  d="M236 178 h30 v20 c0 9 7 13 7 22 v66 h-44 v-66 c0-9 7-13 7-22 Z"/>
+              <path class="il-cloth2" d="M229 226 h44 v32 h-44 Z"/>
+              <path class="il-line"   d="M229 226 h44 v32 h-44 Z"/>
+            </g>
+
+            <!-- 앞쪽 입구 : 담긴 것들의 밑동을 가려 안에 들어간 것처럼 -->
+            <g class="p1">
+              <path class="il-cloth2" d="M106 276 A94 22 0 0 0 294 276 Z"/>
+              <path class="il-line"   d="M106 276 A94 22 0 0 0 294 276"/>
+            </g>
+
+            <!-- 3단계 : 입구를 잠그는 귀퉁이 매듭 -->
+            <g class="p3">
+              <ellipse class="il-cloth2" cx="104" cy="272" rx="17" ry="12"/>
+              <ellipse class="il-line"   cx="104" cy="272" rx="17" ry="12"/>
+              <ellipse class="il-cloth2" cx="296" cy="272" rx="17" ry="12"/>
+              <ellipse class="il-line"   cx="296" cy="272" rx="17" ry="12"/>
+            </g>
+          </svg>
+        </figure>
+
+        <p class="card__desc reveal">
+          천이 늘어나면서 부피가 큰 짐도 그대로 받아줘요.
+          편의점이나 마트에서 비닐봉지를 받지 않아도 되고,
+          물기가 묻어도 헹궈서 말리면 그만이에요.
+        </p>
+
+        <div class="meta reveal">
+          <span class="meta__chip">⏱ 15초</span>
+          <span class="meta__chip">🥬 부피 큰 짐</span>
+          <span class="meta__chip">난이도 ★☆☆</span>
+        </div>
+
+        <ol class="steps reveal">
+          <li>매듭을 느슨하게 풀어 입구를 최대한 넓혀요.</li>
+          <li>무거운 것부터 바닥에 차곡차곡 담아요.</li>
+          <li>양쪽 끝을 다시 묶어 입구를 잠가요.</li>
+        </ol>
+
+        <div class="tip reveal">
+          <span class="tip__label">TIP</span>
+          <span>손잡이가 손에 배기면 매듭 아래를 한 번 더 감아 쥐면 편해요.</span>
+        </div>
+      </article>
+
+      <!-- ── 05 접어서 가방 속에 ── -->
+      <article class="card">
+        <div class="card__head reveal">
+          <span class="card__num">05</span>
+          <span class="card__icon">🤏</span>
+        </div>
+        <h3 class="card__title reveal">접어서 가방 속에</h3>
+        <p class="card__sub reveal">쓰지 않을 땐 손바닥만 해져요</p>
+
+        <!-- 일러스트 05 : 사진 준비 시 ./images/05-fold.jpg 로 교체 -->
+        <figure class="illust reveal">
+          <svg viewBox="0 0 400 500" role="img"
+               aria-label="가방 윤곽 안에 손바닥만 하게 접힌 보자기가 들어 있는 크기 비교 일러스트.">
+            <rect class="il-bg" width="400" height="500"/>
+            <circle class="il-halo" cx="200" cy="272" r="146"/>
+
+            <!-- 3단계 : 이만큼 작아져 가방에 들어간다는 표시 -->
+            <g class="p3">
+              <path class="il-stitch" d="M112 206 L288 206 L277 406 C276 418 267 426 255 426 L145 426 C133 426 124 418 123 406 Z"/>
+              <path class="il-stitch" d="M162 206 C160 162 240 162 238 206"/>
+            </g>
+
+            <!-- 1단계 : 평평하게 눌러 접은 보자기 -->
+            <g class="p1">
+              <rect class="il-cloth" x="148" y="288" width="104" height="72" rx="9"/>
+              <rect class="il-line"  x="148" y="288" width="104" height="72" rx="9"/>
+              <path class="il-thin" d="M148 312 H252 M148 336 H252"/>
+            </g>
+
+            <!-- 2단계 : 풀리지 않게 두른 매듭 -->
+            <g class="p2">
+              <path class="il-cloth2" d="M188 288 h24 v72 h-24 Z"/>
+              <path class="il-line"   d="M188 288 h24 v72 h-24 Z"/>
+              <ellipse class="il-cloth2" cx="200" cy="324" rx="17" ry="11"/>
+              <ellipse class="il-line"   cx="200" cy="324" rx="17" ry="11"/>
+            </g>
+          </svg>
+        </figure>
+
+        <p class="card__desc reveal">
+          다 쓰고 나면 납작하게 접어 가방 한쪽에 넣어둘 수 있어요.
+          자리를 거의 차지하지 않아서, 갑자기 짐이 늘었을 때 꺼내 쓰기 좋아요.
+          장을 보러 나갈 때마다 챙길 필요도 없어요.
+        </p>
+
+        <div class="meta reveal">
+          <span class="meta__chip">⏱ 10초</span>
+          <span class="meta__chip">🤏 손바닥 크기</span>
+          <span class="meta__chip">난이도 ★☆☆</span>
+        </div>
+
+        <ol class="steps reveal">
+          <li>매듭을 풀고 바닥부터 평평하게 눌러요.</li>
+          <li>양옆을 안쪽으로 접어 길쭉하게 만들어요.</li>
+          <li>아래에서 위로 두세 번 말아 올려요.</li>
+        </ol>
+
+        <div class="tip reveal">
+          <span class="tip__label">TIP</span>
+          <span>끝자락으로 한 번 묶어두면 가방 안에서 풀리지 않아요.</span>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ══════════ 인증 게시판 ══════════ -->
+  <section class="verify" id="verify">
+    <div class="wrap">
+      <p class="section-label__sub reveal">PROOF WALL</p>
+      <h2 class="verify__title reveal">인증 게시판</h2>
+      <p class="verify__desc reveal" data-delay="1">
+        인스타에 올린 릴스나 카드뉴스 주소를 붙여넣으면<br />
+        바로 아래에 올라와요. 캡처는 따로 안 보내셔도 돼요.
+      </p>
+      <a class="verify__link reveal" data-delay="1" href="#" id="captionLink">
+        아직 안 올리셨나요? 캡션 받아가기 →
+      </a>
+
+      <div class="vform reveal" data-delay="2">
+        <div class="vform__kinds">
+          <button type="button" class="chip is-on" data-kind="릴스">🎬 릴스</button>
+          <button type="button" class="chip" data-kind="카드뉴스">🖼️ 카드뉴스</button>
+        </div>
+        <input class="vform__input" id="vUrl" type="url" inputmode="url"
+               autocomplete="off" placeholder="https://www.instagram.com/p/..." />
+        <input class="vform__input" id="vNick" type="text" maxlength="20"
+               autocomplete="off" placeholder="닉네임 (선택)" />
+        <button type="button" class="btn btn--dark" id="vSubmit">인증 올리기</button>
+        <p class="vform__msg" id="vMsg" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="wall reveal" data-delay="2" id="wall"></div>
+    </div>
+  </section>
+
+  <!-- ══════════ CTA ══════════ -->
+  <section class="cta">
+    <div class="wrap">
+      <p class="cta__tag reveal">JOIN THE CAMPAIGN</p>
+      <h2 class="cta__title reveal" data-delay="1">
+        여섯 번째 활용법을<br />보여주세요
+      </h2>
+      <p class="cta__desc reveal" data-delay="2">
+        나만의 매듭을 찾았다면<br />
+        해시태그와 함께 올려주세요.<br />
+        매달 재미있는 활용법을 골라 소개해요.
+      </p>
+
+      <button class="btn btn--primary reveal" data-delay="2" id="shareBtn">
+        캡션 받아서 인스타에 올리기
+      </button>
+      <a class="btn btn--ghost reveal" data-delay="3" href="#verify">
+        인증 게시판 보기
+      </a>
+
+      <p class="cta__hash reveal" data-delay="3">
+        <b>#자투리즘</b> &nbsp;<b>#다시보자기</b><br />
+        <b>#업사이클링</b> &nbsp;<b>#제로웨이스트</b>
+      </p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__line"></div>
+    <div class="wrap">
+      버려질 천으로 만든 보자기, 자투리즘<br />
+      © 2026 JATURISM. All rights reserved.
+    </div>
+  </footer>
+
+</div><!-- /.page -->
+
+<!-- ══════════ 공유 시트 ══════════ -->
+<div class="sheet" id="shareSheet" hidden>
+  <div class="sheet__dim" data-close></div>
+  <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet__grip"></div>
+
+    <!-- 선택 화면 -->
+    <div id="sheetPick">
+      <h3 class="sheet__title" id="sheetTitle">어떻게 올릴까요?</h3>
+      <p class="sheet__sub">
+        캡션과 해시태그가 통째로 복사돼요.<br />
+        인스타그램에서 붙여넣기만 하면 끝이에요.
+      </p>
+
+      <button type="button" class="sheet__item" data-act="reels">
+        <span class="sheet__ico">🎬</span>
+        <span><b>릴스용 캡션 복사</b><i>매듭 과정을 영상으로 찍었을 때</i></span>
+      </button>
+      <button type="button" class="sheet__item" data-act="card">
+        <span class="sheet__ico">🖼️</span>
+        <span><b>카드뉴스용 캡션 복사</b><i>활용법 5가지를 이미지로 만들었을 때</i></span>
+      </button>
+      <button type="button" class="sheet__item" data-act="link">
+        <span class="sheet__ico">🔗</span>
+        <span><b>페이지 링크만 복사</b><i>친구에게 이 페이지를 알려줄 때</i></span>
+      </button>
+      <button type="button" class="sheet__item" data-act="native" id="nativeItem" hidden>
+        <span class="sheet__ico">📤</span>
+        <span><b>카카오톡·DM으로 보내기</b><i>휴대폰 기본 공유 메뉴 열기</i></span>
+      </button>
+
+      <button type="button" class="sheet__cancel" data-close>닫기</button>
+    </div>
+
+    <!-- 복사 완료 화면 -->
+    <div id="sheetDone" hidden>
+      <div class="sheet__done">
+        <div class="sheet__doneIco">📋</div>
+        <h3 class="sheet__doneTitle" id="doneTitle">복사됐어요</h3>
+        <p class="sheet__doneSub" id="doneSub">
+          인스타그램에서 길게 눌러 붙여넣기 하세요.
+        </p>
+      </div>
+      <div class="preview" id="donePreview"></div>
+      <a class="btn btn--dark" id="openIg" href="https://www.instagram.com/"
+         target="_blank" rel="noopener noreferrer">인스타그램 열기</a>
+      <button type="button" class="sheet__cancel" data-close>닫기</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ══════════════════════════════════════════════════════
+     ▼▼▼ 여기 한 줄만 바꾸면 인증 게시판이 켜집니다 ▼▼▼
+
+     구글 Apps Script 웹앱 주소를 따옴표 안에 붙여넣으세요.
+     (만드는 방법은 함께 드린 안내문을 참고하세요)
+
+     예) var VERIFY_API = 'https://script.google.com/macros/s/AKfy.../exec';
+     ══════════════════════════════════════════════════════ */
+  var VERIFY_API = 'https://script.google.com/macros/s/AKfycbwnM8Gdpxb_zjUDbM9mMFyswaNRwRjG7AUTCiXB3NxUR-qBPGo6fVQOX2kWSQCf932Kvg/exec';
+
+  /* 스크롤 진행률 + 상단바 배경 */
+  var bar = document.getElementById('progressBar');
+  var topbar = document.getElementById('topbar');
+  var ticking = false;
+
+  function onScroll() {
+    var y = window.scrollY || document.documentElement.scrollTop;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+    topbar.classList.toggle('is-stuck', y > 40);
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      window.requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+  onScroll();
+
+  /* 스크롤 등장 애니메이션 */
+  var targets = document.querySelectorAll('.reveal');
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    targets.forEach(function (el) { io.observe(el); });
+
+    /* 안전장치 : 어떤 이유로든 관찰자가 동작하지 않으면 전부 그냥 보여줍니다.
+       (애니메이션보다 내용이 보이는 게 우선) */
+    setTimeout(function () {
+      if (!document.querySelector('.reveal.is-in')) {
+        targets.forEach(function (el) { el.classList.add('is-in'); });
+      }
+    }, 1500);
+  } else {
+    targets.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  /* 일러스트 애니메이션 : 화면에 보이는 것만 재생해 배터리를 아낍니다.
+     관찰자가 없으면 완성된 그림이 그대로 보입니다. */
+  if ('IntersectionObserver' in window) {
+    var playIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        entry.target.classList.toggle('is-playing', entry.isIntersecting);
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.illust').forEach(function (el) { playIO.observe(el); });
+  }
+
+  /* ════════════════ 공유 시트 ════════════════ */
+
+  var PAGE_URL = location.href.split('#')[0];
+
+  /* 형식별 캡션 — 문구를 바꾸고 싶으면 이 부분만 고치면 됩니다 */
+  var CAPTIONS = {
+    reels:
+      '보자기 하나로 가방 만들기 🧵\n\n' +
+      '버려질 뻔한 자투리 천이 이렇게 쓰여요.\n' +
+      '묶는 방법만 바꾸면 숄더백도 되고 장바구니도 돼요.\n\n' +
+      '활용법 5가지 전부 보기 ▶ ' + PAGE_URL + '\n\n' +
+      '#자투리즘 #다시보자기 #업사이클링 #제로웨이스트 #보자기 #친환경생활 #대학생일상',
+    card:
+      '보자기 하나, 활용법 다섯 가지 🧺\n\n' +
+      '01 숄더백 매듭법\n' +
+      '02 토트백 매듭법\n' +
+      '03 도시락 가방\n' +
+      '04 장바구니\n' +
+      '05 접어서 가방 속에\n\n' +
+      '묶는 방법만 바꾸면 하루가 달라져요.\n' +
+      '자세한 매듭법 보기 ▶ ' + PAGE_URL + '\n\n' +
+      '#자투리즘 #다시보자기 #업사이클링 #제로웨이스트 #카드뉴스 #보자기 #친환경생활',
+    link: PAGE_URL
+  };
+
+  var sheet = document.getElementById('shareSheet');
+  var sheetPick = document.getElementById('sheetPick');
+  var sheetDone = document.getElementById('sheetDone');
+  var lastFocus = null;
+
+  function openSheet() {
+    lastFocus = document.activeElement;
+    sheetPick.hidden = false;
+    sheetDone.hidden = true;
+    sheet.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSheet() {
+    sheet.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  document.getElementById('shareBtn').addEventListener('click', openSheet);
+  document.getElementById('captionLink').addEventListener('click', function (e) {
+    e.preventDefault();
+    openSheet();
+  });
+
+  sheet.addEventListener('click', function (e) {
+    if (e.target.closest('[data-close]')) closeSheet();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !sheet.hidden) closeSheet();
+  });
+
+  /* 휴대폰 기본 공유 메뉴가 있을 때만 해당 항목을 보여줍니다 */
+  if (navigator.share) document.getElementById('nativeItem').hidden = false;
+
+  /* 클립보드 복사 : 최신 API를 먼저 쓰고, 막히면 예전 방식으로 */
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;top:-1000px;opacity:0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+      document.body.removeChild(ta);
+      ok ? resolve() : reject(new Error('copy failed'));
+    });
+  }
+
+  var DONE_TEXT = {
+    reels: ['릴스용 캡션이 복사됐어요', '인스타그램에서 릴스를 올릴 때<br />캡션 칸에 길게 눌러 붙여넣기 하세요.'],
+    card:  ['카드뉴스용 캡션이 복사됐어요', '이미지를 올린 뒤<br />문구 칸에 길게 눌러 붙여넣기 하세요.'],
+    link:  ['페이지 링크가 복사됐어요', '친구에게 보낼 때 붙여넣기 하세요.<br />올리실 땐 #자투리즘 도 함께 달아주세요.']
+  };
+
+  function showDone(kind, copied) {
+    var t = DONE_TEXT[kind];
+    document.getElementById('doneTitle').textContent = copied ? t[0] : '아래 문구를 복사해 주세요';
+    document.getElementById('doneSub').innerHTML = copied
+      ? t[1]
+      : '자동 복사가 막혀 있어요.<br />아래 상자를 길게 눌러 전체 선택 후 복사하세요.';
+    document.querySelector('.sheet__doneIco').textContent = copied ? '📋' : '✍️';
+    document.getElementById('donePreview').textContent = CAPTIONS[kind];
+    document.getElementById('openIg').hidden = (kind === 'link');
+    sheetPick.hidden = true;
+    sheetDone.hidden = false;
+  }
+
+  sheetPick.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-act]');
+    if (!btn) return;
+    var act = btn.getAttribute('data-act');
+
+    if (act === 'native') {
+      navigator.share({
+        title: document.title,
+        text: '묶는 방법만 바꾸면 숄더백부터 장바구니까지. #자투리즘',
+        url: PAGE_URL
+      }).then(closeSheet).catch(function () {});
+      return;
+    }
+
+    /* 복사가 막혀도 완료 화면은 그대로 띄웁니다.
+       문구를 직접 복사할 수 있고, 인스타그램 열기 버튼도 살아 있어야 하니까요. */
+    copyText(CAPTIONS[act]).then(function () {
+      showDone(act, true);
+    }).catch(function () {
+      showDone(act, false);
+    });
+  });
+
+  /* ════════════════ 인증 게시판 ════════════════ */
+
+  var wall = document.getElementById('wall');
+  var vUrl = document.getElementById('vUrl');
+  var vNick = document.getElementById('vNick');
+  var vSubmit = document.getElementById('vSubmit');
+  var vMsg = document.getElementById('vMsg');
+  var kind = '릴스';
+
+  document.querySelector('.vform__kinds').addEventListener('click', function (e) {
+    var chip = e.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('is-on'); });
+    chip.classList.add('is-on');
+    kind = chip.getAttribute('data-kind');
+  });
+
+  function say(text, type) {
+    vMsg.textContent = text;
+    vMsg.className = 'vform__msg' + (type ? ' is-' + type : '');
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function whenText(v) {
+    var d = new Date(v);
+    if (isNaN(d)) return '';
+    var diff = (Date.now() - d.getTime()) / 1000;
+    if (diff < 60) return '방금 전';
+    if (diff < 3600) return Math.floor(diff / 60) + '분 전';
+    if (diff < 86400) return Math.floor(diff / 3600) + '시간 전';
+    if (diff < 604800) return Math.floor(diff / 86400) + '일 전';
+    return (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
+  }
+
+  function renderWall(items) {
+    if (!items || !items.length) {
+      wall.innerHTML =
+        '<div class="wall__empty">아직 인증이 없어요.<br />첫 번째 주인공이 되어주세요 🧵</div>';
+      return;
+    }
+    wall.innerHTML = items.map(function (it) {
+      var nick = escapeHtml(it.n || '익명');
+      var kd = escapeHtml(it.k || '인증');
+      var url = String(it.u || '');
+      if (!/^https:\/\/(www\.)?instagram\.com\//.test(url)) return '';
+      return '<a class="wcard" href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer">' +
+             '<span class="wcard__kind">' + kd + '</span>' +
+             '<span class="wcard__body">' +
+               '<b class="wcard__nick">' + nick + '</b>' +
+               '<span class="wcard__meta">' + whenText(it.t) + '</span>' +
+             '</span>' +
+             '<span class="wcard__go">↗</span>' +
+             '</a>';
+    }).join('');
+  }
+
+  function loadWall() {
+    if (!VERIFY_API) return;
+    fetch(VERIFY_API)
+      .then(function (r) { return r.json(); })
+      .then(function (d) { renderWall(d && d.items); })
+      .catch(function () {
+        wall.innerHTML =
+          '<div class="wall__empty">인증 목록을 불러오지 못했어요.<br />잠시 뒤에 새로고침해 주세요.</div>';
+      });
+  }
+
+  if (!VERIFY_API) {
+    /* 주소를 아직 넣지 않았을 때 : 방문자에게는 준비 중으로 보입니다 */
+    vSubmit.disabled = true;
+    say('인증 게시판을 준비하고 있어요. 조금만 기다려 주세요.', '');
+    wall.innerHTML = '<div class="wall__empty">곧 열립니다 🧵</div>';
+  } else {
+    loadWall();
+  }
+
+  vSubmit.addEventListener('click', function () {
+    var url = vUrl.value.trim();
+    var nick = vNick.value.trim();
+
+    if (!url) { say('인스타그램 게시물 주소를 붙여넣어 주세요.', 'err'); vUrl.focus(); return; }
+    if (!/^https:\/\/(www\.)?instagram\.com\/[^\s]+/.test(url)) {
+      say('인스타그램 게시물 주소만 등록할 수 있어요.', 'err');
+      vUrl.focus();
+      return;
+    }
+
+    vSubmit.disabled = true;
+    say('등록하는 중이에요...', '');
+
+    /* Content-Type을 text/plain으로 보내야 Apps Script가 별도 설정 없이 받습니다 */
+    fetch(VERIFY_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ url: url, nick: nick, kind: kind })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d && d.ok) {
+          say('등록됐어요. 참여해 주셔서 고마워요 🧵', 'ok');
+          vUrl.value = '';
+          vNick.value = '';
+          loadWall();
+        } else {
+          say((d && d.msg) || '등록하지 못했어요. 다시 시도해 주세요.', 'err');
+        }
+      })
+      .catch(function () {
+        say('네트워크 문제로 등록하지 못했어요. 다시 시도해 주세요.', 'err');
+      })
+      .then(function () { vSubmit.disabled = false; });
+  });
+})();
+</script>
+
+</body>
+</html>

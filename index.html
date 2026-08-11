@@ -415,7 +415,25 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   background:#fff; border:1px solid var(--line);
   border-radius:16px; padding:18px 16px; margin-bottom:32px;
 }
-.vform__kinds{ display:flex; gap:7px; margin-bottom:12px; }
+.vform__kinds{ display:flex; gap:7px; margin-bottom:9px; }
+.vform__weeks{ display:grid; grid-template-columns:repeat(4,1fr); gap:7px; margin-bottom:12px; }
+.wchip{
+  padding:8px 0; border-radius:10px;
+  border:1px solid var(--line); background:#fff;
+  font-size:12.5px; font-weight:600; color:var(--ink-60);
+  transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease);
+}
+.wchip.is-on{ background:var(--accent); color:#fff; border-color:var(--accent); }
+.wall__stats{
+  margin:0 0 12px; text-align:center;
+  font-size:12.5px; color:var(--ink-60); letter-spacing:-0.01em;
+}
+.wall__stats b{ color:var(--accent); font-weight:700; }
+.wcard__week{
+  flex:none; font-size:11px; font-weight:700;
+  color:#fff; background:var(--accent);
+  padding:5px 8px; border-radius:999px;
+}
 .chip{
   flex:1; padding:9px 10px; border-radius:999px;
   border:1px solid var(--line); background:#fff;
@@ -884,7 +902,8 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       <h2 class="verify__title reveal">인증 게시판</h2>
       <p class="verify__desc reveal" data-delay="1">
         인스타에 올린 릴스나 카드뉴스 주소를 붙여넣으면<br />
-        바로 아래에 올라와요. 캡처는 따로 안 보내셔도 돼요.
+        바로 아래에 올라와요. 앱에서 올린 인증도 여기에 함께 보여요.<br />
+        매주 일요일 자정 마감이에요.
       </p>
       <a class="verify__link reveal" data-delay="1" href="#" id="captionLink">
         아직 안 올리셨나요? 캡션 받아가기 →
@@ -895,14 +914,21 @@ button{ font:inherit; color:inherit; cursor:pointer; }
           <button type="button" class="chip is-on" data-kind="릴스">🎬 릴스</button>
           <button type="button" class="chip" data-kind="카드뉴스">🖼️ 카드뉴스</button>
         </div>
+        <div class="vform__weeks" role="group" aria-label="참여 주차">
+          <button type="button" class="wchip is-on" data-week="1">1주차</button>
+          <button type="button" class="wchip" data-week="2">2주차</button>
+          <button type="button" class="wchip" data-week="3">3주차</button>
+          <button type="button" class="wchip" data-week="4">4주차</button>
+        </div>
         <input class="vform__input" id="vUrl" type="url" inputmode="url"
                autocomplete="off" placeholder="https://www.instagram.com/p/..." />
         <input class="vform__input" id="vNick" type="text" maxlength="20"
-               autocomplete="off" placeholder="닉네임 (선택)" />
+               autocomplete="off" placeholder="이름 (오픈채팅 닉네임과 동일하게)" />
         <button type="button" class="btn btn--dark" id="vSubmit">인증 올리기</button>
         <p class="vform__msg" id="vMsg" role="status" aria-live="polite"></p>
       </div>
 
+      <p class="wall__stats reveal" data-delay="2" id="wallStats" hidden></p>
       <div class="wall reveal" data-delay="2" id="wall"></div>
     </div>
   </section>
@@ -1198,7 +1224,9 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   var vNick = document.getElementById('vNick');
   var vSubmit = document.getElementById('vSubmit');
   var vMsg = document.getElementById('vMsg');
+  var wallStats = document.getElementById('wallStats');
   var kind = '릴스';
+  var week = '1';
 
   document.querySelector('.vform__kinds').addEventListener('click', function (e) {
     var chip = e.target.closest('.chip');
@@ -1206,6 +1234,23 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     document.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('is-on'); });
     chip.classList.add('is-on');
     kind = chip.getAttribute('data-kind');
+  });
+
+  document.querySelector('.vform__weeks').addEventListener('click', function (e) {
+    var chip = e.target.closest('.wchip');
+    if (!chip) return;
+    document.querySelectorAll('.wchip').forEach(function (c) { c.classList.remove('is-on'); });
+    chip.classList.add('is-on');
+    week = chip.getAttribute('data-week');
+  });
+
+  /* 릴스 주소를 붙여넣으면 종류를 알아서 맞춰줘요 */
+  vUrl.addEventListener('input', function () {
+    if (vUrl.value.indexOf('/reel') === -1) return;
+    document.querySelectorAll('.vform__kinds .chip').forEach(function (c) {
+      c.classList.toggle('is-on', c.getAttribute('data-kind') === '릴스');
+    });
+    kind = '릴스';
   });
 
   function say(text, type) {
@@ -1230,7 +1275,20 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     return (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
   }
 
+  function renderStats(items) {
+    var counts = { 1: 0, 2: 0, 3: 0, 4: 0 };
+    var seen = 0;
+    (items || []).forEach(function (it) {
+      if (/^[1-4]$/.test(String(it.w))) { counts[it.w]++; seen++; }
+    });
+    if (!seen) { wallStats.hidden = true; return; }
+    wallStats.hidden = false;
+    wallStats.innerHTML = '지금까지 <b>' + (items ? items.length : 0) + '건</b> · ' +
+      [1, 2, 3, 4].map(function (w) { return w + '주차 <b>' + counts[w] + '</b>'; }).join(' · ');
+  }
+
   function renderWall(items) {
+    renderStats(items);
     if (!items || !items.length) {
       wall.innerHTML =
         '<div class="wall__empty">아직 인증이 없어요.<br />첫 번째 주인공이 되어주세요 🧵</div>';
@@ -1241,7 +1299,9 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       var kd = escapeHtml(it.k || '인증');
       var url = String(it.u || '');
       if (!/^https:\/\/(www\.)?instagram\.com\//.test(url)) return '';
+      var wk = /^[1-4]$/.test(String(it.w)) ? '<span class="wcard__week">' + it.w + '주차</span>' : '';
       return '<a class="wcard" href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer">' +
+             wk +
              '<span class="wcard__kind">' + kd + '</span>' +
              '<span class="wcard__body">' +
                '<b class="wcard__nick">' + nick + '</b>' +
@@ -1277,6 +1337,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     var nick = vNick.value.trim();
 
     if (!url) { say('인스타그램 게시물 주소를 붙여넣어 주세요.', 'err'); vUrl.focus(); return; }
+    if (!nick) { say('이름을 입력해 주세요. 오픈채팅 닉네임(참여자_이름)의 이름과 같게요.', 'err'); vNick.focus(); return; }
     if (!/^https:\/\/(www\.)?instagram\.com\/[^\s]+/.test(url)) {
       say('인스타그램 게시물 주소만 등록할 수 있어요.', 'err');
       vUrl.focus();
@@ -1290,7 +1351,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     fetch(VERIFY_API, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ url: url, nick: nick, kind: kind })
+      body: JSON.stringify({ url: url, nick: nick, kind: kind, week: week })
     })
       .then(function (r) { return r.json(); })
       .then(function (d) {

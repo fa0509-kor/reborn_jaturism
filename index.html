@@ -269,7 +269,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
    ─────────────────────────────────────────────── */
 .illust{
   margin:0 0 22px;
-  width:100%; aspect-ratio:4/5;
+  width:100%; aspect-ratio:18/11;
   border:1px solid var(--line);
   border-radius:var(--radius);
   overflow:hidden;
@@ -277,69 +277,30 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 }
 .illust svg{ display:block; width:100%; height:100%; }
 
-/* 일러스트 공통 팔레트 — 페이지 색상 변수를 그대로 씁니다 */
-.il-bg     { fill:var(--bg-soft); }
-.il-halo   { fill:#FFFFFF; opacity:.55; }
-.il-cloth  { fill:var(--accent-soft); }
-.il-cloth2 { fill:#F7E4DC; }
-.il-paper  { fill:#FFFFFF; }
-.il-line{
-  fill:none; stroke:var(--ink); stroke-width:3.2;
-  stroke-linecap:round; stroke-linejoin:round;
-}
-.il-thin{
-  fill:none; stroke:var(--ink-40); stroke-width:2;
-  stroke-linecap:round;
-}
-.il-stitch{
-  fill:none; stroke:var(--accent); stroke-width:2;
-  stroke-dasharray:6 8; stroke-linecap:round;
-}
-
 .photo{
   width:100%; aspect-ratio:4/5; object-fit:cover;
   border-radius:var(--radius); margin-bottom:22px;
 }
 
-/* ── 일러스트 단계 애니메이션 ─────────────────────
-   매듭이 만들어지는 순서를 p1 → p4 로 나눠 보여줍니다.
-   화면에 보일 때만 재생되고(.is-playing), 스크립트가 없거나
-   모션 최소화 설정이면 완성된 그림이 그대로 보입니다.
+/* ── 일러스트 모션 ───────────────────────────────
+   장면은 완성된 그림 그대로 두고, 매듭 끝자락·장바구니·반짝임만
+   살아 움직입니다. 화면에 보일 때만 재생되고(.is-playing),
+   모션 최소화 설정이면 전역 규칙이 전부 멈춥니다.
    ─────────────────────────────────────────────── */
-.illust svg .p1,
-.illust svg .p2,
-.illust svg .p3,
-.illust svg .p4{
-  transform-box:fill-box;
-  transform-origin:center;
-}
+.illust .sc-sway,
+.illust .sc-swing{ transform-box:fill-box; transform-origin:50% 0; }
+.illust .sc-bob,
+.illust .sc-twinkle{ transform-box:fill-box; transform-origin:50% 50%; }
 
-.illust.is-playing svg .p1{ animation:ilP1 5.2s var(--ease) infinite; }
-.illust.is-playing svg .p2{ animation:ilP2 5.2s var(--ease) infinite; }
-.illust.is-playing svg .p3{ animation:ilP3 5.2s var(--ease) infinite; }
-.illust.is-playing svg .p4{ animation:ilP4 5.2s var(--ease) infinite; }
+.illust.is-playing .sc-sway{ animation:scSway 3.2s ease-in-out infinite alternate; }
+.illust.is-playing .sc-bob{ animation:scBob 3s ease-in-out infinite; }
+.illust.is-playing .sc-swing{ animation:scSwing 3.6s ease-in-out infinite alternate; }
+.illust.is-playing .sc-twinkle{ animation:scTwinkle 2.4s ease-in-out infinite; }
 
-/* 각 단계는 시작 시점만 다르고, 사라지는 시점은 같습니다 */
-@keyframes ilP1{
-  0%        { opacity:0; transform:translateY(10px); }
-  9%, 92%   { opacity:1; transform:none; }
-  100%      { opacity:0; transform:translateY(10px); }
-}
-@keyframes ilP2{
-  0%, 14%   { opacity:0; transform:translateY(-14px); }
-  25%, 92%  { opacity:1; transform:none; }
-  100%      { opacity:0; transform:translateY(-14px); }
-}
-@keyframes ilP3{
-  0%, 30%   { opacity:0; transform:translateY(12px); }
-  41%, 92%  { opacity:1; transform:none; }
-  100%      { opacity:0; transform:translateY(12px); }
-}
-@keyframes ilP4{
-  0%, 46%   { opacity:0; transform:scale(.4); }
-  58%, 92%  { opacity:1; transform:none; }
-  100%      { opacity:0; transform:scale(.4); }
-}
+@keyframes scSway{ from{ transform:rotate(-6deg); } to{ transform:rotate(6deg); } }
+@keyframes scBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-5px); } }
+@keyframes scSwing{ from{ transform:rotate(-2.5deg); } to{ transform:rotate(2.5deg); } }
+@keyframes scTwinkle{ 0%,100%{ opacity:.25; } 50%{ opacity:1; } }
 
 .card__desc{
   margin:0 0 20px;
@@ -693,42 +654,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
         <!-- 일러스트 01 : 사진 준비 시 ./images/01-bandana.jpg 로 교체 -->
         <figure class="illust reveal">
-          <svg viewBox="0 0 400 500" role="img"
-               aria-label="보자기를 좁게 접어 목에 두르고 앞에서 매듭지은 반다나 착용 일러스트.">
-            <rect class="il-bg" width="400" height="500"/>
-            <circle class="il-halo" cx="200" cy="268" r="150"/>
-
-            <!-- 1단계 : 목과 어깨 -->
-            <g class="p1">
-              <circle class="il-paper" cx="200" cy="158" r="64"/>
-              <circle class="il-line"  cx="200" cy="158" r="64"/>
-              <path class="il-paper" d="M174 212 h52 v92 h-52 Z"/>
-              <path class="il-line"  d="M174 212 v92 M226 212 v92"/>
-              <path class="il-paper" d="M86 452 C94 372 138 330 200 330 C262 330 306 372 314 452 Z"/>
-              <path class="il-line"  d="M86 452 C94 372 138 330 200 330 C262 330 306 372 314 452"/>
-            </g>
-
-            <!-- 2단계 : 좁게 접어 목에 두른 천 -->
-            <g class="p2">
-              <path class="il-cloth" d="M158 296 C172 322 228 322 242 296 C258 312 252 342 200 342 C148 342 142 312 158 296 Z"/>
-              <path class="il-line"  d="M158 296 C172 322 228 322 242 296 C258 312 252 342 200 342 C148 342 142 312 158 296 Z"/>
-              <path class="il-thin"  d="M166 314 C182 330 218 330 234 314"/>
-            </g>
-
-            <!-- 3단계 : 앞으로 모아 지은 매듭 -->
-            <g class="p3">
-              <ellipse class="il-cloth2" cx="200" cy="344" rx="24" ry="16"/>
-              <ellipse class="il-line"   cx="200" cy="344" rx="24" ry="16"/>
-            </g>
-
-            <!-- 4단계 : 늘어뜨린 끝자락 -->
-            <g class="p4">
-              <path class="il-cloth2" d="M186 356 C178 386 176 408 180 428 L204 424 C198 400 196 376 200 356 Z"/>
-              <path class="il-line"   d="M186 356 C178 386 176 408 180 428 L204 424 C198 400 196 376 200 356 Z"/>
-              <path class="il-cloth" d="M214 356 C224 384 228 406 226 426 L204 424 C206 398 206 374 200 356 Z"/>
-              <path class="il-line"  d="M214 356 C224 384 228 406 226 426 L204 424 C206 398 206 374 200 356 Z"/>
-            </g>
-          </svg>
+          <svg class="scene" viewBox="0 0 360 220" role="img" aria-label="보자기를 좁게 접어 목에 두르고 앞에서 매듭지은 반다나 착용 일러스트."><rect width="360" height="220" fill="#F3EDE2"></rect><circle cx="180" cy="118" r="88" fill="#E4EDE4"></circle><g><path d="M96 220 C100 172 136 150 180 150 C224 150 260 172 264 220 Z" fill="#F1EBDF" stroke="#CDBFA5" stroke-width="2"></path><circle cx="180" cy="92" r="46" fill="#4A3F35"></circle><circle cx="180" cy="100" r="37" fill="#F4DCC3"></circle><path d="M143 92 C143 58 217 58 217 92 C217 76 206 68 180 68 C154 68 143 76 143 92 Z" fill="#4A3F35"></path><path d="M147 100 C143 78 158 62 180 62 C202 62 217 78 221 100 C221 66 202 52 180 52 C158 52 139 66 147 100 Z" fill="#4A3F35"></path><path d="M164 100 q5 4 10 0 M186 100 q5 4 10 0" stroke="#3E3A33" stroke-width="2.4" stroke-linecap="round" fill="none"></path><path d="M174 114 q6 5 12 0" stroke="#C98D6B" stroke-width="2.4" stroke-linecap="round" fill="none"></path><circle cx="156" cy="110" r="5" fill="#F0B9A0" opacity="0.5"></circle><circle cx="204" cy="110" r="5" fill="#F0B9A0" opacity="0.5"></circle><path d="M142 152 C160 170 200 170 218 152" stroke="#4A7C59" stroke-width="24" stroke-linecap="round" fill="none"></path><g opacity="0.75"><circle cx="158" cy="160" r="2.6" fill="#FAF7F2"></circle><circle cx="180" cy="165" r="2.6" fill="#FAF7F2"></circle><circle cx="202" cy="160" r="2.6" fill="#FAF7F2"></circle></g><g class="sc-sway"><path d="M150 164 C140 184 138 198 142 210 L158 206 C154 192 154 178 158 168 Z" fill="#4A7C59" stroke="#3A6347" stroke-width="1.5"></path><path d="M158 168 C166 186 168 200 164 212 L148 208 C150 196 150 182 150 164 Z" fill="#5C8B6B" stroke="#3A6347" stroke-width="1.5"></path></g><circle cx="153" cy="162" r="9" fill="#3A6347"></circle><path class="sc-twinkle" style="animation-delay:0.4s" transform="translate(262 70) scale(1)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path><path class="sc-twinkle" style="animation-delay:1.4s" transform="translate(104 92) scale(0.7)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path></g></svg>
         </figure>
 
         <p class="card__desc reveal">
@@ -766,49 +692,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
         <!-- 일러스트 02 : 사진 준비 시 ./images/02-handle.jpg 로 교체 -->
         <figure class="illust reveal">
-          <svg viewBox="0 0 400 500" role="img"
-               aria-label="가방 손잡이 한쪽에 보자기를 감아 리본으로 묶은 일러스트.">
-            <rect class="il-bg" width="400" height="500"/>
-            <circle class="il-halo" cx="200" cy="280" r="150"/>
-
-            <!-- 1단계 : 가방 몸통 -->
-            <g class="p1">
-              <path class="il-paper" d="M124 306 L276 306 L267 432 C266 442 258 448 249 448 L151 448 C142 448 134 442 133 432 Z"/>
-              <path class="il-line"  d="M124 306 L276 306 L267 432 C266 442 258 448 249 448 L151 448 C142 448 134 442 133 432 Z"/>
-              <path class="il-stitch" d="M148 390 H252"/>
-            </g>
-
-            <!-- 2단계 : 손잡이 -->
-            <g class="p2">
-              <path class="il-line" d="M158 306 C154 214 246 214 242 306"/>
-            </g>
-
-            <!-- 3단계 : 손잡이에 감아 올린 천 -->
-            <g class="p3">
-              <ellipse class="il-cloth" cx="157" cy="290" rx="15" ry="9" transform="rotate(-82 157 290)"/>
-              <ellipse class="il-line"  cx="157" cy="290" rx="15" ry="9" transform="rotate(-82 157 290)"/>
-              <ellipse class="il-cloth" cx="157" cy="264" rx="15" ry="9" transform="rotate(-74 157 264)"/>
-              <ellipse class="il-line"  cx="157" cy="264" rx="15" ry="9" transform="rotate(-74 157 264)"/>
-              <ellipse class="il-cloth" cx="163" cy="240" rx="15" ry="9" transform="rotate(-60 163 240)"/>
-              <ellipse class="il-line"  cx="163" cy="240" rx="15" ry="9" transform="rotate(-60 163 240)"/>
-              <ellipse class="il-cloth" cx="176" cy="223" rx="15" ry="9" transform="rotate(-40 176 223)"/>
-              <ellipse class="il-line"  cx="176" cy="223" rx="15" ry="9" transform="rotate(-40 176 223)"/>
-              <ellipse class="il-cloth" cx="194" cy="214" rx="15" ry="9" transform="rotate(-16 194 214)"/>
-              <ellipse class="il-line"  cx="194" cy="214" rx="15" ry="9" transform="rotate(-16 194 214)"/>
-            </g>
-
-            <!-- 4단계 : 리본 매듭 -->
-            <g class="p4">
-              <path class="il-cloth2" d="M206 210 C182 184 174 220 202 220 Z"/>
-              <path class="il-line"   d="M206 210 C182 184 174 220 202 220 Z"/>
-              <path class="il-cloth2" d="M216 210 C240 184 248 220 220 220 Z"/>
-              <path class="il-line"   d="M216 210 C240 184 248 220 220 220 Z"/>
-              <path class="il-cloth2" d="M208 222 C202 244 198 258 202 272 L216 268 C212 254 212 238 214 222 Z"/>
-              <path class="il-line"   d="M208 222 C202 244 198 258 202 272 L216 268 C212 254 212 238 214 222 Z"/>
-              <ellipse class="il-cloth" cx="211" cy="215" rx="11" ry="9"/>
-              <ellipse class="il-line"  cx="211" cy="215" rx="11" ry="9"/>
-            </g>
-          </svg>
+          <svg class="scene" viewBox="0 0 360 220" role="img" aria-label="가방 손잡이 한쪽에 보자기를 감아 리본으로 묶은 일러스트."><rect width="360" height="220" fill="#F3EDE2"></rect><circle cx="180" cy="118" r="88" fill="#E4EDE4"></circle><g><path d="M146 122 C146 62 214 62 214 122" stroke="#C4B69C" stroke-width="9" fill="none" stroke-linecap="round"></path><path d="M146 118 C146 74 162 64 180 63" stroke="#4A7C59" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="9 6"></path><path d="M122 120 L238 120 L230 204 C229 212 222 218 214 218 L146 218 C138 218 131 212 130 204 Z" fill="#E9DFCC" stroke="#CDBFA5" stroke-width="2"></path><path d="M144 188 H216" stroke="#CDBFA5" stroke-width="2" stroke-dasharray="5 5"></path><path d="M180 158 C172 150 172 140 180 134 C188 140 188 150 180 158 Z" fill="#7FA968" opacity="0.85"></path><path d="M180 158 V138" stroke="#3A6347" stroke-width="1.5"></path><g class="sc-sway" style="animation-delay:0.6s"><path d="M143 116 C130 108 124 98 128 90 C136 92 144 102 147 112 Z" fill="#4A7C59" stroke="#3A6347" stroke-width="1.5"></path><path d="M149 112 C154 100 162 94 170 96 C168 106 160 114 151 117 Z" fill="#5C8B6B" stroke="#3A6347" stroke-width="1.5"></path><path d="M142 120 C134 136 132 148 136 158 L148 154 C146 142 147 130 150 122 Z" fill="#4A7C59" stroke="#3A6347" stroke-width="1.5"></path></g><circle cx="146" cy="117" r="6.5" fill="#3A6347"></circle><path class="sc-twinkle" style="animation-delay:0.2s" transform="translate(244 78) scale(1)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path><path class="sc-twinkle" style="animation-delay:1.2s" transform="translate(108 146) scale(0.7)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path></g></svg>
         </figure>
 
         <p class="card__desc reveal">
@@ -846,36 +730,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
         <!-- 일러스트 03 : 사진 준비 시 ./images/03-hair.jpg 로 교체 -->
         <figure class="illust reveal">
-          <svg viewBox="0 0 400 500" role="img"
-               aria-label="보자기를 좁게 접어 머리에 헤어밴드처럼 두르고 옆에서 묶은 일러스트.">
-            <rect class="il-bg" width="400" height="500"/>
-            <circle class="il-halo" cx="200" cy="262" r="148"/>
-
-            <!-- 1단계 : 머리 -->
-            <g class="p1">
-              <circle class="il-paper" cx="200" cy="252" r="98"/>
-              <circle class="il-line"  cx="200" cy="252" r="98"/>
-              <path class="il-thin" d="M138 320 C160 344 240 344 262 320"/>
-            </g>
-
-            <!-- 2단계 : 이마 위로 두른 밴드 -->
-            <g class="p2">
-              <path class="il-cloth" d="M108 224 C136 186 264 186 292 224 C266 200 134 200 108 224 Z"/>
-              <path class="il-line"  d="M108 224 C136 186 264 186 292 224 C266 200 134 200 108 224 Z"/>
-            </g>
-
-            <!-- 3단계 : 옆에서 지은 매듭 -->
-            <g class="p3">
-              <ellipse class="il-cloth2" cx="292" cy="216" rx="20" ry="14"/>
-              <ellipse class="il-line"   cx="292" cy="216" rx="20" ry="14"/>
-            </g>
-
-            <!-- 4단계 : 늘어뜨린 끝자락 -->
-            <g class="p4">
-              <path class="il-cloth2" d="M300 228 C316 250 322 274 318 296 L298 288 C302 268 300 248 292 230 Z"/>
-              <path class="il-line"   d="M300 228 C316 250 322 274 318 296 L298 288 C302 268 300 248 292 230 Z"/>
-            </g>
-          </svg>
+          <svg class="scene" viewBox="0 0 360 220" role="img" aria-label="보자기를 좁게 접어 머리에 헤어밴드처럼 두르고 옆에서 묶은 일러스트."><rect width="360" height="220" fill="#F3EDE2"></rect><circle cx="180" cy="118" r="88" fill="#E4EDE4"></circle><g><path d="M104 220 C108 178 140 158 180 158 C220 158 252 178 256 220 Z" fill="#F1EBDF" stroke="#CDBFA5" stroke-width="2"></path><circle cx="180" cy="104" r="50" fill="#4A3F35"></circle><path d="M150 138 q30 18 60 0" stroke="#3A332B" stroke-width="2" fill="none" opacity="0.6"></path><path d="M158 118 q22 12 44 0" stroke="#3A332B" stroke-width="2" fill="none" opacity="0.4"></path><circle cx="180" cy="152" r="15" fill="#4A3F35"></circle><path d="M170 146 q10 10 20 0" stroke="#3A332B" stroke-width="2" fill="none" opacity="0.5"></path><path d="M136 92 C152 60 208 60 224 92" stroke="#4A7C59" stroke-width="18" fill="none" stroke-linecap="round"></path><g opacity="0.75"><circle cx="157" cy="74" r="2.4" fill="#FAF7F2"></circle><circle cx="180" cy="68" r="2.4" fill="#FAF7F2"></circle><circle cx="203" cy="74" r="2.4" fill="#FAF7F2"></circle></g><g class="sc-sway" style="animation-delay:0.3s"><path d="M228 96 C242 102 250 112 249 122 C240 120 231 112 226 103 Z" fill="#4A7C59" stroke="#3A6347" stroke-width="1.5"></path><path d="M226 104 C234 116 236 128 232 138 L220 132 C222 122 222 112 222 104 Z" fill="#5C8B6B" stroke="#3A6347" stroke-width="1.5"></path></g><circle cx="225" cy="98" r="7" fill="#3A6347"></circle><path class="sc-twinkle" style="animation-delay:0.8s" transform="translate(116 78) scale(1)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path><path class="sc-twinkle" style="animation-delay:1.8s" transform="translate(258 150) scale(0.7)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path></g></svg>
         </figure>
 
         <p class="card__desc reveal">
@@ -913,34 +768,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
         <!-- 일러스트 03 : 사진 준비 시 ./images/03-lunch.jpg 로 교체 -->
         <figure class="illust reveal">
-          <svg viewBox="0 0 400 500" role="img"
-               aria-label="바닥이 네모지게 잡힌 가방 안에 도시락통이 반듯하게 서 있는 일러스트.">
-            <rect class="il-bg" width="400" height="500"/>
-            <circle class="il-halo" cx="200" cy="288" r="150"/>
-
-            <!-- 3단계 : 입구를 오므려 짧게 묶기 -->
-            <g class="p3">
-              <path class="il-line" d="M156 240 C142 190 188 176 198 224"/>
-              <path class="il-line" d="M244 240 C258 190 212 176 202 224"/>
-            </g>
-            <g class="p4">
-              <ellipse class="il-cloth" cx="200" cy="232" rx="25" ry="14"/>
-              <ellipse class="il-line"  cx="200" cy="232" rx="25" ry="14"/>
-            </g>
-
-            <!-- 1단계 : 바닥을 눌러 네모지게 편 몸통 -->
-            <g class="p1">
-              <path class="il-cloth" d="M118 246 L282 246 L276 418 C275 428 267 434 257 434 L143 434 C133 434 125 428 124 418 Z"/>
-              <path class="il-line"  d="M118 246 L282 246 L276 418 C275 428 267 434 257 434 L143 434 C133 434 125 428 124 418 Z"/>
-              <path class="il-thin" d="M140 414 H260"/>
-            </g>
-
-            <!-- 2단계 : 바닥에 맞춰 내려놓은 도시락통 -->
-            <g class="p2">
-              <path class="il-stitch" d="M158 292 H242 V400 H158 Z"/>
-              <path class="il-stitch" d="M158 332 H242"/>
-            </g>
-          </svg>
+          <svg class="scene" viewBox="0 0 360 220" role="img" aria-label="바닥이 네모지게 잡힌 가방 안에 도시락통이 반듯하게 서 있는 일러스트."><rect width="360" height="220" fill="#F3EDE2"></rect><circle cx="180" cy="118" r="88" fill="#E4EDE4"></circle><g><rect x="0" y="196" width="360" height="24" fill="#E7DECB"></rect><g class="sc-bob"><rect x="146" y="96" width="58" height="36" rx="6" fill="#FAF7F2" stroke="#CDBFA5" stroke-width="2"></rect><path d="M146 110 H204" stroke="#CDBFA5" stroke-width="2"></path><rect x="164" y="88" width="22" height="8" rx="3" fill="#D9A66C"></rect></g><g class="sc-bob" style="animation-delay:0.7s"><rect x="208" y="86" width="20" height="44" rx="7" fill="#D9A66C"></rect><rect x="208" y="86" width="20" height="12" rx="6" fill="#C08A4F"></rect></g><ellipse cx="180" cy="132" rx="56" ry="11" fill="#33523E"></ellipse><path d="M124 132 L236 132 L232 196 L128 196 Z" fill="#4A7C59" stroke="#3A6347" stroke-width="2"></path><g opacity="0.75"><circle cx="148" cy="156" r="2.6" fill="#FAF7F2"></circle><circle cx="180" cy="150" r="2.6" fill="#FAF7F2"></circle><circle cx="212" cy="156" r="2.6" fill="#FAF7F2"></circle><circle cx="164" cy="178" r="2.6" fill="#FAF7F2"></circle><circle cx="196" cy="178" r="2.6" fill="#FAF7F2"></circle></g><g class="sc-sway" style="animation-delay:0.4s"><path d="M126 134 C112 126 104 116 106 106 C116 110 124 120 128 130 Z" fill="#4A7C59" stroke="#3A6347" stroke-width="1.5"></path></g><g class="sc-sway" style="animation-delay:1.1s"><path d="M234 134 C248 126 256 116 254 106 C244 110 236 120 232 130 Z" fill="#4A7C59" stroke="#3A6347" stroke-width="1.5"></path></g><path d="M262 196 L286 150 M270 196 L294 154" stroke="#D9A66C" stroke-width="4" stroke-linecap="round"></path><path class="sc-twinkle" style="animation-delay:1.5s" transform="translate(96 84) scale(0.8)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path></g></svg>
         </figure>
 
         <p class="card__desc reveal">
@@ -978,46 +806,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
         <!-- 일러스트 04 : 사진 준비 시 ./images/04-market.jpg 로 교체 -->
         <figure class="illust reveal">
-          <svg viewBox="0 0 400 500" role="img"
-               aria-label="장을 본 물건이 가득 담겨 불룩해진 가방 위로 대파와 병이 삐져나와 있는 일러스트.">
-            <rect class="il-bg" width="400" height="500"/>
-            <circle class="il-halo" cx="200" cy="296" r="148"/>
-
-            <!-- 1단계 : 입구를 넓게 벌린 가방 -->
-            <g class="p1">
-              <path class="il-cloth" d="M106 276 C94 324 98 384 116 414 C130 438 168 450 200 450 C232 450 270 438 284 414 C302 384 306 324 294 276 Z"/>
-              <path class="il-line"  d="M106 276 C94 324 98 384 116 414 C130 438 168 450 200 450 C232 450 270 438 284 414 C302 384 306 324 294 276"/>
-              <path class="il-line"  d="M106 276 A94 22 0 0 1 294 276"/>
-              <path class="il-thin" d="M144 320 C132 360 136 406 154 436"/>
-              <path class="il-thin" d="M256 320 C268 360 264 406 246 436"/>
-              <path class="il-stitch" d="M112 386 C152 410 248 410 288 386"/>
-            </g>
-
-            <!-- 2단계 : 담은 장거리 -->
-            <g class="p2">
-              <path class="il-thin" d="M152 286 C144 236 136 198 124 164"/>
-              <path class="il-thin" d="M162 286 C162 234 162 196 160 156"/>
-              <path class="il-thin" d="M172 286 C180 236 192 200 206 170"/>
-              <path class="il-paper" d="M236 178 h30 v20 c0 9 7 13 7 22 v66 h-44 v-66 c0-9 7-13 7-22 Z"/>
-              <path class="il-line"  d="M236 178 h30 v20 c0 9 7 13 7 22 v66 h-44 v-66 c0-9 7-13 7-22 Z"/>
-              <path class="il-cloth2" d="M229 226 h44 v32 h-44 Z"/>
-              <path class="il-line"   d="M229 226 h44 v32 h-44 Z"/>
-            </g>
-
-            <!-- 앞쪽 입구 : 담긴 것들의 밑동을 가려 안에 들어간 것처럼 -->
-            <g class="p1">
-              <path class="il-cloth2" d="M106 276 A94 22 0 0 0 294 276 Z"/>
-              <path class="il-line"   d="M106 276 A94 22 0 0 0 294 276"/>
-            </g>
-
-            <!-- 3단계 : 입구를 잠그는 귀퉁이 매듭 -->
-            <g class="p3">
-              <ellipse class="il-cloth2" cx="104" cy="272" rx="17" ry="12"/>
-              <ellipse class="il-line"   cx="104" cy="272" rx="17" ry="12"/>
-              <ellipse class="il-cloth2" cx="296" cy="272" rx="17" ry="12"/>
-              <ellipse class="il-line"   cx="296" cy="272" rx="17" ry="12"/>
-            </g>
-          </svg>
+          <svg class="scene" viewBox="0 0 360 220" role="img" aria-label="장을 본 물건이 가득 담겨 불룩해진 가방 위로 대파와 병이 삐져나와 있는 일러스트."><rect width="360" height="220" fill="#F3EDE2"></rect><circle cx="180" cy="118" r="88" fill="#E4EDE4"></circle><g class="sc-swing"><g transform="rotate(-14 150 96)"><rect x="144" y="58" width="11" height="46" rx="5" fill="#FAF7F2" stroke="#CDBFA5" stroke-width="1.5"></rect><path d="M146 62 C140 40 138 28 142 18 C148 30 150 44 149 60 Z" fill="#7FA968"></path><path d="M152 62 C154 38 158 26 166 18 C164 34 158 48 155 62 Z" fill="#699256"></path></g><g transform="rotate(12 214 92)"><rect x="206" y="46" width="17" height="56" rx="8" fill="#D9A66C"></rect><path d="M209 54 L220 60 M209 66 L220 72 M209 78 L220 84" stroke="#B77F42" stroke-width="2.5" stroke-linecap="round"></path></g><circle cx="181" cy="92" r="13" fill="#E39A5F"></circle><circle cx="177" cy="88" r="3" fill="#F2BE93"></circle><path d="M180 84 C148 88 128 106 124 136 C119 178 146 204 180 204 C214 204 241 178 236 136 C232 106 212 88 180 84 Z" fill="#4A7C59" stroke="#3A6347" stroke-width="2"></path><g opacity="0.75"><circle cx="152" cy="130" r="2.6" fill="#FAF7F2"></circle><circle cx="180" cy="122" r="2.6" fill="#FAF7F2"></circle><circle cx="208" cy="130" r="2.6" fill="#FAF7F2"></circle><circle cx="140" cy="160" r="2.6" fill="#FAF7F2"></circle><circle cx="180" cy="156" r="2.6" fill="#FAF7F2"></circle><circle cx="220" cy="160" r="2.6" fill="#FAF7F2"></circle><circle cx="162" cy="186" r="2.6" fill="#FAF7F2"></circle><circle cx="198" cy="186" r="2.6" fill="#FAF7F2"></circle></g><path d="M132 150 C140 160 150 164 160 164 M228 150 C220 160 210 164 200 164" stroke="#3A6347" stroke-width="1.5" fill="none" opacity="0.5"></path><g class="sc-sway"><path d="M172 84 C160 72 156 60 160 50 C170 56 176 68 178 80 Z" fill="#4A7C59" stroke="#3A6347" stroke-width="1.5"></path><path d="M188 84 C200 72 204 60 200 50 C190 56 184 68 182 80 Z" fill="#5C8B6B" stroke="#3A6347" stroke-width="1.5"></path></g><circle cx="180" cy="84" r="8" fill="#3A6347"></circle><path class="sc-twinkle" style="animation-delay:0.6s" transform="translate(252 120) scale(1)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path><path class="sc-twinkle" style="animation-delay:1.6s" transform="translate(110 110) scale(0.7)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path></g></svg>
         </figure>
 
         <p class="card__desc reveal">
@@ -1055,32 +844,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
         <!-- 일러스트 05 : 사진 준비 시 ./images/05-fold.jpg 로 교체 -->
         <figure class="illust reveal">
-          <svg viewBox="0 0 400 500" role="img"
-               aria-label="가방 윤곽 안에 손바닥만 하게 접힌 보자기가 들어 있는 크기 비교 일러스트.">
-            <rect class="il-bg" width="400" height="500"/>
-            <circle class="il-halo" cx="200" cy="272" r="146"/>
-
-            <!-- 3단계 : 이만큼 작아져 가방에 들어간다는 표시 -->
-            <g class="p3">
-              <path class="il-stitch" d="M112 206 L288 206 L277 406 C276 418 267 426 255 426 L145 426 C133 426 124 418 123 406 Z"/>
-              <path class="il-stitch" d="M162 206 C160 162 240 162 238 206"/>
-            </g>
-
-            <!-- 1단계 : 평평하게 눌러 접은 보자기 -->
-            <g class="p1">
-              <rect class="il-cloth" x="148" y="288" width="104" height="72" rx="9"/>
-              <rect class="il-line"  x="148" y="288" width="104" height="72" rx="9"/>
-              <path class="il-thin" d="M148 312 H252 M148 336 H252"/>
-            </g>
-
-            <!-- 2단계 : 풀리지 않게 두른 매듭 -->
-            <g class="p2">
-              <path class="il-cloth2" d="M188 288 h24 v72 h-24 Z"/>
-              <path class="il-line"   d="M188 288 h24 v72 h-24 Z"/>
-              <ellipse class="il-cloth2" cx="200" cy="324" rx="17" ry="11"/>
-              <ellipse class="il-line"   cx="200" cy="324" rx="17" ry="11"/>
-            </g>
-          </svg>
+          <svg class="scene" viewBox="0 0 360 220" role="img" aria-label="가방 윤곽 안에 손바닥만 하게 접힌 보자기가 들어 있는 크기 비교 일러스트."><rect width="360" height="220" fill="#F3EDE2"></rect><circle cx="180" cy="118" r="88" fill="#E4EDE4"></circle><g><path d="M128 118 C150 84 210 78 236 104" stroke="#A8C3AD" stroke-width="3" stroke-dasharray="2 8" fill="none" stroke-linecap="round"></path><path d="M236 104 l-10 -8 M236 104 l-12 4" stroke="#A8C3AD" stroke-width="3" stroke-linecap="round"></path><path d="M206 112 L290 112 L283 196 C282 204 275 210 267 210 L229 210 C221 210 214 204 213 196 Z" fill="#E9DFCC" stroke="#CDBFA5" stroke-width="2"></path><ellipse cx="248" cy="112" rx="42" ry="9" fill="#CDBFA5"></ellipse><ellipse cx="248" cy="112" rx="34" ry="6" fill="#8A7B60"></ellipse><path d="M222 138 h52 v34 a8 8 0 0 1 -8 8 h-36 a8 8 0 0 1 -8 -8 Z" fill="#E2D6BE" stroke="#CDBFA5" stroke-width="2"></path><g class="sc-bob"><rect x="94" y="118" width="58" height="32" rx="16" fill="#4A7C59" stroke="#3A6347" stroke-width="2"></rect><circle cx="138" cy="134" r="9" fill="#5C8B6B"></circle><circle cx="138" cy="134" r="4" fill="#FAF7F2" opacity="0.8"></circle><rect x="106" y="118" width="10" height="32" fill="#3A6347" opacity="0.55"></rect><g opacity="0.75"><circle cx="124" cy="128" r="2.2" fill="#FAF7F2"></circle><circle cx="128" cy="141" r="2.2" fill="#FAF7F2"></circle></g></g><path d="M100 168 C104 160 116 158 122 164 M104 176 C110 170 120 169 126 173" stroke="#CDBFA5" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"></path><path class="sc-twinkle" style="animation-delay:0.5s" transform="translate(278 76) scale(1)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path><path class="sc-twinkle" style="animation-delay:1.3s" transform="translate(86 96) scale(0.7)" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8 Z" fill="#D9A66C"></path></g></svg>
         </figure>
 
         <p class="card__desc reveal">

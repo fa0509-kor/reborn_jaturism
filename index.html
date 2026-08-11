@@ -1362,7 +1362,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     fetch(VERIFY_API, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ url: url, nick: nick + ' · ' + week + '주차', kind: kind, week: week })
+      body: JSON.stringify({ url: url, nick: nick, kind: kind, week: week })
     })
       .then(function (r) { return r.json(); })
       .then(function (d) {

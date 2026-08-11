@@ -1275,11 +1275,21 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     return (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
   }
 
+  /* '이름 · N주차' 꼬리표를 이름과 주차로 분리해요. 신버전 스크립트의 w 필드가 있으면 그걸 우선해요. */
+  function nickWeek(it) {
+    var m = /^(.*?)\s*·\s*([1-4])주차$/.exec(String(it.n || ''));
+    return {
+      name: m ? m[1] : String(it.n || ''),
+      week: /^[1-4]$/.test(String(it.w)) ? String(it.w) : (m ? m[2] : '')
+    };
+  }
+
   function renderStats(items) {
     var counts = { 1: 0, 2: 0, 3: 0, 4: 0 };
     var seen = 0;
     (items || []).forEach(function (it) {
-      if (/^[1-4]$/.test(String(it.w))) { counts[it.w]++; seen++; }
+      var w = nickWeek(it).week;
+      if (w) { counts[w]++; seen++; }
     });
     if (!seen) { wallStats.hidden = true; return; }
     wallStats.hidden = false;
@@ -1295,11 +1305,12 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       return;
     }
     wall.innerHTML = items.map(function (it) {
-      var nick = escapeHtml(it.n || '익명');
+      var parts = nickWeek(it);
+      var nick = escapeHtml(parts.name || '익명');
       var kd = escapeHtml(it.k || '인증');
       var url = String(it.u || '');
       if (!/^https:\/\/(www\.)?instagram\.com\//.test(url)) return '';
-      var wk = /^[1-4]$/.test(String(it.w)) ? '<span class="wcard__week">' + it.w + '주차</span>' : '';
+      var wk = parts.week ? '<span class="wcard__week">' + parts.week + '주차</span>' : '';
       return '<a class="wcard" href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer">' +
              wk +
              '<span class="wcard__kind">' + kd + '</span>' +
@@ -1351,7 +1362,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     fetch(VERIFY_API, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ url: url, nick: nick, kind: kind, week: week })
+      body: JSON.stringify({ url: url, nick: nick + ' · ' + week + '주차', kind: kind, week: week })
     })
       .then(function (r) { return r.json(); })
       .then(function (d) {

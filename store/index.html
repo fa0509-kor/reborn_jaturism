@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>다시보자기 사전예약 : 자투리 원단으로 만든 보자기</title>
+
+<meta name="description" content="버려질 자투리 원단으로 만든 다시보자기. 반다나부터 장바구니까지 6가지로 쓰는 보자기의 사전예약을 받습니다. #자투리즘" />
+<meta name="theme-color" content="#FAF7F2" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="다시보자기 사전예약" />
+<meta property="og:description" content="자투리 원단으로 만든 보자기 하나로 6가지 변신. 사전예약을 받습니다." />
+<meta property="og:url" content="https://jaturism.vercel.app/store/" />
+<meta property="og:image" content="https://jaturism.vercel.app/images/og-cover.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+<style>
+/* ============================================================
+   다시보자기 — 사전예약 페이지
+   캠페인 페이지(../index.html)와 같은 토큰을 씁니다.
+   ============================================================ */
+:root{
+  --bg:#FAF7F2; --bg-soft:#F2EDE4;
+  --ink:#1A1A18; --ink-60:#5C5A54; --ink-40:#8E8B83;
+  --line:#E2DBCF;
+  --accent:#2F6B4F; --accent-soft:#E7F0EA;
+  --point:#E5623C;
+  --radius:18px; --maxw:480px;
+  --ease:cubic-bezier(.22,.9,.28,1);
+}
+*,*::before,*::after{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  letter-spacing:-0.02em; line-height:1.6; word-break:keep-all;
+  -webkit-font-smoothing:antialiased;
+}
+img{ max-width:100%; display:block; }
+button{ font-family:inherit; cursor:pointer; }
+.wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 20px; }
+
+/* ── 상단바 ── */
+.topbar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:13px 20px;
+  background:rgba(250,247,242,.86); backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent; transition:border-color .2s var(--ease);
+}
+.topbar.is-stuck{ border-bottom-color:var(--line); }
+.topbar__logo{ font-size:15px; font-weight:800; letter-spacing:-0.04em; }
+.topbar__back{
+  font-size:12.5px; font-weight:600; color:var(--accent);
+  text-decoration:none; background:var(--accent-soft);
+  padding:6px 11px; border-radius:999px;
+}
+
+/* ── 히어로 ── */
+.hero{ padding:34px 0 40px; }
+.hero__badge{
+  display:inline-block; margin-bottom:16px;
+  font-size:12.5px; font-weight:700; color:var(--accent);
+  background:var(--accent-soft); padding:6px 12px; border-radius:999px;
+}
+.hero__title{
+  margin:0 0 14px; font-size:30px; font-weight:800;
+  line-height:1.34; letter-spacing:-0.045em;
+}
+.hero__title em{ font-style:normal; color:var(--accent); }
+.hero__desc{ margin:0 0 24px; font-size:14.5px; color:var(--ink-60); line-height:1.85; }
+.hero__art{
+  background:var(--bg-soft); border:1px solid var(--line);
+  border-radius:var(--radius); padding:22px; margin-bottom:24px;
+}
+.hero__art svg{ width:100%; height:auto; }
+
+/* ── 공통 섹션 ── */
+.sec{ padding:44px 0; border-top:1px solid var(--line); }
+.sec--soft{ background:var(--bg-soft); }
+.sec__label{
+  margin:0 0 6px; font-size:11.5px; font-weight:800;
+  letter-spacing:.16em; color:var(--accent);
+}
+.sec__title{ margin:0 0 10px; font-size:21px; font-weight:800; letter-spacing:-0.04em; }
+.sec__desc{ margin:0 0 22px; font-size:14px; color:var(--ink-60); line-height:1.85; }
+
+/* ── 특징 ── */
+.feats{ display:grid; gap:11px; margin:0; padding:0; list-style:none; }
+.feat{
+  display:flex; gap:12px; align-items:flex-start;
+  background:#fff; border:1px solid var(--line);
+  border-radius:14px; padding:15px 16px;
+}
+.feat__ico{ flex:none; font-size:19px; line-height:1.3; }
+.feat__body b{ display:block; font-size:14.5px; font-weight:700; margin-bottom:3px; }
+.feat__body span{ font-size:13px; color:var(--ink-60); line-height:1.75; }
+
+/* ── 사양 표 ── */
+.spec{ width:100%; border-collapse:collapse; font-size:13.5px; }
+.spec th,.spec td{ padding:11px 2px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+.spec th{ width:34%; color:var(--ink-40); font-weight:600; }
+.spec td{ color:var(--ink); }
+.spec tr:last-child th,.spec tr:last-child td{ border-bottom:none; }
+
+/* ── 사용 증거(인증 게시판) ── */
+.proof{ display:flex; flex-direction:column; gap:9px; }
+.proof__empty{
+  text-align:center; padding:26px 16px; font-size:13px; color:var(--ink-40);
+  border:1.5px dashed var(--line); border-radius:14px; line-height:1.8;
+}
+.pcard{
+  display:flex; align-items:center; gap:11px;
+  background:#fff; border:1px solid var(--line);
+  border-radius:14px; padding:13px 15px; text-decoration:none; color:inherit;
+  transition:transform .18s var(--ease);
+}
+.pcard:active{ transform:scale(.985); }
+.pcard__week{
+  flex:none; font-size:11px; font-weight:700; color:#fff;
+  background:var(--accent); padding:5px 8px; border-radius:999px;
+}
+.pcard__body{ flex:1; min-width:0; }
+.pcard__nick{ display:block; font-size:13.5px; font-weight:600; }
+.pcard__meta{ display:block; font-size:11.5px; color:var(--ink-40); margin-top:2px; }
+.pcard__go{ flex:none; color:var(--ink-40); font-size:14px; }
+.proof__note{ margin:14px 0 0; font-size:12px; color:var(--ink-40); text-align:center; }
+
+/* ── 가격 ── */
+.price{
+  background:#fff; border:1px solid var(--line);
+  border-radius:var(--radius); padding:22px 20px; text-align:center;
+}
+.price__num{ font-size:30px; font-weight:800; letter-spacing:-0.04em; }
+.price__num small{ font-size:15px; font-weight:700; color:var(--ink-60); }
+.price__tag{
+  display:inline-block; margin-bottom:10px;
+  font-size:11.5px; font-weight:700; color:var(--point);
+  background:#FCEDE8; padding:5px 10px; border-radius:999px;
+}
+.price__note{ margin:12px 0 0; font-size:12.5px; color:var(--ink-40); line-height:1.75; }
+
+/* ── 예약 폼 ── */
+.form{
+  background:#fff; border:1px solid var(--line);
+  border-radius:var(--radius); padding:20px 17px;
+}
+.field{ display:block; margin-bottom:13px; }
+.field__label{ display:block; font-size:13px; font-weight:700; margin-bottom:6px; }
+.field__label i{ font-style:normal; color:var(--point); }
+.input{
+  width:100%; padding:13px 14px; border-radius:12px;
+  border:1px solid var(--line); background:var(--bg);
+  font-family:inherit; font-size:14px; color:var(--ink); letter-spacing:-0.02em;
+}
+.input::placeholder{ color:var(--ink-40); }
+.input:focus{ outline:none; border-color:var(--accent); background:#fff; }
+.field__help{ display:block; margin-top:5px; font-size:11.5px; color:var(--ink-40); }
+.qty{ display:grid; grid-template-columns:repeat(4,1fr); gap:7px; }
+.qty button{
+  padding:11px 0; border-radius:11px; border:1px solid var(--line);
+  background:#fff; font-size:13.5px; font-weight:600; color:var(--ink-60);
+  transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease);
+}
+.qty button.is-on{ background:var(--accent); color:#fff; border-color:var(--accent); }
+.agree{
+  display:flex; gap:9px; align-items:flex-start;
+  margin:4px 0 14px; font-size:12.5px; color:var(--ink-60); line-height:1.7;
+}
+.agree input{ margin-top:3px; width:17px; height:17px; accent-color:var(--accent); flex:none; }
+.agree a{ color:var(--accent); }
+.btn{
+  display:block; width:100%; padding:16px 20px; border-radius:14px;
+  font-size:15px; font-weight:700; letter-spacing:-0.02em; border:none; text-align:center;
+  background:var(--ink); color:var(--bg); text-decoration:none;
+  transition:transform .18s var(--ease), opacity .18s var(--ease);
+}
+.btn:active{ transform:scale(.975); }
+.btn[disabled]{ opacity:.45; pointer-events:none; }
+.msg{ margin:11px 0 0; font-size:13px; line-height:1.6; min-height:1px; }
+.msg.is-ok{ color:var(--accent); font-weight:600; }
+.msg.is-err{ color:var(--point); }
+.count{
+  margin:0 0 16px; text-align:center; font-size:13px; color:var(--ink-60);
+}
+.count b{ color:var(--accent); font-weight:800; font-size:15px; }
+
+/* ── FAQ ── */
+.faq{ display:grid; gap:9px; }
+.faq details{
+  background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden;
+}
+.faq summary{
+  padding:14px 16px; font-size:14px; font-weight:600; cursor:pointer;
+  list-style:none; display:flex; justify-content:space-between; gap:10px; align-items:center;
+}
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary::after{ content:'+'; color:var(--ink-40); font-size:17px; flex:none; }
+.faq details[open] summary::after{ content:'−'; }
+.faq p{ margin:0; padding:0 16px 15px; font-size:13.5px; color:var(--ink-60); line-height:1.85; }
+
+/* ── 푸터 ── */
+.footer{ padding:34px 0 46px; background:var(--ink); color:#B7B3AA; }
+.footer p{ margin:0 0 7px; font-size:12.5px; line-height:1.8; }
+.footer a{ color:var(--bg); }
+.footer__brand{ font-size:14px; font-weight:700; color:var(--bg); margin-bottom:12px; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+  html{ scroll-behavior:auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar" id="topbar">
+  <span class="topbar__logo">다시보자기</span>
+  <a class="topbar__back" href="../">활용법 보기 →</a>
+</header>
+
+<main>
+  <!-- ══════════ 히어로 ══════════ -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="hero__badge">사전예약 접수 중</span>
+      <h1 class="hero__title">
+        버려질 뻔한 천이<br /><em>여섯 번 쓰이는 보자기</em>로
+      </h1>
+      <p class="hero__desc">
+        옷을 만들고 남은 자투리 원단으로 만들었어요.<br />
+        접고 묶는 방법만 바꾸면 반다나, 가방 손잡이,<br />
+        도시락 가방, 장바구니가 됩니다.
+      </p>
+
+      <div class="hero__art">
+        <svg viewBox="0 0 320 180" role="img" aria-label="자투리 원단이 보자기 가방으로 바뀌는 그림">
+          <rect width="320" height="180" fill="none" />
+          <!-- 자투리 조각들 -->
+          <g opacity=".85">
+            <rect x="14" y="52" width="46" height="34" rx="4" fill="#D9CEBB" transform="rotate(-9 37 69)" />
+            <rect x="26" y="92" width="38" height="28" rx="4" fill="#C9BCA6" transform="rotate(7 45 106)" />
+            <rect x="8" y="102" width="30" height="22" rx="4" fill="#E2D8C7" transform="rotate(-14 23 113)" />
+          </g>
+          <!-- 화살표 -->
+          <path d="M84 90 H120 m0 0 l-9 -7 m9 7 l-9 7" fill="none" stroke="#8E8B83" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+          <!-- 보자기 가방 -->
+          <circle cx="216" cy="92" r="66" fill="#E7F0EA" />
+          <path d="M216 44c-30 4-49 21-53 48-5 38 20 62 53 62s58-24 53-62c-4-27-23-44-53-48z" fill="#2F6B4F" />
+          <path d="M205 44c-12-11-16-22-12-30 10 5 17 15 19 26z" fill="#255740" />
+          <path d="M227 44c12-11 16-22 12-30-10 5-17 15-19 26z" fill="#3F8560" />
+          <circle cx="216" cy="45" r="10" fill="#255740" />
+          <g fill="#FAF7F2" opacity=".72">
+            <circle cx="193" cy="82" r="4" /><circle cx="239" cy="82" r="4" />
+            <circle cx="182" cy="112" r="4" /><circle cx="250" cy="112" r="4" />
+            <circle cx="216" cy="128" r="4" />
+          </g>
+          <path d="M296 34l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" fill="#D9A66C" />
+          <path d="M132 132l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#D9A66C" opacity=".7" />
+        </svg>
+      </div>
+
+      <p class="count" id="count" hidden></p>
+      <a class="btn" href="#reserve">사전예약 신청하기</a>
+    </div>
+  </section>
+
+  <!-- ══════════ 이런 제품이에요 ══════════ -->
+  <section class="sec sec--soft">
+    <div class="wrap">
+      <p class="sec__label">WHY</p>
+      <h2 class="sec__title">왜 다시보자기인가요</h2>
+      <ul class="feats">
+        <li class="feat">
+          <span class="feat__ico" aria-hidden="true">🧵</span>
+          <span class="feat__body">
+            <b>버려질 원단을 씁니다</b>
+            <span>옷 공장에서 재단하고 남은 자투리 천을 모아 만들어요. 새 원단을 뽑지 않습니다.</span>
+          </span>
+        </li>
+        <li class="feat">
+          <span class="feat__ico" aria-hidden="true">🔁</span>
+          <span class="feat__body">
+            <b>하나로 여섯 가지</b>
+            <span>반다나 · 가방 손잡이 · 헤어밴드 · 도시락 가방 · 장바구니 · 접어서 보관. 접는 법만 바꾸면 됩니다.</span>
+          </span>
+        </li>
+        <li class="feat">
+          <span class="feat__ico" aria-hidden="true">🫙</span>
+          <span class="feat__body">
+            <b>비닐봉지를 안 받아도 돼요</b>
+            <span>부피가 큰 짐도 천이 늘어나며 받아줍니다. 물기가 묻으면 헹궈서 말리면 그만이에요.</span>
+          </span>
+        </li>
+        <li class="feat">
+          <span class="feat__ico" aria-hidden="true">🤏</span>
+          <span class="feat__body">
+            <b>안 쓸 땐 손바닥만 해져요</b>
+            <span>납작하게 접어 가방 한쪽에 넣어두면 자리를 거의 차지하지 않습니다.</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════ 사용 증거 ══════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <p class="sec__label">REAL USE</p>
+      <h2 class="sec__title">실제로 쓰고 있는 사람들</h2>
+      <p class="sec__desc">
+        연출 사진이 아니라 <b>#자투리즘 챌린지 참여자들이 직접 올린 인증</b>이에요.
+        인스타그램 게시물로 바로 이어집니다.
+      </p>
+      <div class="proof" id="proof"></div>
+      <p class="proof__note">챌린지 인증 게시판에서 자동으로 불러옵니다.</p>
+    </div>
+  </section>
+
+  <!-- ══════════ 가격 · 사양 ══════════ -->
+  <section class="sec sec--soft">
+    <div class="wrap">
+      <p class="sec__label">PRICE</p>
+      <h2 class="sec__title">가격은 아직 정하는 중이에요</h2>
+      <p class="sec__desc">
+        사전예약 수량을 보고 제작 단가가 정해지면 확정합니다.
+        <b>지금 예약해도 결제는 없어요.</b> 가격이 정해지면 먼저 알려드리고,
+        그때 사실지 다시 결정하시면 됩니다.
+      </p>
+      <div class="price">
+        <span class="price__tag">예상 가격대</span>
+        <p class="price__num" style="margin:0">10,000<small>원</small> ~ 15,000<small>원</small></p>
+        <p class="price__note">
+          사전 설문에서 참여자 4명 중 3명이 이 금액대를 골랐어요.<br />
+          표본이 작아 <b>확정가는 아닙니다.</b>
+        </p>
+      </div>
+
+      <table class="spec" style="margin-top:22px">
+        <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">제품 사양</caption>
+        <tbody>
+          <tr><th scope="row">소재</th><td>의류 생산 후 남은 자투리 원단 (면 혼방)</td></tr>
+          <tr><th scope="row">크기</th><td>제작 확정 후 안내 — 장바구니로 쓸 수 있는 크기</td></tr>
+          <tr><th scope="row">색상</th><td>자투리 원단이라 <b>같은 색이 여러 장 나오지 않아요.</b> 배송 시 랜덤</td></tr>
+          <tr><th scope="row">세탁</th><td>미지근한 물에 손세탁 · 그늘에서 건조</td></tr>
+          <tr><th scope="row">만든 곳</th><td>그린밸류 YOUTH 리본팀</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══════════ 사전예약 ══════════ -->
+  <section class="sec" id="reserve">
+    <div class="wrap">
+      <p class="sec__label">RESERVE</p>
+      <h2 class="sec__title">사전예약 신청</h2>
+      <p class="sec__desc">
+        결제 없이 <b>관심만 남기는 단계</b>예요. 제작이 확정되면 알려드릴게요.
+        예약하셨다고 꼭 사셔야 하는 건 아니에요.
+      </p>
+
+      <div class="form">
+        <label class="field">
+          <span class="field__label">이름 <i aria-hidden="true">*</i></span>
+          <input class="input" id="rName" type="text" maxlength="20" autocomplete="name"
+                 placeholder="예: 김보람" aria-label="이름" />
+        </label>
+
+        <label class="field">
+          <span class="field__label">연락받을 곳 <i aria-hidden="true">*</i></span>
+          <input class="input" id="rContact" type="text" maxlength="60" autocomplete="email"
+                 inputmode="email" placeholder="이메일 또는 휴대폰 번호" aria-label="연락받을 곳" />
+          <span class="field__help">제작·판매가 확정될 때 한 번만 연락드려요.</span>
+        </label>
+
+        <div class="field">
+          <span class="field__label" id="qtyLabel">몇 개 생각하세요?</span>
+          <div class="qty" role="group" aria-labelledby="qtyLabel" id="qty">
+            <button type="button" class="is-on" data-qty="1">1개</button>
+            <button type="button" data-qty="2">2개</button>
+            <button type="button" data-qty="3">3개</button>
+            <button type="button" data-qty="4">4개 이상</button>
+          </div>
+        </div>
+
+        <label class="field">
+          <span class="field__label">하고 싶은 말 (선택)</span>
+          <input class="input" id="rNote" type="text" maxlength="100"
+                 placeholder="원하는 색, 크기, 궁금한 점" aria-label="하고 싶은 말" />
+        </label>
+
+        <label class="agree">
+          <input type="checkbox" id="rAgree" />
+          <span>
+            사전예약 안내를 받기 위해 <b>이름과 연락처</b>가 수집되는 데 동의합니다.
+            수집한 정보는 <b>판매 안내 목적으로만</b> 쓰고, 캠페인이 끝나거나
+            요청하시면 바로 지웁니다.
+          </span>
+        </label>
+
+        <button type="button" class="btn" id="rSubmit">예약 신청하기</button>
+        <p class="msg" id="rMsg" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FAQ ══════════ -->
+  <section class="sec sec--soft">
+    <div class="wrap">
+      <p class="sec__label">FAQ</p>
+      <h2 class="sec__title">자주 묻는 것</h2>
+      <div class="faq">
+        <details>
+          <summary>지금 결제하는 건가요?</summary>
+          <p>아니요. 지금은 <b>관심을 남기는 단계</b>예요. 결제 기능이 없습니다.
+             제작과 가격이 확정되면 연락드리고, 그때 구매 여부를 정하시면 됩니다.</p>
+        </details>
+        <details>
+          <summary>언제 받을 수 있나요?</summary>
+          <p>사전예약 수량을 보고 제작을 시작합니다. 수량이 적으면 제작이 어려울 수도 있어요.
+             확정되는 대로 예약하신 분들께 먼저 알려드립니다.</p>
+        </details>
+        <details>
+          <summary>색상을 고를 수 있나요?</summary>
+          <p>자투리 원단으로 만들기 때문에 <b>같은 색이 여러 장 나오지 않아요.</b>
+             원하는 색이 있으면 '하고 싶은 말'에 적어주세요. 맞춰드릴 수 있으면 맞춰볼게요.</p>
+        </details>
+        <details>
+          <summary>어떻게 쓰는지 볼 수 있나요?</summary>
+          <p>활용법 6가지를 단계별로 정리해 뒀어요.
+             <a href="../" style="color:var(--accent)">활용법 페이지</a>에서 보실 수 있습니다.</p>
+        </details>
+        <details>
+          <summary>연락처는 어떻게 쓰이나요?</summary>
+          <p>제작·판매 확정 안내에만 씁니다. 광고를 보내지 않고, 다른 곳에 넘기지 않아요.
+             지워달라고 하시면 바로 지웁니다.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p class="footer__brand">다시보자기 · 그린밸류 YOUTH 리본팀</p>
+    <p>#자투리즘 업사이클링 캠페인</p>
+    <p><a href="../">활용법 페이지</a> · <a href="https://www.instagram.com/re.born_____/" target="_blank" rel="noopener noreferrer">@re.born_____</a></p>
+    <p style="margin-top:12px;color:#8B877E">사전예약은 구매 계약이 아니며, 제작 상황에 따라 진행되지 않을 수 있습니다.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* 인증 게시판과 같은 주소를 씁니다. 예약도 여기로 보내요. */
+  var API = 'https://script.google.com/macros/s/AKfycbwnM8Gdpxb_zjUDbM9mMFyswaNRwRjG7AUTCiXB3NxUR-qBPGo6fVQOX2kWSQCf932Kvg/exec';
+
+  var topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', function () {
+    topbar.classList.toggle('is-stuck', (window.scrollY || 0) > 20);
+  }, { passive: true });
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function whenText(v) {
+    var d = new Date(v);
+    if (isNaN(d)) return '';
+    var diff = (Date.now() - d.getTime()) / 1000;
+    if (diff < 3600) return Math.floor(diff / 60) + '분 전';
+    if (diff < 86400) return Math.floor(diff / 3600) + '시간 전';
+    if (diff < 604800) return Math.floor(diff / 86400) + '일 전';
+    return (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
+  }
+
+  /* '이름 · N주차' 꼬리표를 분리해요 (구버전 데이터 호환) */
+  function nickWeek(it) {
+    var m = /^(.*?)\s*·\s*([1-4])주차$/.exec(String(it.n || ''));
+    return {
+      name: m ? m[1] : String(it.n || ''),
+      week: /^[1-4]$/.test(String(it.w)) ? String(it.w) : (m ? m[2] : '')
+    };
+  }
+
+  /* ── 사용 증거: 챌린지 인증을 최대 5건 ── */
+  var proof = document.getElementById('proof');
+
+  function renderProof(items) {
+    var list = (items || []).filter(function (it) {
+      return /^https:\/\/(www\.)?instagram\.com\//.test(String(it.u || ''));
+    });
+    if (!list.length) {
+      proof.innerHTML =
+        '<div class="proof__empty">챌린지가 시작되면 참여자들의 인증이<br />여기에 올라옵니다 🧵</div>';
+      return;
+    }
+    proof.innerHTML = list.slice(0, 5).map(function (it) {
+      var p = nickWeek(it);
+      var wk = p.week ? '<span class="pcard__week">' + p.week + '주차</span>' : '';
+      return '<a class="pcard" href="' + escapeHtml(String(it.u)) + '" target="_blank" rel="noopener noreferrer">' +
+             wk +
+             '<span class="pcard__body">' +
+               '<b class="pcard__nick">' + escapeHtml(p.name || '익명') + '</b>' +
+               '<span class="pcard__meta">' + escapeHtml(String(it.k || '인증')) + ' · ' + whenText(it.t) + '</span>' +
+             '</span>' +
+             '<span class="pcard__go" aria-hidden="true">↗</span>' +
+             '</a>';
+    }).join('');
+  }
+
+  fetch(API)
+    .then(function (r) { return r.json(); })
+    .then(function (d) { renderProof(d && d.items); })
+    .catch(function () {
+      proof.innerHTML = '<div class="proof__empty">인증을 불러오지 못했어요.<br />잠시 뒤에 새로고침해 주세요.</div>';
+    });
+
+  /* ── 예약 건수 (이름·연락처는 절대 내려받지 않아요) ── */
+  var countEl = document.getElementById('count');
+  fetch(API + '?type=reserve_count')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var n = d && typeof d.count === 'number' ? d.count : 0;
+      if (n <= 0) return;
+      countEl.hidden = false;
+      countEl.innerHTML = '지금까지 <b>' + n + '명</b>이 사전예약했어요';
+    })
+    .catch(function () { /* 건수는 없어도 그만이에요 */ });
+
+  /* ── 수량 선택 ── */
+  var qty = '1';
+  document.getElementById('qty').addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (!b) return;
+    document.querySelectorAll('#qty button').forEach(function (x) { x.classList.remove('is-on'); });
+    b.classList.add('is-on');
+    qty = b.getAttribute('data-qty');
+  });
+
+  /* ── 예약 제출 ── */
+  var rName = document.getElementById('rName');
+  var rContact = document.getElementById('rContact');
+  var rNote = document.getElementById('rNote');
+  var rAgree = document.getElementById('rAgree');
+  var rSubmit = document.getElementById('rSubmit');
+  var rMsg = document.getElementById('rMsg');
+
+  function say(text, type) {
+    rMsg.textContent = text;
+    rMsg.className = 'msg' + (type ? ' is-' + type : '');
+  }
+
+  function looksLikeContact(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || /^01[016-9][-\s]?\d{3,4}[-\s]?\d{4}$/.test(v);
+  }
+
+  rSubmit.addEventListener('click', function () {
+    var name = rName.value.trim();
+    var contact = rContact.value.trim();
+    var note = rNote.value.trim();
+
+    if (!name) { say('이름을 입력해 주세요.', 'err'); rName.focus(); return; }
+    if (!contact) { say('연락받을 이메일이나 휴대폰 번호를 입력해 주세요.', 'err'); rContact.focus(); return; }
+    if (!looksLikeContact(contact)) {
+      say('이메일 또는 휴대폰 번호 형식으로 적어 주세요.', 'err'); rContact.focus(); return;
+    }
+    if (!rAgree.checked) { say('연락처 수집에 동의해 주셔야 접수할 수 있어요.', 'err'); return; }
+
+    rSubmit.disabled = true;
+    say('접수하는 중이에요...', '');
+
+    /* Apps Script 가 별도 설정 없이 받도록 text/plain 으로 보냅니다 */
+    fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ type: 'reserve', name: name, contact: contact, qty: qty, note: note })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (d && d.ok) {
+          say('예약이 접수됐어요. 확정되면 알려드릴게요 🌿', 'ok');
+          rName.value = ''; rContact.value = ''; rNote.value = ''; rAgree.checked = false;
+        } else {
+          say((d && d.msg) || '접수하지 못했어요. 다시 시도해 주세요.', 'err');
+        }
+      })
+      .catch(function () {
+        say('네트워크 문제로 접수하지 못했어요. 다시 시도해 주세요.', 'err');
+      })
+      .then(function () { rSubmit.disabled = false; });
+  });
+})();
+</script>
+
+</body>
+</html>

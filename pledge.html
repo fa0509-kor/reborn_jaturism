@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>다시보자기 5회 이상 사용 서약서 | 자투리즘 챌린지</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1C2B21;
+    --ink-soft: #4A5D50;
+    --ink-faint: #8A9A8F;
+    --moss: #3F6B4A;
+    --moss-deep: #2A4A32;
+    --linen: #F7F5EF;
+    --linen-warm: #EFEBE0;
+    --thread: #C4B89A;
+    --rule: #D8D2C4;
+    --white: #FFFFFF;
+    --alert: #A6503C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--linen);
+    color: var(--ink);
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+    padding: 0 0 5rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--white);
+    border-left: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    min-height: 100vh;
+  }
+
+  /* ── 머리글 ── */
+  .masthead {
+    padding: 3.5rem 3rem 2.5rem;
+    border-bottom: 2px solid var(--moss-deep);
+    position: relative;
+  }
+
+  .masthead::after {
+    content: '';
+    position: absolute;
+    left: 3rem; right: 3rem; bottom: -6px;
+    height: 1px;
+    background: var(--moss-deep);
+  }
+
+  .org {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    color: var(--moss);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Gowun Batang', serif;
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+
+  .doc-meta {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--rule);
+    margin-top: 1.25rem;
+  }
+  .doc-meta span strong { color: var(--ink-soft); font-weight: 500; }
+
+  /* ── 본문 ── */
+  .body-copy {
+    padding: 2.5rem 3rem 0;
+  }
+
+  .lede {
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.02rem;
+    line-height: 2;
+    color: var(--ink-soft);
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .lede b { color: var(--moss-deep); font-weight: 700; }
+
+  /* ── 서약 조항 ── */
+  .clauses { padding: 2.5rem 3rem 0; }
+
+  .section-mark {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--moss);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-mark::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .clause {
+    display: grid;
+    grid-template-columns: 3.25rem 1fr;
+    gap: 0.25rem 1.25rem;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid var(--linen-warm);
+    align-items: start;
+  }
+  .clause:last-of-type { border-bottom: none; }
+
+  .clause-num {
+    font-family: 'Gowun Batang', serif;
+    font-size: 0.95rem;
+    color: var(--thread);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding-top: 0.15rem;
+  }
+
+  .clause-text {
+    font-size: 0.94rem;
+    line-height: 1.85;
+    color: var(--ink-soft);
+  }
+  .clause-text b { color: var(--ink); font-weight: 500; }
+
+  .clause-note {
+    grid-column: 2;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    margin-top: 0.35rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--linen-warm);
+  }
+
+  /* ── 서명 영역 ── */
+  .sign-block {
+    margin: 3rem 3rem 0;
+    background: var(--linen);
+    border: 1px solid var(--rule);
+    padding: 2rem 2rem 2.25rem;
+  }
+
+  .sign-intro {
+    font-family: 'Gowun Batang', serif;
+    font-size: 0.97rem;
+    line-height: 1.9;
+    color: var(--ink);
+    text-align: center;
+    padding-bottom: 1.75rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px dashed var(--thread);
+  }
+
+  .field { margin-bottom: 1.35rem; }
+
+  label {
+    display: block;
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  label .req { color: var(--alert); margin-left: 0.15rem; }
+
+  input[type="text"], input[type="tel"] {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    transition: border-color 0.15s;
+  }
+  input[type="text"]:focus, input[type="tel"]:focus {
+    outline: none;
+    border-color: var(--moss);
+    box-shadow: 0 0 0 3px rgba(63,107,74,0.08);
+  }
+  input::placeholder { color: #B8BFB9; }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  /* 서명 캔버스 */
+  .sig-wrap { margin-top: 0.5rem; }
+
+  .sig-frame {
+    position: relative;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  #sigpad {
+    display: block;
+    width: 100%;
+    height: 150px;
+    cursor: crosshair;
+    touch-action: none;
+  }
+
+  .sig-baseline {
+    position: absolute;
+    left: 1.75rem; right: 1.75rem;
+    bottom: 2.75rem;
+    height: 1px;
+    background: var(--rule);
+    pointer-events: none;
+  }
+
+  .sig-hint {
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 1.15rem;
+    text-align: center;
+    font-size: 0.76rem;
+    color: var(--ink-faint);
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .sig-frame.inked .sig-hint,
+  .sig-frame.inked .sig-baseline { opacity: 0; }
+
+  .sig-tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.6rem;
+  }
+
+  .clear-btn {
+    background: none;
+    border: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    cursor: pointer;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .clear-btn:hover { color: var(--alert); border-bottom-color: var(--alert); }
+
+  .sig-date {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+
+  /* 확인 체크 */
+  .attest {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--thread);
+    cursor: pointer;
+  }
+  .attest input { margin-top: 0.3rem; width: 1rem; height: 1rem; accent-color: var(--moss); cursor: pointer; flex-shrink: 0; }
+  .attest span { font-size: 0.86rem; color: var(--ink-soft); line-height: 1.7; }
+
+  /* 제출 */
+  .submit-zone { padding: 2rem 3rem 0; }
+
+  .submit-btn {
+    width: 100%;
+    padding: 1.05rem;
+    background: var(--moss-deep);
+    color: var(--white);
+    border: none;
+    border-radius: 2px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.97rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background 0.18s;
+  }
+  .submit-btn:hover:not(:disabled) { background: var(--moss); }
+  .submit-btn:disabled { background: #C5CEC7; cursor: not-allowed; }
+
+  .submit-note {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-top: 1rem;
+    line-height: 1.7;
+  }
+
+  .submit-error {
+    display: none;
+    margin-top: 1rem;
+    padding: 0.85rem 1rem;
+    background: #FBF2EF;
+    border: 1px solid #E0C4BA;
+    border-radius: 2px;
+    font-size: 0.84rem;
+    color: var(--alert);
+    line-height: 1.75;
+  }
+  .submit-error.show { display: block; }
+
+  /* 완료 화면 */
+  .done {
+    display: none;
+    padding: 4rem 3rem;
+    text-align: center;
+  }
+  .done.show { display: block; }
+  .done-seal {
+    width: 68px; height: 68px;
+    margin: 0 auto 1.75rem;
+    border: 2px solid var(--moss);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.6rem;
+    color: var(--moss);
+  }
+  .done h2 {
+    font-family: 'Gowun Batang', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.85rem;
+  }
+  .done p { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.9; }
+  .done .receipt {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    background: var(--linen);
+    border: 1px solid var(--rule);
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    text-align: left;
+    line-height: 2;
+  }
+  .done .receipt b { color: var(--ink); font-weight: 500; }
+
+  /* 꼬리말 */
+  footer {
+    margin: 3.5rem 3rem 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-size: 0.76rem;
+    color: var(--ink-faint);
+    line-height: 2;
+  }
+  footer b { color: var(--moss); font-weight: 500; }
+
+  @media (max-width: 640px) {
+    .masthead { padding: 2.5rem 1.5rem 2rem; }
+    .masthead::after { left: 1.5rem; right: 1.5rem; }
+    h1 { font-size: 1.65rem; }
+    .body-copy, .clauses, .submit-zone { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .sign-block { margin-left: 1.5rem; margin-right: 1.5rem; padding: 1.5rem 1.25rem 1.75rem; }
+    footer { margin-left: 1.5rem; margin-right: 1.5rem; }
+    .field-row { grid-template-columns: 1fr; gap: 0; }
+    .field-row .field { margin-bottom: 1.35rem; }
+    .doc-meta { flex-direction: column; gap: 0.35rem; }
+    .clause { grid-template-columns: 2.75rem 1fr; gap: 0.25rem 0.9rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div id="form-view">
+    <header class="masthead">
+      <div class="org">그린밸류 YOUTH × 리본팀</div>
+      <h1>다시보자기<br>5회 이상 사용 서약서</h1>
+      <div class="doc-meta">
+        <span>캠페인 <strong>#자투리즘 챌린지</strong></span>
+        <span>기간 <strong>2026.09.01 — 09.28</strong></span>
+      </div>
+    </header>
+
+    <div class="body-copy">
+      <p class="lede">
+        보자기 한 장을 <b>5번</b> 쓰면 비닐봉지 5장이 덜 나옵니다.
+        저희는 비닐봉지 사용을 얼마나 줄였는지 알아보고자 합니다.
+      </p>
+    </div>
+
+    <div class="clauses">
+      <div class="section-mark">서약 조항</div>
+
+      <div class="clause">
+        <div class="clause-num">하나</div>
+        <div class="clause-text">다시보자기를 챌린지 기간 동안 <b>최소 5회 이상</b> 사용합니다.</div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">둘</div>
+        <div class="clause-text">매주 인스타그램에 <b>게시글 또는 릴스 1개</b>를 올리고, 인증을 남깁니다.</div>
+        <div class="clause-note">해시태그 #자투리즘 · 계정 태그 @re.born_____ 포함</div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">셋</div>
+        <div class="clause-text">인증 게시물 링크를 <b>아카이빙 사이트에 주차별로 제출</b>합니다.</div>
+        <div class="clause-note">jaturism.vercel.app 또는 토스 미니앱</div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">넷</div>
+        <div class="clause-text">챌린지 종료 후 <b>구매 의향 설문</b>에 응답합니다.</div>
+      </div>
+
+      <div class="clause">
+        <div class="clause-num">다섯</div>
+        <div class="clause-text">다시보자기를 사용해본 경험이 괜찮았다면, 챌린지가 끝난 뒤에도 계속 사용합니다.</div>
+      </div>
+    </div>
+
+    <div class="sign-block">
+      <p class="sign-intro">
+        위 다섯 조항을 읽고 이해했으며,<br>이를 성실히 지킬 것을 서약합니다.
+      </p>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="name">이름<span class="req">*</span></label>
+          <input type="text" id="name" placeholder="홍길동" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="insta">인스타그램 계정<span class="req">*</span></label>
+          <input type="text" id="insta" placeholder="@아이디" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="phone">연락처<span class="req">*</span></label>
+        <input type="tel" id="phone" placeholder="010-0000-0000" autocomplete="tel">
+      </div>
+
+      <div class="field sig-wrap">
+        <label>서명<span class="req">*</span></label>
+        <div class="sig-frame" id="sigframe">
+          <canvas id="sigpad"></canvas>
+          <div class="sig-baseline"></div>
+          <div class="sig-hint">이 선 위에 손가락이나 마우스로 서명해 주세요</div>
+        </div>
+        <div class="sig-tools">
+          <button type="button" class="clear-btn" id="clearsig">다시 서명하기</button>
+          <span class="sig-date" id="today"></span>
+        </div>
+      </div>
+
+      <label class="attest">
+        <input type="checkbox" id="agree">
+        <span>위 내용을 모두 확인했으며, 수집된 정보가 자투리즘 챌린지 운영 및 시상 목적으로만 사용되는 데 동의합니다.</span>
+      </label>
+    </div>
+
+    <div class="submit-zone">
+      <button class="submit-btn" id="submit" disabled>서약서 제출하기</button>
+      <p class="submit-note">제출 후 서약서 사본을 이미지로 저장할 수 있습니다.</p>
+      <div class="submit-error" id="err"></div>
+    </div>
+
+    <footer>
+      <b>그린밸류 YOUTH 리본팀 (RE:BORN)</b><br>
+      문의는 오픈채팅방 운영진 개인톡으로 남겨 주세요.
+    </footer>
+  </div>
+
+  <div class="done" id="done-view">
+    <div class="done-seal">署</div>
+    <h2>서약서가 제출되었습니다</h2>
+    <p>
+      수령일은 9월 1일과 2일 중 하루입니다.<br>
+      시간과 장소는 문자로 따로 안내드립니다.
+    </p>
+    <div class="receipt" id="receipt"></div>
+    <div class="submit-zone" style="padding-left:0;padding-right:0;">
+      <button class="submit-btn" id="download">서약서 이미지로 저장</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+
+  // ─────────────────────────────────────────────
+  //  제출 주소 — Apps Script 웹 앱 URL을 여기에 붙여넣으세요.
+  //  예) https://script.google.com/macros/s/AKfycb.../exec
+  // ─────────────────────────────────────────────
+  const ENDPOINT = '여기에_Apps_Script_URL_붙여넣기';
+
+  const canvas = document.getElementById('sigpad');
+  const frame  = document.getElementById('sigframe');
+  const ctx    = canvas.getContext('2d');
+  let drawing = false, hasInk = false;
+
+  function sizeCanvas() {
+    const ratio = window.devicePixelRatio || 1;
+    const rect  = canvas.getBoundingClientRect();
+    const data  = hasInk ? canvas.toDataURL() : null;
+    canvas.width  = rect.width  * ratio;
+    canvas.height = rect.height * ratio;
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx.lineWidth = 2.2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.strokeStyle = '#1C2B21';
+    if (data) {
+      const img = new Image();
+      img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height);
+      img.src = data;
+    }
+  }
+  sizeCanvas();
+  window.addEventListener('resize', sizeCanvas);
+
+  function pos(e) {
+    const r = canvas.getBoundingClientRect();
+    const p = e.touches ? e.touches[0] : e;
+    return { x: p.clientX - r.left, y: p.clientY - r.top };
+  }
+
+  function start(e) {
+    e.preventDefault();
+    drawing = true;
+    if (!hasInk) { hasInk = true; frame.classList.add('inked'); check(); }
+    const { x, y } = pos(e);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  }
+  function move(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const { x, y } = pos(e);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  }
+  function end() { drawing = false; }
+
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  window.addEventListener('mouseup', end);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', move, { passive: false });
+  canvas.addEventListener('touchend', end);
+
+  document.getElementById('clearsig').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hasInk = false;
+    frame.classList.remove('inked');
+    check();
+  });
+
+  // 오늘 날짜
+  const d = new Date();
+  const dateStr = d.getFullYear() + '년 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일';
+  document.getElementById('today').textContent = dateStr;
+
+  // 유효성
+  const name  = document.getElementById('name');
+  const insta = document.getElementById('insta');
+  const phone = document.getElementById('phone');
+  const agree = document.getElementById('agree');
+  const btn   = document.getElementById('submit');
+
+  function check() {
+    btn.disabled = !(name.value.trim() && insta.value.trim() && phone.value.trim() && hasInk && agree.checked);
+  }
+  [name, insta, phone].forEach(el => el.addEventListener('input', check));
+  agree.addEventListener('change', check);
+
+  // 제출
+  const err = document.getElementById('err');
+
+  btn.addEventListener('click', async () => {
+    if (!ENDPOINT || ENDPOINT.indexOf('여기에') === 0) {
+      err.textContent = '제출 주소가 설정되지 않았습니다. 운영진에게 알려 주세요.';
+      err.classList.add('show');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = '제출하는 중...';
+    err.classList.remove('show');
+
+    const payload = {
+      name:      name.value.trim(),
+      instagram: insta.value.trim(),
+      phone:     phone.value.trim(),
+      signedOn:  dateStr,
+      signature: canvas.toDataURL('image/png')
+    };
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      const out = await res.json();
+      if (!out.ok) throw new Error(out.error || 'unknown');
+
+      document.getElementById('receipt').innerHTML =
+        '<b>이름</b> ' + payload.name + '<br>' +
+        '<b>인스타그램</b> ' + payload.instagram + '<br>' +
+        '<b>연락처</b> ' + payload.phone + '<br>' +
+        '<b>서약일</b> ' + payload.signedOn;
+      document.getElementById('form-view').style.display = 'none';
+      document.getElementById('done-view').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = '다시 제출하기';
+      err.innerHTML = '제출이 저장되지 않았습니다. 네트워크를 확인하고 다시 눌러 주세요.<br>' +
+                      '계속 안 되면 오픈채팅방 운영진에게 알려 주세요.';
+      err.classList.add('show');
+    }
+  });
+
+  // 이미지 저장
+  document.getElementById('download').addEventListener('click', () => {
+    const w = 900, h = 620;
+    const out = document.createElement('canvas');
+    out.width = w; out.height = h;
+    const c = out.getContext('2d');
+
+    c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, w, h);
+    c.fillStyle = '#2A4A32'; c.fillRect(0, 0, w, 6);
+
+    c.fillStyle = '#3F6B4A';
+    c.font = '500 15px "Noto Sans KR", sans-serif';
+    c.fillText('그린밸류 YOUTH × 리본팀', 60, 70);
+
+    c.fillStyle = '#1C2B21';
+    c.font = '700 34px "Gowun Batang", serif';
+    c.fillText('다시보자기 5회 이상 사용 서약서', 60, 120);
+
+    c.strokeStyle = '#D8D2C4'; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(60, 150); c.lineTo(w - 60, 150); c.stroke();
+
+    c.fillStyle = '#4A5D50';
+    c.font = '400 17px "Noto Sans KR", sans-serif';
+    const lines = [
+      '하나.  다시보자기를 챌린지 기간 동안 최소 5회 이상 사용합니다.',
+      '둘.     매주 인스타그램에 게시글 또는 릴스 1개를 올리고 인증을 남깁니다.',
+      '셋.     인증 게시물 링크를 아카이빙 사이트에 주차별로 제출합니다.',
+      '넷.     챌린지 종료 후 구매 의향 설문에 응답합니다.',
+      '다섯.  다시보자기를 훼손 없이 관리하고, 이후에도 계속 사용합니다.'
+    ];
+    lines.forEach((t, i) => c.fillText(t, 60, 195 + i * 36));
+
+    c.fillStyle = '#1C2B21';
+    c.font = '400 17px "Gowun Batang", serif';
+    c.fillText('위 다섯 조항을 읽고 이해했으며, 이를 성실히 지킬 것을 서약합니다.', 60, 405);
+
+    c.fillStyle = '#4A5D50';
+    c.font = '400 16px "Noto Sans KR", sans-serif';
+    c.fillText('이름 ' + name.value.trim() + '     인스타그램 ' + insta.value.trim(), 60, 455);
+    c.fillText('서약일 ' + dateStr, 60, 483);
+
+    const sig = new Image();
+    sig.onload = () => {
+      c.drawImage(sig, w - 340, 400, 280, 130);
+      c.strokeStyle = '#D8D2C4';
+      c.beginPath(); c.moveTo(w - 340, 535); c.lineTo(w - 60, 535); c.stroke();
+      c.fillStyle = '#8A9A8F';
+      c.font = '400 13px "Noto Sans KR", sans-serif';
+      c.fillText('서명', w - 340, 558);
+
+      const a = document.createElement('a');
+      a.download = '다시보자기_서약서_' + name.value.trim() + '.png';
+      a.href = out.toDataURL('image/png');
+      a.click();
+    };
+    sig.src = canvas.toDataURL();
+  });
+})();
+</script>
+
+</body>
+</html>

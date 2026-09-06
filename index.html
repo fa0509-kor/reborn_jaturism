@@ -938,7 +938,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       <p class="section-label__sub reveal">PROOF WALL</p>
       <h2 class="verify__title reveal">인증 게시판</h2>
       <p class="verify__desc reveal" data-delay="1">
-        인스타에 올린 릴스나 카드뉴스 주소를 붙여넣으면<br />
+        인스타에 올린 게시글이나 릴스 주소를 붙여넣으면<br />
         바로 아래에 올라와요. 앱에서 올린 인증도 여기에 함께 보여요.<br />
         매주 일요일 자정 마감이에요.
       </p>
@@ -974,8 +974,8 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
       <div class="vform reveal" data-delay="2">
         <div class="vform__kinds">
-          <button type="button" class="chip is-on" data-kind="릴스">🎬 릴스</button>
-          <button type="button" class="chip" data-kind="카드뉴스">🖼️ 카드뉴스</button>
+          <button type="button" class="chip is-on" data-kind="게시글">📷 게시글</button>
+          <button type="button" class="chip" data-kind="릴스">🎬 릴스</button>
         </div>
         <div class="vform__weeks" role="group" aria-label="참여 주차">
           <button type="button" class="wchip is-on" data-week="1">1주차</button>
@@ -1060,7 +1060,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       </button>
       <button type="button" class="sheet__item" data-act="card">
         <span class="sheet__ico">🖼️</span>
-        <span><b>카드뉴스용 캡션 복사</b><i>활용법 6가지를 이미지로 만들었을 때</i></span>
+        <span><b>게시글용 캡션 복사</b><i>사진이나 이미지를 올릴 때</i></span>
       </button>
       <button type="button" class="sheet__item" data-act="link">
         <span class="sheet__ico">🔗</span>
@@ -1187,7 +1187,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       '06 접어서 가방 속에\n\n' +
       '접고 묶는 방법만 바꾸면 하루가 달라져요.\n' +
       '자세한 방법 보기 ▶ ' + PAGE_URL + '\n\n' +
-      '#자투리즘 #다시보자기 #업사이클링 #제로웨이스트 #카드뉴스 #보자기 #친환경생활',
+      '#자투리즘 #다시보자기 #업사이클링 #제로웨이스트 #보자기 #친환경생활',
     link: PAGE_URL
   };
 
@@ -1247,7 +1247,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
   var DONE_TEXT = {
     reels: ['릴스용 캡션이 복사됐어요', '인스타그램에서 릴스를 올릴 때<br />캡션 칸에 길게 눌러 붙여넣기 하세요.'],
-    card:  ['카드뉴스용 캡션이 복사됐어요', '이미지를 올린 뒤<br />문구 칸에 길게 눌러 붙여넣기 하세요.'],
+    card:  ['게시글용 캡션이 복사됐어요', '사진을 올린 뒤<br />문구 칸에 길게 눌러 붙여넣기 하세요.'],
     link:  ['페이지 링크가 복사됐어요', '친구에게 보낼 때 붙여넣기 하세요.<br />올리실 땐 #자투리즘 도 함께 달아주세요.']
   };
 
@@ -1295,7 +1295,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   var vSubmit = document.getElementById('vSubmit');
   var vMsg = document.getElementById('vMsg');
   var wallStats = document.getElementById('wallStats');
-  var kind = '릴스';
+  var kind = '게시글';
   var week = '1';
 
   document.querySelector('.vform__kinds').addEventListener('click', function (e) {
@@ -1314,13 +1314,15 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     week = chip.getAttribute('data-week');
   });
 
-  /* 릴스 주소를 붙여넣으면 종류를 알아서 맞춰줘요 */
+  /* 주소 모양을 보고 종류를 알아서 맞춰줘요 — /reel/ 은 릴스, /p/ 는 게시글 */
   vUrl.addEventListener('input', function () {
-    if (vUrl.value.indexOf('/reel') === -1) return;
+    var v = vUrl.value;
+    var guess = v.indexOf('/reel') !== -1 ? '릴스' : (v.indexOf('/p/') !== -1 ? '게시글' : '');
+    if (!guess) return;
     document.querySelectorAll('.vform__kinds .chip').forEach(function (c) {
-      c.classList.toggle('is-on', c.getAttribute('data-kind') === '릴스');
+      c.classList.toggle('is-on', c.getAttribute('data-kind') === guess);
     });
-    kind = '릴스';
+    kind = guess;
   });
 
   function say(text, type) {
@@ -1384,7 +1386,8 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       sorted.map(function (it) {
       var parts = nickWeek(it);
       var nick = escapeHtml(parts.name || '익명');
-      var kd = escapeHtml(it.k || '인증');
+      /* 선택지가 릴스/카드뉴스뿐이던 때(9/6 이전) 올라온 기록은 게시글로 보여줘요 */
+      var kd = escapeHtml(it.k === '카드뉴스' ? '게시글' : (it.k || '인증'));
       var url = String(it.u || '');
       if (!/^https:\/\/(www\.)?instagram\.com\//.test(url)) return '';
       var wk = parts.week ? '<span class="wcard__week">' + parts.week + '주차</span>' : '';

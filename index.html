@@ -468,8 +468,13 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   color:var(--accent); letter-spacing:-0.01em;
 }
 .wall__pinhead{
-  margin:0 0 8px; font-size:12px; font-weight:700;
+  margin:14px 0 8px; font-size:12px; font-weight:700;
   color:var(--accent); letter-spacing:-0.01em;
+}
+.wall__pinhead:first-child{ margin-top:0; }
+.wall__resthead{
+  margin:16px 0 8px; font-size:12px; font-weight:700;
+  color:var(--ink-40); letter-spacing:-0.01em;
 }
 .chip{
   flex:1; padding:9px 10px; border-radius:999px;
@@ -1385,39 +1390,57 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         '<div class="wall__empty">아직 인증이 없어요.<br />첫 번째 주인공이 되어주세요 🧵</div>';
       return;
     }
-    /* 고정된 인증을 항상 맨 위로. 고정끼리는 시트 「고정」 칸의 숫자(1, 2...) 순서대로 */
-    var sorted = items.slice().sort(function (a, b) {
-      var pa = a.p ? 1 : 0, pb = b.p ? 1 : 0;
-      if (pa !== pb) return pb - pa;
-      return pa ? pinRank(a.p) - pinRank(b.p) : 0;
+    /* 우수 인증(고정)과 나머지를 갈라요. 우수 인증은 주차별로 묶어 위에 쌓아요. */
+    var pins = [], rest = [];
+    items.forEach(function (it) { (it.p ? pins : rest).push(it); });
+
+    /* 최근 주차가 위, 같은 주차 안에서는 「고정」 칸의 숫자(1, 2...) 순서대로 */
+    pins.sort(function (a, b) {
+      var wa = Number(nickWeek(a).week) || 0, wb = Number(nickWeek(b).week) || 0;
+      if (wa !== wb) return wb - wa;
+      return pinRank(a.p) - pinRank(b.p);
     });
-    var pinVals = sorted.filter(function (it) { return it.p; }).map(function (it) { return String(it.p); });
-    var pinnedCount = pinVals.length;
+
     /* 순위는 값이 서로 다를 때만 믿어요. 구버전 스크립트(v4)는 고정된 것을 전부 '1'로 보내서,
        그대로 쓰면 두 명 다 "1등"이 돼요. 그럴 땐 예전처럼 🏆 만 보여줘요. */
-    var showRank = pinnedCount > 1 && pinVals.some(function (v) { return v !== pinVals[0]; });
+    var pinVals = pins.map(function (it) { return String(it.p); });
+    var showRank = pinVals.length > 1 && pinVals.some(function (v) { return v !== pinVals[0]; });
 
-    wall.innerHTML = (pinnedCount ? '<p class="wall__pinhead">🏆 이주의 우수 인증</p>' : '') +
-      sorted.map(function (it) {
-      var parts = nickWeek(it);
-      var nick = escapeHtml(parts.name || '익명');
-      /* 선택지가 릴스/카드뉴스뿐이던 때(9/6 이전) 올라온 기록은 게시글로 보여줘요 */
-      var kd = escapeHtml(it.k === '카드뉴스' ? '게시글' : (it.k || '인증'));
-      var url = String(it.u || '');
-      if (!/^https:\/\/(www\.)?instagram\.com\//.test(url)) return '';
-      var wk = parts.week ? '<span class="wcard__week">' + parts.week + '주차</span>' : '';
-      return '<a class="wcard' + (it.p ? ' is-pinned' : '') + '" href="' + escapeHtml(url) +
-             '" target="_blank" rel="noopener noreferrer">' +
-             wk +
-             '<span class="wcard__kind">' + kd + '</span>' +
-             '<span class="wcard__body">' +
-               '<b class="wcard__nick">' + nick + '</b>' +
-               '<span class="wcard__meta">' + whenText(it.t) + '</span>' +
-             '</span>' +
-             (it.p ? '<span class="wcard__pin">🏆' + (showRank && isRank(it.p) ? ' ' + it.p + '등' : '') + '</span>' : '') +
-             '<span class="wcard__go">↗</span>' +
-             '</a>';
-    }).join('');
+    var html = '';
+    var lastWeek = null;
+    pins.forEach(function (it) {
+      var wk = nickWeek(it).week;
+      if (wk !== lastWeek) {
+        html += '<p class="wall__pinhead">🏆 ' + (wk ? escapeHtml(wk) + '주차 ' : '') + '우수 인증</p>';
+        lastWeek = wk;
+      }
+      html += card(it, showRank);
+    });
+    if (pins.length && rest.length) html += '<p class="wall__resthead">모두의 인증</p>';
+    html += rest.map(function (it) { return card(it, showRank); }).join('');
+    wall.innerHTML = html;
+  }
+
+  /* 인증 한 건을 카드로 그려요. 주소가 인스타그램이 아니면 아무것도 안 그려요. */
+  function card(it, showRank) {
+    var parts = nickWeek(it);
+    var nick = escapeHtml(parts.name || '익명');
+    /* 선택지가 릴스/카드뉴스뿐이던 때(9/6 이전) 올라온 기록은 게시글로 보여줘요 */
+    var kd = escapeHtml(it.k === '카드뉴스' ? '게시글' : (it.k || '인증'));
+    var url = String(it.u || '');
+    if (!/^https:\/\/(www\.)?instagram\.com\//.test(url)) return '';
+    var wk = parts.week ? '<span class="wcard__week">' + parts.week + '주차</span>' : '';
+    return '<a class="wcard' + (it.p ? ' is-pinned' : '') + '" href="' + escapeHtml(url) +
+           '" target="_blank" rel="noopener noreferrer">' +
+           wk +
+           '<span class="wcard__kind">' + kd + '</span>' +
+           '<span class="wcard__body">' +
+             '<b class="wcard__nick">' + nick + '</b>' +
+             '<span class="wcard__meta">' + whenText(it.t) + '</span>' +
+           '</span>' +
+           (it.p ? '<span class="wcard__pin">🏆' + (showRank && isRank(it.p) ? ' ' + it.p + '등' : '') + '</span>' : '') +
+           '<span class="wcard__go">↗</span>' +
+           '</a>';
   }
 
   function loadWall() {

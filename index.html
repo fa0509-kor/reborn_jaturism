@@ -1353,13 +1353,20 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   }
 
   /* '이름 · N주차' 꼬리표를 이름과 주차로 분리해요. 신버전 스크립트의 w 필드가 있으면 그걸 우선해요. */
-  /* 「고정」 칸의 값을 순위로 읽어요. 숫자가 아니면(O, 우수 등) 맨 뒤로 보내요. */
+  /* 「고정」 칸의 값을 순위로 읽어요. 숫자가 아니면(상 이름 등) 맨 뒤로 보내요. */
   function isRank(p) {
     return /^[0-9]+$/.test(String(p));
   }
 
   function pinRank(p) {
     return isRank(p) ? Number(p) : Number.MAX_VALUE;
+  }
+
+  /* 배지에 넣을 글자. 숫자면 'N등', 글자면 그대로 상 이름으로 써요(참신상·성실상 등).
+     시트에서 운영진이 적는 값이라 반드시 이스케이프하고 길이를 잘라요. */
+  function pinLabel(p) {
+    var v = String(p).trim();
+    return isRank(v) ? escapeHtml(v) + '등' : escapeHtml(v.slice(0, 8));
   }
 
   function nickWeek(it) {
@@ -1401,10 +1408,10 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       return pinRank(a.p) - pinRank(b.p);
     });
 
-    /* 순위는 값이 서로 다를 때만 믿어요. 구버전 스크립트(v4)는 고정된 것을 전부 '1'로 보내서,
-       그대로 쓰면 두 명 다 "1등"이 돼요. 그럴 땐 예전처럼 🏆 만 보여줘요. */
+    /* 구버전 스크립트(v4)는 고정된 것을 값과 상관없이 전부 '1'로 보내요.
+       그때만 글자를 숨기고 🏆 만 보여줘요. v5부터는 시트에 적은 값이 그대로 와요. */
     var pinVals = pins.map(function (it) { return String(it.p); });
-    var showRank = pinVals.length > 1 && pinVals.some(function (v) { return v !== pinVals[0]; });
+    var plainPins = pinVals.length > 1 && pinVals.every(function (v) { return v === '1'; });
 
     var html = '';
     var lastWeek = null;
@@ -1414,15 +1421,15 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         html += '<p class="wall__pinhead">🏆 ' + (wk ? escapeHtml(wk) + '주차 ' : '') + '우수 인증</p>';
         lastWeek = wk;
       }
-      html += card(it, showRank);
+      html += card(it, plainPins);
     });
     if (pins.length && rest.length) html += '<p class="wall__resthead">모두의 인증</p>';
-    html += rest.map(function (it) { return card(it, showRank); }).join('');
+    html += rest.map(function (it) { return card(it, plainPins); }).join('');
     wall.innerHTML = html;
   }
 
   /* 인증 한 건을 카드로 그려요. 주소가 인스타그램이 아니면 아무것도 안 그려요. */
-  function card(it, showRank) {
+  function card(it, plainPins) {
     var parts = nickWeek(it);
     var nick = escapeHtml(parts.name || '익명');
     /* 선택지가 릴스/카드뉴스뿐이던 때(9/6 이전) 올라온 기록은 게시글로 보여줘요 */
@@ -1438,7 +1445,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
              '<b class="wcard__nick">' + nick + '</b>' +
              '<span class="wcard__meta">' + whenText(it.t) + '</span>' +
            '</span>' +
-           (it.p ? '<span class="wcard__pin">🏆' + (showRank && isRank(it.p) ? ' ' + it.p + '등' : '') + '</span>' : '') +
+           (it.p ? '<span class="wcard__pin">🏆' + (plainPins ? '' : ' ' + pinLabel(it.p)) + '</span>' : '') +
            '<span class="wcard__go">↗</span>' +
            '</a>';
   }

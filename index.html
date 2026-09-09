@@ -1353,20 +1353,24 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   }
 
   /* '이름 · N주차' 꼬리표를 이름과 주차로 분리해요. 신버전 스크립트의 w 필드가 있으면 그걸 우선해요. */
-  /* 「고정」 칸의 값을 순위로 읽어요. 숫자가 아니면(상 이름 등) 맨 뒤로 보내요. */
-  function isRank(p) {
-    return /^[0-9]+$/.test(String(p));
+  /* 「고정」 칸의 값을 순서와 배지 글자로 나눠요.
+       1          → 1번째,  '1등'
+       참신상      → 순서 없음(올린 시간순), '참신상'
+       1 참신상    → 1번째,  '참신상'      ← 순서와 이름을 같이 정할 때 */
+  function parsePin(p) {
+    var v = String(p == null ? '' : p).trim();
+    var m = /^([0-9]+)\s*(.*)$/.exec(v);
+    if (m) return { rank: Number(m[1]), label: m[2] !== '' ? m[2] : m[1] + '등' };
+    return { rank: Number.MAX_VALUE, label: v };
   }
 
   function pinRank(p) {
-    return isRank(p) ? Number(p) : Number.MAX_VALUE;
+    return parsePin(p).rank;
   }
 
-  /* 배지에 넣을 글자. 숫자면 'N등', 글자면 그대로 상 이름으로 써요(참신상·성실상 등).
-     시트에서 운영진이 적는 값이라 반드시 이스케이프하고 길이를 잘라요. */
+  /* 시트에서 운영진이 적는 값이라 반드시 이스케이프하고 길이를 잘라요. */
   function pinLabel(p) {
-    var v = String(p).trim();
-    return isRank(v) ? escapeHtml(v) + '등' : escapeHtml(v.slice(0, 8));
+    return escapeHtml(parsePin(p).label.slice(0, 8));
   }
 
   function nickWeek(it) {

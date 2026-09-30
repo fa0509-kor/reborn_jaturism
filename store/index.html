@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>다시보자기 사전예약 : 자투리 원단으로 만든 보자기</title>
+<title>다시보자기 구매 : 자투리 원단으로 만든 보자기</title>
 
-<meta name="description" content="버려질 자투리 원단으로 만든 다시보자기. 반다나부터 장바구니까지 6가지로 쓰는 보자기의 사전예약을 받습니다. #자투리즘" />
+<meta name="description" content="버려질 자투리 원단으로 만든 다시보자기. 반다나부터 장바구니까지 6가지로 쓰는 보자기를 이번 제작분 남은 수량만 판매해요. #자투리즘" />
 <meta name="theme-color" content="#FAF7F2" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="다시보자기 사전예약" />
-<meta property="og:description" content="자투리 원단으로 만든 보자기 하나로 6가지 변신. 사전예약을 받습니다." />
+<meta property="og:title" content="다시보자기 구매" />
+<meta property="og:description" content="자투리 원단으로 만든 보자기 하나로 6가지 변신. 이번 제작분 남은 수량만 판매해요." />
 <meta property="og:url" content="https://jaturism.vercel.app/store/" />
 <meta property="og:image" content="https://jaturism.vercel.app/images/og-cover.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -21,7 +21,7 @@
 
 <style>
 /* ============================================================
-   다시보자기 — 사전예약 페이지
+   다시보자기 — 판매 페이지 (계좌이체 주문)
    캠페인 페이지(../index.html)와 같은 토큰을 씁니다.
    ============================================================ */
 :root{
@@ -69,6 +69,7 @@ button{ font-family:inherit; cursor:pointer; }
   font-size:12.5px; font-weight:700; color:var(--accent);
   background:var(--accent-soft); padding:6px 12px; border-radius:999px;
 }
+.hero__badge.is-out{ color:var(--point); background:#FCEDE8; }
 .hero__title{
   margin:0 0 14px; font-size:30px; font-weight:800;
   line-height:1.34; letter-spacing:-0.045em;
@@ -146,7 +147,25 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .price__note{ margin:12px 0 0; font-size:12.5px; color:var(--ink-40); line-height:1.75; }
 
-/* ── 예약 폼 ── */
+/* ── 입금 계좌 ── */
+.account{
+  background:#fff; border:1.5px solid var(--accent);
+  border-radius:var(--radius); padding:16px 17px; margin-bottom:14px;
+}
+.account__label{ margin:0 0 8px; font-size:11.5px; font-weight:800; letter-spacing:.14em; color:var(--accent); }
+.account__row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.account__bank{ font-size:13.5px; color:var(--ink-60); }
+.account__num{ display:block; font-size:19px; font-weight:800; letter-spacing:-0.01em; margin-top:2px; }
+.account__holder{ font-size:12.5px; color:var(--ink-40); margin-top:2px; }
+.account__pending{ margin:0; font-size:13px; color:var(--ink-60); line-height:1.75; }
+.copy{
+  flex:none; padding:9px 13px; border-radius:11px;
+  border:1px solid var(--line); background:var(--bg);
+  font-size:12.5px; font-weight:700; color:var(--accent);
+}
+.copy.is-done{ background:var(--accent); color:#fff; border-color:var(--accent); }
+
+/* ── 주문 폼 ── */
 .form{
   background:#fff; border:1px solid var(--line);
   border-radius:var(--radius); padding:20px 17px;
@@ -162,13 +181,20 @@ button{ font-family:inherit; cursor:pointer; }
 .input::placeholder{ color:var(--ink-40); }
 .input:focus{ outline:none; border-color:var(--accent); background:#fff; }
 .field__help{ display:block; margin-top:5px; font-size:11.5px; color:var(--ink-40); }
-.qty{ display:grid; grid-template-columns:repeat(4,1fr); gap:7px; }
+.qty{ display:grid; grid-template-columns:repeat(5,1fr); gap:7px; }
 .qty button{
   padding:11px 0; border-radius:11px; border:1px solid var(--line);
   background:#fff; font-size:13.5px; font-weight:600; color:var(--ink-60);
   transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease);
 }
 .qty button.is-on{ background:var(--accent); color:#fff; border-color:var(--accent); }
+.qty button[disabled]{ opacity:.35; cursor:not-allowed; }
+.total{
+  display:flex; justify-content:space-between; align-items:baseline;
+  margin:4px 0 14px; padding:12px 14px; border-radius:12px;
+  background:var(--bg-soft); font-size:13px; color:var(--ink-60);
+}
+.total b{ font-size:17px; font-weight:800; color:var(--ink); }
 .agree{
   display:flex; gap:9px; align-items:flex-start;
   margin:4px 0 14px; font-size:12.5px; color:var(--ink-60); line-height:1.7;
@@ -182,14 +208,33 @@ button{ font-family:inherit; cursor:pointer; }
   transition:transform .18s var(--ease), opacity .18s var(--ease);
 }
 .btn:active{ transform:scale(.975); }
-.btn[disabled]{ opacity:.45; pointer-events:none; }
-.msg{ margin:11px 0 0; font-size:13px; line-height:1.6; min-height:1px; }
+.btn[disabled],.btn.is-off{ opacity:.45; pointer-events:none; }
+.msg{ margin:11px 0 0; font-size:13px; line-height:1.7; min-height:1px; }
 .msg.is-ok{ color:var(--accent); font-weight:600; }
 .msg.is-err{ color:var(--point); }
-.count{
-  margin:0 0 16px; text-align:center; font-size:13px; color:var(--ink-60);
+.msg .account{ margin:12px 0 0; }
+
+/* ── 품절 ── */
+.soldout{
+  text-align:center; padding:28px 18px; border:1.5px dashed var(--line);
+  border-radius:var(--radius); background:#fff; font-size:14px; line-height:1.8; color:var(--ink-60);
 }
-.count b{ color:var(--accent); font-weight:800; font-size:15px; }
+.soldout b{ display:block; font-size:16px; color:var(--ink); margin-bottom:6px; }
+.soldout a{ display:inline-block; margin-top:12px; color:var(--accent); font-weight:700; }
+
+/* ── DM 안내 ── */
+.dm{
+  margin:16px 0 0; text-align:center; font-size:13px; color:var(--ink-60); line-height:1.8;
+}
+.dm a{ color:var(--accent); font-weight:700; }
+
+/* ── 배송·환불 ── */
+.policy{ display:grid; gap:10px; margin:0; padding:0; list-style:none; }
+.policy li{
+  background:#fff; border:1px solid var(--line); border-radius:14px;
+  padding:13px 15px; font-size:13.5px; color:var(--ink-60); line-height:1.75;
+}
+.policy b{ display:block; color:var(--ink); font-size:13.5px; margin-bottom:2px; }
 
 /* ── FAQ ── */
 .faq{ display:grid; gap:9px; }
@@ -228,7 +273,7 @@ button{ font-family:inherit; cursor:pointer; }
   <!-- ══════════ 히어로 ══════════ -->
   <section class="hero">
     <div class="wrap">
-      <span class="hero__badge">사전예약 접수 중</span>
+      <span class="hero__badge" id="badge">이번 제작분 판매 중</span>
       <h1 class="hero__title">
         버려질 뻔한 천이<br /><em>여섯 번 쓰이는 보자기</em>로
       </h1>
@@ -266,8 +311,7 @@ button{ font-family:inherit; cursor:pointer; }
         </svg>
       </div>
 
-      <p class="count" id="count" hidden></p>
-      <a class="btn" href="#reserve">사전예약 신청하기</a>
+      <a class="btn" href="#order" id="cta">25,000원에 주문하기</a>
     </div>
   </section>
 
@@ -313,9 +357,9 @@ button{ font-family:inherit; cursor:pointer; }
   <section class="sec">
     <div class="wrap">
       <p class="sec__label">REAL USE</p>
-      <h2 class="sec__title">실제로 쓰고 있는 사람들</h2>
+      <h2 class="sec__title">한 달 동안 실제로 쓴 사람들</h2>
       <p class="sec__desc">
-        연출 사진이 아니라 <b>#자투리즘 챌린지 참여자들이 직접 올린 인증</b>이에요.
+        연출 사진이 아니라 <b>#자투리즘 챌린지 참여자들이 4주 동안 직접 올린 인증</b>이에요.
         인스타그램 게시물로 바로 이어집니다.
       </p>
       <div class="proof" id="proof"></div>
@@ -327,10 +371,10 @@ button{ font-family:inherit; cursor:pointer; }
   <section class="sec sec--soft">
     <div class="wrap">
       <p class="sec__label">PRICE</p>
-      <h2 class="sec__title">가격이 정해졌어요</h2>
+      <h2 class="sec__title">이번 제작분만 판매해요</h2>
       <p class="sec__desc">
-        <b>지금 예약해도 결제는 없어요.</b> 제작이 확정되면 먼저 알려드리고,
-        그때 사실지 다시 결정하시면 됩니다.
+        60장을 만들어 챌린지 참여자에게 나눠드리고 <b>남은 수량</b>이에요.
+        다 나가면 다음 제작은 아직 정해지지 않았어요.
       </p>
       <div class="price">
         <span class="price__tag">판매가</span>
@@ -345,86 +389,129 @@ button{ font-family:inherit; cursor:pointer; }
         <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">제품 사양</caption>
         <tbody>
           <tr><th scope="row">소재</th><td>의류 생산 후 남은 자투리 원단 (면 혼방)</td></tr>
-          <tr><th scope="row">크기</th><td>제작 확정 후 안내 — 장바구니로 쓸 수 있는 크기</td></tr>
+          <tr><th scope="row">크기</th><td id="specSize">장바구니로 쓸 수 있는 크기</td></tr>
           <tr><th scope="row">색상</th><td>자투리 원단이라 <b>같은 색이 여러 장 나오지 않아요.</b> 배송 시 랜덤</td></tr>
           <tr><th scope="row">세탁</th><td>미지근한 물에 손세탁 · 그늘에서 건조</td></tr>
+          <tr><th scope="row">남은 수량</th><td id="specStock">확인 중</td></tr>
           <tr><th scope="row">만든 곳</th><td>그린밸류 YOUTH 리본팀</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- ══════════ 사전예약 ══════════ -->
-  <section class="sec" id="reserve">
+  <!-- ══════════ 주문 ══════════ -->
+  <section class="sec" id="order">
     <div class="wrap">
-      <p class="sec__label">RESERVE</p>
-      <h2 class="sec__title">사전예약 신청</h2>
+      <p class="sec__label">ORDER</p>
+      <h2 class="sec__title">주문하기</h2>
       <p class="sec__desc">
-        결제 없이 <b>관심만 남기는 단계</b>예요. 제작이 확정되면 알려드릴게요.
-        예약하셨다고 꼭 사셔야 하는 건 아니에요.
+        계좌이체로 주문받아요. 아래에 주문을 남기고 입금해 주시면
+        <b>입금 확인 후 택배로 보내드려요.</b>
       </p>
 
-      <div class="form">
+      <div class="account" id="account"></div>
+
+      <div class="form" id="form">
         <label class="field">
           <span class="field__label">이름 <i aria-hidden="true">*</i></span>
-          <input class="input" id="rName" type="text" maxlength="20" autocomplete="name"
-                 placeholder="예: 김보람" aria-label="이름" />
+          <input class="input" id="oName" type="text" maxlength="20" autocomplete="name"
+                 placeholder="받으실 분 이름" aria-label="이름" />
         </label>
 
         <label class="field">
-          <span class="field__label">연락받을 곳 <i aria-hidden="true">*</i></span>
-          <input class="input" id="rContact" type="text" maxlength="60" autocomplete="email"
-                 inputmode="email" placeholder="이메일 또는 휴대폰 번호" aria-label="연락받을 곳" />
-          <span class="field__help">제작이 확정될 때 한 번만 연락드려요.</span>
+          <span class="field__label">휴대폰 번호 <i aria-hidden="true">*</i></span>
+          <input class="input" id="oContact" type="tel" maxlength="20" autocomplete="tel"
+                 inputmode="tel" placeholder="010-0000-0000" aria-label="휴대폰 번호" />
+          <span class="field__help">입금 확인과 배송 안내에만 써요.</span>
         </label>
 
         <div class="field">
-          <span class="field__label" id="qtyLabel">몇 개 생각하세요?</span>
+          <span class="field__label" id="qtyLabel">수량</span>
           <div class="qty" role="group" aria-labelledby="qtyLabel" id="qty">
             <button type="button" class="is-on" data-qty="1">1개</button>
             <button type="button" data-qty="2">2개</button>
             <button type="button" data-qty="3">3개</button>
-            <button type="button" data-qty="4">4개 이상</button>
+            <button type="button" data-qty="4">4개</button>
+            <button type="button" data-qty="5">5개</button>
           </div>
         </div>
 
         <label class="field">
-          <span class="field__label">하고 싶은 말 (선택)</span>
-          <input class="input" id="rNote" type="text" maxlength="100"
-                 placeholder="원하는 색, 크기, 궁금한 점" aria-label="하고 싶은 말" />
+          <span class="field__label">배송 주소 <i aria-hidden="true">*</i></span>
+          <input class="input" id="oAddress" type="text" maxlength="120" autocomplete="street-address"
+                 placeholder="도로명 주소와 상세 주소까지" aria-label="배송 주소" />
         </label>
 
+        <label class="field">
+          <span class="field__label">입금자명 (선택)</span>
+          <input class="input" id="oPayer" type="text" maxlength="20"
+                 placeholder="입금하실 분 이름이 위와 다를 때만" aria-label="입금자명" />
+        </label>
+
+        <label class="field">
+          <span class="field__label">하고 싶은 말 (선택)</span>
+          <input class="input" id="oNote" type="text" maxlength="100"
+                 placeholder="원하는 색, 궁금한 점" aria-label="하고 싶은 말" />
+        </label>
+
+        <div class="total">
+          <span>입금하실 금액 <small id="totalHint"></small></span>
+          <b id="total">—</b>
+        </div>
+
         <label class="agree">
-          <input type="checkbox" id="rAgree" />
+          <input type="checkbox" id="oAgree" />
           <span>
-            사전예약 안내를 받기 위해 <b>이름과 연락처</b>가 수집되는 데 동의합니다.
-            수집한 정보는 <b>판매 안내 목적으로만</b> 쓰고, 캠페인이 끝나거나
-            요청하시면 바로 지웁니다.
+            배송을 위해 <b>이름 · 휴대폰 번호 · 주소</b>가 수집되는 데 동의합니다.
+            입금 확인과 배송에만 쓰고, 배송이 끝나면 지웁니다.
           </span>
         </label>
 
-        <button type="button" class="btn" id="rSubmit">예약 신청하기</button>
-        <p class="msg" id="rMsg" role="status" aria-live="polite"></p>
+        <button type="button" class="btn" id="oSubmit">주문 접수하기</button>
+        <p class="msg" id="oMsg" role="status" aria-live="polite"></p>
       </div>
+
+      <div class="soldout" id="soldout" hidden>
+        <b>이번 제작분은 다 나갔어요 🙏</b>
+        다음 제작 소식은 인스타그램에서 가장 먼저 알려드릴게요.
+        <a href="https://www.instagram.com/re.born_____/" target="_blank" rel="noopener noreferrer">@re.born_____ 보러 가기 →</a>
+      </div>
+
+      <p class="dm">
+        인스타그램 DM으로도 주문할 수 있어요<br />
+        <a href="https://www.instagram.com/re.born_____/" target="_blank" rel="noopener noreferrer">@re.born_____</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ 배송 · 교환 · 환불 ══════════ -->
+  <section class="sec sec--soft">
+    <div class="wrap">
+      <p class="sec__label">SHIPPING</p>
+      <h2 class="sec__title">배송과 교환·환불</h2>
+      <ul class="policy">
+        <li><b>배송비 <span id="shipFee"></span></b> 주문 금액에 더해서 입금해 주세요. 위 폼에서 합계를 계산해 드려요.</li>
+        <li><b>발송</b> 입금이 확인되면 3일 안에 택배로 보내드려요. 발송하면 문자로 알려드립니다.</li>
+        <li><b>색과 무늬</b> 자투리 원단이라 사진과 다를 수 있어요. 이건 교환 사유가 되지 않아요.</li>
+        <li><b>하자가 있을 때</b> 박음질 불량처럼 쓰기 어려운 문제가 있으면 받은 날부터 7일 안에 DM 주세요. 교환하거나 환불해 드려요.</li>
+      </ul>
     </div>
   </section>
 
   <!-- ══════════ FAQ ══════════ -->
-  <section class="sec sec--soft">
+  <section class="sec">
     <div class="wrap">
       <p class="sec__label">FAQ</p>
       <h2 class="sec__title">자주 묻는 것</h2>
       <div class="faq">
         <details>
-          <summary>지금 결제하는 건가요?</summary>
-          <p>아니요. 지금은 <b>관심을 남기는 단계</b>예요. 결제 기능이 없습니다.
-             제작이 확정되면 연락드리고, 그때 구매 여부를 정하시면 됩니다.
-             판매가는 <b>25,000원</b>으로 정해졌어요.</p>
+          <summary>결제는 어떻게 하나요?</summary>
+          <p>카드 결제는 없고 <b>계좌이체</b>예요. 주문을 접수하면 입금할 금액과 계좌를 알려드려요.
+             입금이 확인되면 보내드립니다.</p>
         </details>
         <details>
           <summary>언제 받을 수 있나요?</summary>
-          <p>사전예약 수량을 보고 제작을 시작합니다. 수량이 적으면 제작이 어려울 수도 있어요.
-             확정되는 대로 예약하신 분들께 먼저 알려드립니다.</p>
+          <p>입금 확인 후 <b>3일 안에</b> 택배로 발송해요. 보내면 문자로 알려드립니다.</p>
         </details>
         <details>
           <summary>색상을 고를 수 있나요?</summary>
@@ -437,9 +524,14 @@ button{ font-family:inherit; cursor:pointer; }
              <a href="../" style="color:var(--accent)">활용법 페이지</a>에서 보실 수 있습니다.</p>
         </details>
         <details>
+          <summary>환불이 되나요?</summary>
+          <p>박음질 불량처럼 <b>쓰기 어려운 문제</b>가 있으면 받은 날부터 7일 안에 DM 주세요. 교환하거나 환불해 드려요.
+             색·무늬가 사진과 다른 건 자투리 원단의 특성이라 교환 사유가 아니에요.</p>
+        </details>
+        <details>
           <summary>연락처는 어떻게 쓰이나요?</summary>
-          <p>제작·판매 확정 안내에만 씁니다. 광고를 보내지 않고, 다른 곳에 넘기지 않아요.
-             지워달라고 하시면 바로 지웁니다.</p>
+          <p>입금 확인과 배송 안내에만 씁니다. 광고를 보내지 않고, 다른 곳에 넘기지 않아요.
+             배송이 끝나면 지웁니다.</p>
         </details>
       </div>
     </div>
@@ -451,7 +543,7 @@ button{ font-family:inherit; cursor:pointer; }
     <p class="footer__brand">다시보자기 · 그린밸류 YOUTH 리본팀</p>
     <p>#자투리즘 업사이클링 캠페인</p>
     <p><a href="../">활용법 페이지</a> · <a href="https://www.instagram.com/re.born_____/" target="_blank" rel="noopener noreferrer">@re.born_____</a></p>
-    <p style="margin-top:12px;color:#8B877E">사전예약은 구매 계약이 아니며, 제작 상황에 따라 진행되지 않을 수 있습니다.</p>
+    <p style="margin-top:12px;color:#8B877E">주문·배송 문의는 인스타그램 DM으로 주세요.</p>
   </div>
 </footer>
 
@@ -459,7 +551,18 @@ button{ font-family:inherit; cursor:pointer; }
 (function () {
   'use strict';
 
-  /* 인증 게시판과 같은 주소를 씁니다. 예약도 여기로 보내요. */
+  /* ── 🔴 운영진이 채우는 값 ─────────────────────────────────
+     BANK 를 비워두면 페이지에는 "주문 후 문자로 안내" 로 나가고,
+     주문은 그대로 받아져요. 계좌를 채우면 바로 계좌가 보여요. */
+  var PRICE = 25000;           // 판매가
+  var SHIPPING = 3000;         // 배송비 — 확인 후 고쳐요
+  var BANK = {
+    name: '',                  // 예: '카카오뱅크'
+    number: '',                // 예: '3333-01-2345678'
+    holder: ''                 // 예: '김재영'
+  };
+
+  /* 인증 게시판과 같은 주소를 씁니다. 주문도 여기로 보내요. */
   var API = 'https://script.google.com/macros/s/AKfycbwnM8Gdpxb_zjUDbM9mMFyswaNRwRjG7AUTCiXB3NxUR-qBPGo6fVQOX2kWSQCf932Kvg/exec';
 
   var topbar = document.getElementById('topbar');
@@ -471,6 +574,10 @@ button{ font-family:inherit; cursor:pointer; }
     return String(s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
+  }
+
+  function won(n) {
+    return Number(n).toLocaleString('ko-KR') + '원';
   }
 
   function whenText(v) {
@@ -501,7 +608,7 @@ button{ font-family:inherit; cursor:pointer; }
     });
     if (!list.length) {
       proof.innerHTML =
-        '<div class="proof__empty">챌린지가 시작되면 참여자들의 인증이<br />여기에 올라옵니다 🧵</div>';
+        '<div class="proof__empty">참여자들의 인증을 불러오지 못했어요.<br />잠시 뒤에 새로고침해 주세요.</div>';
       return;
     }
     proof.innerHTML = list.slice(0, 5).map(function (it) {
@@ -525,79 +632,187 @@ button{ font-family:inherit; cursor:pointer; }
       proof.innerHTML = '<div class="proof__empty">인증을 불러오지 못했어요.<br />잠시 뒤에 새로고침해 주세요.</div>';
     });
 
-  /* ── 예약 건수 (이름·연락처는 절대 내려받지 않아요) ── */
-  var countEl = document.getElementById('count');
-  fetch(API + '?type=reserve_count')
-    .then(function (r) { return r.json(); })
-    .then(function (d) {
-      var n = d && typeof d.count === 'number' ? d.count : 0;
-      if (n <= 0) return;
-      countEl.hidden = false;
-      countEl.innerHTML = '지금까지 <b>' + n + '명</b>이 사전예약했어요';
-    })
-    .catch(function () { /* 건수는 없어도 그만이에요 */ });
+  /* ── 입금 계좌 카드 ── */
+  var accountEl = document.getElementById('account');
 
-  /* ── 수량 선택 ── */
-  var qty = '1';
-  document.getElementById('qty').addEventListener('click', function (e) {
-    var b = e.target.closest('button');
+  function accountHtml(withLabel) {
+    if (!BANK.number) {
+      return (withLabel ? '<p class="account__label">입금 계좌</p>' : '') +
+             '<p class="account__pending">입금 계좌는 <b>주문 접수 후 문자로</b> 안내해 드려요.</p>';
+    }
+    return (withLabel ? '<p class="account__label">입금 계좌</p>' : '') +
+           '<div class="account__row">' +
+             '<div>' +
+               '<span class="account__bank">' + escapeHtml(BANK.name) + '</span>' +
+               '<b class="account__num">' + escapeHtml(BANK.number) + '</b>' +
+               '<span class="account__holder">예금주 ' + escapeHtml(BANK.holder) + '</span>' +
+             '</div>' +
+             '<button type="button" class="copy" data-copy="' + escapeHtml(BANK.number) + '">복사</button>' +
+           '</div>';
+  }
+
+  accountEl.innerHTML = accountHtml(true);
+
+  /* 계좌번호 복사 — 폰에서 계좌를 옮겨 적는 게 제일 번거로운 일이라서요 */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.copy');
     if (!b) return;
-    document.querySelectorAll('#qty button').forEach(function (x) { x.classList.remove('is-on'); });
-    b.classList.add('is-on');
-    qty = b.getAttribute('data-qty');
+    var text = b.getAttribute('data-copy') || '';
+    var done = function () {
+      b.textContent = '복사됨';
+      b.classList.add('is-done');
+      setTimeout(function () { b.textContent = '복사'; b.classList.remove('is-done'); }, 1600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
   });
 
-  /* ── 예약 제출 ── */
-  var rName = document.getElementById('rName');
-  var rContact = document.getElementById('rContact');
-  var rNote = document.getElementById('rNote');
-  var rAgree = document.getElementById('rAgree');
-  var rSubmit = document.getElementById('rSubmit');
-  var rMsg = document.getElementById('rMsg');
-
-  function say(text, type) {
-    rMsg.textContent = text;
-    rMsg.className = 'msg' + (type ? ' is-' + type : '');
+  function fallbackCopy(text, done) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      done();
+    } catch (err) { /* 복사가 안 되면 번호는 화면에 그대로 있어요 */ }
   }
 
-  function looksLikeContact(v) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) || /^01[016-9][-\s]?\d{3,4}[-\s]?\d{4}$/.test(v);
+  /* ── 남은 수량 · 품절 ── */
+  var badge = document.getElementById('badge');
+  var cta = document.getElementById('cta');
+  var specStock = document.getElementById('specStock');
+  var form = document.getElementById('form');
+  var soldout = document.getElementById('soldout');
+  var qtyButtons = Array.prototype.slice.call(document.querySelectorAll('#qty button'));
+  var left = null; // 모르면 null — 서버가 주문 때 다시 확인하니 페이지는 열어둬요
+
+  function soldOut() {
+    left = 0;
+    badge.textContent = '품절';
+    badge.classList.add('is-out');
+    specStock.textContent = '품절';
+    cta.textContent = '이번 제작분은 다 나갔어요';
+    cta.classList.add('is-off');
+    cta.setAttribute('aria-disabled', 'true');
+    form.hidden = true;
+    accountEl.hidden = true; // 다 나갔으면 계좌도 감춰요
+    soldout.hidden = false;
   }
 
-  rSubmit.addEventListener('click', function () {
-    var name = rName.value.trim();
-    var contact = rContact.value.trim();
-    var note = rNote.value.trim();
+  function renderStock(d) {
+    if (!d || typeof d.left !== 'number') return; // 못 받으면 표시만 건너뛰어요
+    if (d.left <= 0) { soldOut(); return; }
+    left = d.left;
+    badge.textContent = '남은 수량 ' + left + '개';
+    specStock.textContent = left + '개';
+    // 남은 것보다 많은 수량은 못 고르게 잠가요
+    qtyButtons.forEach(function (b) {
+      var q = Number(b.getAttribute('data-qty'));
+      b.disabled = q > left;
+      if (b.disabled && b.classList.contains('is-on')) selectQty(qtyButtons[0]);
+    });
+  }
 
-    if (!name) { say('이름을 입력해 주세요.', 'err'); rName.focus(); return; }
-    if (!contact) { say('연락받을 이메일이나 휴대폰 번호를 입력해 주세요.', 'err'); rContact.focus(); return; }
-    if (!looksLikeContact(contact)) {
-      say('이메일 또는 휴대폰 번호 형식으로 적어 주세요.', 'err'); rContact.focus(); return;
-    }
-    if (!rAgree.checked) { say('연락처 수집에 동의해 주셔야 접수할 수 있어요.', 'err'); return; }
+  fetch(API + '?type=stock')
+    .then(function (r) { return r.json(); })
+    .then(renderStock)
+    .catch(function () { /* 수량 표시는 없어도 주문은 받아요 */ });
 
-    rSubmit.disabled = true;
+  /* ── 수량 · 합계 ── */
+  var qty = 1;
+  var totalEl = document.getElementById('total');
+  var totalHint = document.getElementById('totalHint');
+  document.getElementById('shipFee').textContent = won(SHIPPING);
+
+  function renderTotal() {
+    totalEl.textContent = won(qty * PRICE + SHIPPING);
+    totalHint.textContent = '(' + qty + '개 + 배송비 ' + won(SHIPPING) + ')';
+  }
+
+  function selectQty(b) {
+    qtyButtons.forEach(function (x) { x.classList.remove('is-on'); });
+    b.classList.add('is-on');
+    qty = Number(b.getAttribute('data-qty'));
+    renderTotal();
+  }
+
+  document.getElementById('qty').addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (!b || b.disabled) return;
+    selectQty(b);
+  });
+  renderTotal();
+
+  /* ── 주문 제출 ── */
+  var oName = document.getElementById('oName');
+  var oContact = document.getElementById('oContact');
+  var oAddress = document.getElementById('oAddress');
+  var oPayer = document.getElementById('oPayer');
+  var oNote = document.getElementById('oNote');
+  var oAgree = document.getElementById('oAgree');
+  var oSubmit = document.getElementById('oSubmit');
+  var oMsg = document.getElementById('oMsg');
+
+  function say(html, type) {
+    oMsg.innerHTML = html;
+    oMsg.className = 'msg' + (type ? ' is-' + type : '');
+  }
+
+  function looksLikePhone(v) {
+    return /^01[016-9][-\s]?\d{3,4}[-\s]?\d{4}$/.test(v);
+  }
+
+  oSubmit.addEventListener('click', function () {
+    var name = oName.value.trim();
+    var contact = oContact.value.trim();
+    var address = oAddress.value.trim();
+    var payer = oPayer.value.trim();
+    var note = oNote.value.trim();
+
+    if (!name) { say('이름을 입력해 주세요.', 'err'); oName.focus(); return; }
+    if (!looksLikePhone(contact)) { say('휴대폰 번호 형식으로 적어 주세요. 배송 연락에 필요해요.', 'err'); oContact.focus(); return; }
+    if (address.length < 5) { say('배송 주소를 적어 주세요.', 'err'); oAddress.focus(); return; }
+    if (!oAgree.checked) { say('배송 정보 수집에 동의해 주셔야 접수할 수 있어요.', 'err'); return; }
+
+    oSubmit.disabled = true;
     say('접수하는 중이에요...', '');
+
+    var total = qty * PRICE + SHIPPING;
+    var payerName = payer || name;
 
     /* Apps Script 가 별도 설정 없이 받도록 text/plain 으로 보냅니다 */
     fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ type: 'reserve', name: name, contact: contact, qty: qty, note: note })
+      body: JSON.stringify({ type: 'order', name: name, contact: contact, qty: qty, address: address, payer: payer, note: note })
     })
       .then(function (r) { return r.json(); })
       .then(function (d) {
         if (d && d.ok) {
-          say('예약이 접수됐어요. 확정되면 알려드릴게요 🌿', 'ok');
-          rName.value = ''; rContact.value = ''; rNote.value = ''; rAgree.checked = false;
+          say(
+            '주문이 접수됐어요 🌿<br />' +
+            '<b>' + won(total) + '</b>을 입금자명 <b>' + escapeHtml(payerName) + '</b>으로 입금해 주세요. ' +
+            '입금이 확인되면 보내드릴게요.' +
+            '<div class="account">' + accountHtml(false) + '</div>',
+            'ok'
+          );
+          oName.value = ''; oContact.value = ''; oAddress.value = ''; oPayer.value = ''; oNote.value = '';
+          oAgree.checked = false;
+          if (typeof d.left === 'number') renderStock({ left: d.left });
         } else {
-          say((d && d.msg) || '접수하지 못했어요. 다시 시도해 주세요.', 'err');
+          say(escapeHtml((d && d.msg) || '접수하지 못했어요. 다시 시도해 주세요.'), 'err');
+          if (d && typeof d.left === 'number') renderStock({ left: d.left });
         }
       })
       .catch(function () {
         say('네트워크 문제로 접수하지 못했어요. 다시 시도해 주세요.', 'err');
       })
-      .then(function () { rSubmit.disabled = false; });
+      .then(function () { oSubmit.disabled = false; });
   });
 })();
 </script>

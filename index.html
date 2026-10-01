@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>하나의 보자기, 무한한 변신 : 다시보자기 활용법</title>
+<title>다시보자기 : 하나의 보자기, 무한한 변신</title>
 
 <meta name="description" content="버려질 천으로 만든 보자기. 접고 묶는 방법만 바꾸면 반다나, 헤어밴드, 도시락 가방, 장바구니가 되는 6가지 활용법. #자투리즘" />
 <meta name="theme-color" content="#FAF7F2" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="하나의 보자기, 무한한 변신 : 다시보자기 활용법" />
-<meta property="og:description" content="접고 묶는 방법만 바꾸면 반다나부터 장바구니까지. 업사이클링 캠페인 #자투리즘" />
+<meta property="og:title" content="다시보자기 : 하나의 보자기, 무한한 변신" />
+<meta property="og:description" content="접고 묶는 방법만 바꾸면 반다나부터 장바구니까지. 자투리 원단으로 만든 보자기, 이번 제작분 판매 중 #자투리즘" />
 <meta property="og:url" content="https://jaturism.vercel.app/" />
 <meta property="og:image" content="https://jaturism.vercel.app/images/og-cover.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -109,6 +109,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   font-size:11px; font-weight:600; color:var(--accent);
   background:var(--accent-soft);
   padding:5px 10px; border-radius:999px;
+  text-decoration:none;
 }
 
 /* ── 히어로 ─────────────────────────────────────── */
@@ -184,7 +185,11 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 .hero__desc strong{ color:var(--ink); font-weight:600; }
 
 .hero__stats{
-  display:flex; gap:10px; margin-bottom:44px;
+  display:flex; gap:10px; margin-bottom:14px;
+}
+.btn--hero{
+  background:var(--ink); color:var(--bg);
+  margin-bottom:44px; text-decoration:none;
 }
 .stat{
   flex:1; background:#fff; border:1px solid var(--line);
@@ -364,7 +369,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   margin:0 0 34px; font-size:14px; color:#B7B3AA; line-height:1.9;
 }
 .btn{
-  display:block; width:100%;
+  display:block; width:100%; text-decoration:none;
   padding:17px 20px; border-radius:14px;
   font-size:15px; font-weight:700; letter-spacing:-0.02em;
   border:none; text-align:center;
@@ -538,6 +543,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
 /* ── 공유 시트 (모달) ───────────────────────────── */
 .sheet[hidden]{ display:none; }
+[hidden]{ display:none !important; } /* display 를 준 요소도 hidden 이 먹게 */
 .sheet{ position:fixed; inset:0; z-index:100; }
 .sheet__dim{
   position:absolute; inset:0;
@@ -647,7 +653,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
 <header class="topbar" id="topbar">
   <span class="topbar__logo">다시보자기</span>
-  <span class="topbar__tag">#자투리즘</span>
+  <a class="topbar__tag" href="./store/">구매하기 →</a>
 </header>
 
 <div class="page">
@@ -655,7 +661,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   <!-- ══════════ HERO ══════════ -->
   <section class="hero">
     <div class="wrap">
-      <span class="hero__eyebrow reveal">🧵 업사이클링 캠페인 <b>#자투리즘</b></span>
+      <span class="hero__eyebrow reveal">🧵 버려질 천으로 만든 보자기 <b>다시보자기</b></span>
 
       <h1 class="hero__title reveal" data-delay="1">
         하나의 보자기,<br />
@@ -674,6 +680,8 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         <div class="stat"><span class="stat__num">30초</span><span class="stat__label">평균 변신 시간</span></div>
         <div class="stat"><span class="stat__num">0</span><span class="stat__label">필요한 도구</span></div>
       </div>
+
+      <a class="btn btn--hero reveal" data-delay="3" href="./store/">25,000원에 구매하기 →</a>
 
       <div class="scrolldown reveal" data-delay="3">
         <span>SCROLL</span>
@@ -940,14 +948,14 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   <!-- ══════════ 인증 게시판 ══════════ -->
   <section class="verify" id="verify">
     <div class="wrap">
-      <p class="section-label__sub reveal">PROOF WALL</p>
-      <h2 class="verify__title reveal">인증 게시판</h2>
+      <p class="section-label__sub reveal">REAL USE</p>
+      <h2 class="verify__title reveal">한 달 동안 실제로 쓴 기록</h2>
       <p class="verify__desc reveal" data-delay="1">
-        인스타에 올린 게시글이나 릴스 주소를 붙여넣으면<br />
-        바로 아래에 올라와요. 앱에서 올린 인증도 여기에 함께 보여요.<br />
-        매주 월요일 자정 마감이에요.
+        2026년 9월, <b>#자투리즘 챌린지 참여자 19명</b>이 4주 동안<br />
+        다시보자기를 쓰고 인스타그램에 올린 인증이에요.<br />
+        연출 사진이 아니라 진짜 일상이에요.
       </p>
-      <a class="verify__link reveal" data-delay="1" href="#" id="captionLink">
+      <a class="verify__link reveal" data-delay="1" href="#" id="captionLink" hidden>
         아직 안 올리셨나요? 캡션 받아가기 →
       </a>
 
@@ -972,12 +980,13 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         </span>
         <span class="applink__body">
           <b>토스 앱에서 더 편하게</b>
-          <span>활용법 · 인증 · 캡션을 앱 하나로</span>
+          <span>활용법 6가지를 앱에서도 볼 수 있어요</span>
         </span>
         <span class="applink__go">열기</span>
       </a>
 
-      <div class="vform reveal" data-delay="2">
+      <!-- 캠페인 종료(2026-09-28). 다음 기수를 받을 때 아래 hidden 만 지우면 인증 등록이 다시 켜져요 -->
+      <div class="vform reveal" data-delay="2" hidden>
         <div class="vform__kinds">
           <button type="button" class="chip is-on" data-kind="게시글">📷 게시글</button>
           <button type="button" class="chip" data-kind="릴스">🎬 릴스</button>
@@ -1004,28 +1013,28 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   <!-- ══════════ CTA ══════════ -->
   <section class="cta">
     <div class="wrap">
-      <p class="cta__tag reveal">JOIN THE CAMPAIGN</p>
+      <p class="cta__tag reveal">GET ONE</p>
       <h2 class="cta__title reveal" data-delay="1">
-        일곱 번째 활용법을<br />보여주세요
+        이번 제작분,<br />남은 수량만 판매해요
       </h2>
       <p class="cta__desc reveal" data-delay="2">
-        나만의 매듭을 찾았다면<br />
-        해시태그와 함께 올려주세요.<br />
-        매달 재미있는 활용법을 골라 소개해요.
+        자투리 원단이라 같은 색이 두 장 없어요.<br />
+        계좌이체로 주문받고,<br />
+        고려대 인근은 직접 받으실 수 있어요.
       </p>
 
-      <button class="btn btn--primary reveal" data-delay="2" id="shareBtn">
-        캡션 받아서 인스타에 올리기
-      </button>
-      <a class="btn btn--ghost reveal" data-delay="3" href="./store/">
-        다시보자기 구매하기
+      <a class="btn btn--primary reveal" data-delay="2" href="./store/">
+        25,000원에 구매하기
       </a>
+      <button class="btn btn--ghost reveal" data-delay="3" id="shareBtn">
+        내 활용법 인스타에 올리기
+      </button>
       <a class="btn btn--ghost reveal" data-delay="3" href="https://minion.toss.im/DScwn2l6"
          target="_blank" rel="noopener noreferrer">
         토스 앱에서 열기
       </a>
       <a class="btn btn--ghost reveal" data-delay="3" href="#verify">
-        인증 게시판 보기
+        실제 사용 기록 보기
       </a>
 
       <p class="cta__hash reveal" data-delay="3">

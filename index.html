@@ -642,6 +642,40 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   .intro, .cta, .footer{ border-radius:0; }
   .cta{ border-radius:32px 32px 0 0; }
 }
+
+/* ── 2026-10-01 정리: 흰 배경·검정 글씨·장식 최소. 주문 페이지와 같은 톤 ── */
+:root{
+  --bg:#FFFFFF; --bg-soft:#F6F5F2;
+  --ink:#151515; --ink-60:#555555; --ink-40:#8A8A8A;
+  --line:#E3E1DC; --accent:#2F6B4F; --accent-soft:#EEF3EF; --point:#B9372C;
+  --radius:8px;
+}
+.hero::before,.hero::after{ display:none; }
+.hero__title em::after{ display:none; }
+.hero__title em{ color:var(--accent); }
+.hero__eyebrow{ border-radius:4px; padding:5px 9px; }
+.scrolldown{ display:none; }
+.stat{ border-radius:var(--radius); }
+.btn,.btn--hero,.btn--ghost{ border-radius:var(--radius); }
+.section-label__sub,.cta__tag{ display:none; }
+.card__icon{ display:none; }
+.card__num{ border-bottom:none; color:var(--ink-40); font-weight:500; letter-spacing:0; }
+.illust{ border-radius:var(--radius); }
+.meta__chip{ border-radius:4px; padding:5px 9px; }
+.steps li::before{ border-radius:4px; }
+.tip{ border-radius:var(--radius); background:var(--bg-soft); }
+.tip__label{ color:var(--ink); }
+.cta{ border-radius:0; }
+.topbar__tag{ border-radius:4px; }
+.applink{ border-radius:var(--radius); }
+.applink__go{ border-radius:6px; }
+.wchip,.chip{ border-radius:6px; }
+.vform{ border-radius:var(--radius); }
+.wcard{ border-radius:var(--radius); }
+.sheet__ico,.sheet__doneIco{ display:none; }
+.sheet__item{ border-radius:var(--radius); }
+.footer{ background:var(--bg); color:var(--ink-40); border-top:1px solid var(--line); padding:28px 0 44px; }
+.footer__line{ display:none; }
 </style>
 
 <script>document.documentElement.classList.add('js');</script>
@@ -661,7 +695,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   <!-- ══════════ HERO ══════════ -->
   <section class="hero">
     <div class="wrap">
-      <span class="hero__eyebrow reveal">🧵 버려질 천으로 만든 보자기 <b>다시보자기</b></span>
+      <span class="hero__eyebrow reveal">버려질 천으로 만든 보자기 <b>다시보자기</b></span>
 
       <h1 class="hero__title reveal" data-delay="1">
         하나의 보자기,<br />
@@ -669,10 +703,9 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       </h1>
 
       <p class="hero__desc reveal" data-delay="2">
-        공장에서 버려지던 자투리 천이<br />
-        한 장의 보자기 가방이 되었어요.<br />
-        <strong>접고 묶는 방법만 바꾸면</strong> 반다나가 되고, 헤어밴드가 되고,<br />
-        장바구니가 돼요. 접으면 주머니 속으로 들어가고요.
+        공장에서 버려지던 자투리 천으로 만든 보자기 가방.<br />
+        <strong>접고 묶는 방법에 따라</strong> 반다나, 헤어밴드, 장바구니.<br />
+        접으면 주머니 속으로.
       </p>
 
       <div class="hero__stats reveal" data-delay="3">
@@ -681,7 +714,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         <div class="stat"><span class="stat__num">0</span><span class="stat__label">필요한 도구</span></div>
       </div>
 
-      <a class="btn btn--hero reveal" data-delay="3" href="./store/">25,000원에 구매하기 →</a>
+      <a class="btn btn--hero reveal" data-delay="3" href="./store/">구매하기 · 25,000원</a>
 
       <div class="scrolldown reveal" data-delay="3">
         <span>SCROLL</span>
@@ -693,14 +726,14 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   <!-- ══════════ INTRO ══════════ -->
   <section class="intro">
     <div class="wrap">
-      <p class="intro__q reveal">Q. 보자기, 명절에만 쓰는 거 아니야?</p>
+      <p class="intro__q reveal">보자기는 명절에만?</p>
       <h2 class="intro__a reveal" data-delay="1">
-        묶는 방법에 따라<br />오늘 하루가 달라져요.
+        묶는 방법에 따라<br />달라지는 하루
       </h2>
       <p class="intro__p reveal" data-delay="2">
-        에코백은 무거워서, 종이백은 비 오면 끝.<br />
-        이 가방은 가볍고, 튼튼하고, 젖어도 말리면 그만이에요.<br />
-        게다가 버려질 뻔한 천으로 만들었어요.
+        에코백은 무겁고, 종이백은 비 오면 끝.<br />
+        가볍고, 튼튼하고, 젖어도 말리면 그만인 가방.<br />
+        게다가 버려질 뻔한 천으로 제작.
       </p>
     </div>
   </section>
@@ -711,17 +744,16 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
       <div class="section-label reveal">
         <p class="section-label__sub">HOW TO USE</p>
-        <h2 class="section-label__main">다시보자기 활용법 6</h2>
+        <h2 class="section-label__main">활용법 여섯 가지</h2>
       </div>
 
       <!-- ── 01 반다나 · 스카프 ── -->
       <article class="card">
         <div class="card__head reveal">
           <span class="card__num">01</span>
-          <span class="card__icon">🧣</span>
         </div>
         <h3 class="card__title reveal">반다나 · 스카프</h3>
-        <p class="card__sub reveal">목에 두르면 옷차림이 달라져요</p>
+        <p class="card__sub reveal">목에 두르면 달라지는 옷차림</p>
 
         <!-- 일러스트 01 : 사진 준비 시 ./images/01-bandana.jpg 로 교체 -->
         <figure class="illust reveal">
@@ -729,26 +761,26 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         </figure>
 
         <p class="card__desc reveal">
-          폭이 좁아지도록 접어서 목에 두르면 평범한 티셔츠 하나도 분위기가 살아나요.
-          원단이 세 가지라 어느 면을 바깥으로 두느냐에 따라 색이 달라지고,
-          매듭을 앞에서 옆으로 옮기기만 해도 느낌이 바뀌어요.
+          폭이 좁아지게 접어 목에 두르면 평범한 티셔츠도 다른 분위기.
+          원단이 세 가지라 바깥으로 두는 면에 따라 색이 달라지고,
+          매듭 위치만 옮겨도 다른 느낌.
         </p>
 
         <div class="meta reveal">
-          <span class="meta__chip">⏱ 15초</span>
-          <span class="meta__chip">🎨 3가지 색면</span>
+          <span class="meta__chip">15초</span>
+          <span class="meta__chip">3가지 색면</span>
           <span class="meta__chip">난이도 ★☆☆</span>
         </div>
 
         <ol class="steps reveal">
-          <li>길쭉해지도록 폭을 좁게 접어요.</li>
-          <li>목에 한 바퀴 둘러 양 끝을 앞으로 가져와요.</li>
-          <li>원하는 위치에서 한 번 묶고 매무새를 정리해요.</li>
+          <li>길쭉해지도록 폭을 좁게 접기</li>
+          <li>목에 한 바퀴 둘러 양 끝을 앞으로</li>
+          <li>원하는 위치에서 한 번 묶고 매무새 정리</li>
         </ol>
 
         <div class="tip reveal">
-          <span class="tip__label">TIP</span>
-          <span>매듭을 목 옆쪽으로 살짝 돌리면 더 자연스러워요.</span>
+          <span class="tip__label">팁</span>
+          <span>매듭을 목 옆쪽으로 살짝 돌리면 더 자연스러운 모양</span>
         </div>
       </article>
 
@@ -756,7 +788,6 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       <article class="card">
         <div class="card__head reveal">
           <span class="card__num">02</span>
-          <span class="card__icon">🎀</span>
         </div>
         <h3 class="card__title reveal">가방 손잡이 스카프</h3>
         <p class="card__sub reveal">늘 들던 가방이 새것처럼</p>
@@ -767,26 +798,26 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         </figure>
 
         <p class="card__desc reveal">
-          에코백이든 백팩이든 손잡이에 감아 묶기만 하면 돼요.
-          손잡이가 손에 배기는 것도 덜해지고, 매일 들던 가방에 포인트가 하나 생겨요.
-          가방을 새로 사지 않고도 분위기를 바꾸는 방법이에요.
+          에코백이든 백팩이든 손잡이에 감아 묶기만 하면 끝.
+          손잡이가 손에 배기는 것도 덜하고, 매일 들던 가방에 포인트 하나.
+          가방을 새로 사지 않고 분위기를 바꾸는 방법.
         </p>
 
         <div class="meta reveal">
-          <span class="meta__chip">⏱ 20초</span>
-          <span class="meta__chip">🎒 아무 가방에나</span>
+          <span class="meta__chip">20초</span>
+          <span class="meta__chip">아무 가방에나</span>
           <span class="meta__chip">난이도 ★☆☆</span>
         </div>
 
         <ol class="steps reveal">
-          <li>폭이 좁아지도록 길게 접어요.</li>
-          <li>손잡이 한쪽에 두세 번 촘촘히 감아요.</li>
-          <li>끝을 리본 모양으로 묶어 마무리해요.</li>
+          <li>폭이 좁아지도록 길게 접기</li>
+          <li>손잡이 한쪽에 두세 번 촘촘히 감기</li>
+          <li>끝을 리본 모양으로 묶어 마무리</li>
         </ol>
 
         <div class="tip reveal">
-          <span class="tip__label">TIP</span>
-          <span>가방 색과 겹치지 않는 면을 바깥으로 두면 훨씬 눈에 띄어요.</span>
+          <span class="tip__label">팁</span>
+          <span>가방 색과 겹치지 않는 면을 바깥으로 두면 훨씬 눈에 띄는 효과</span>
         </div>
       </article>
 
@@ -794,7 +825,6 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       <article class="card">
         <div class="card__head reveal">
           <span class="card__num">03</span>
-          <span class="card__icon">💇</span>
         </div>
         <h3 class="card__title reveal">헤어 스타일링</h3>
         <p class="card__sub reveal">머리 감기 애매한 날의 구원</p>
@@ -805,26 +835,26 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         </figure>
 
         <p class="card__desc reveal">
-          좁게 접어 헤어밴드처럼 두르거나, 묶은 머리 위에 리본처럼 얹어도 돼요.
-          아침에 시간이 없을 때 하나만 둘러도 정돈된 느낌이 나요.
-          모자보다 부피가 작아서 가방에 넣고 다니기도 편해요.
+          좁게 접어 헤어밴드처럼 두르거나, 묶은 머리 위에 리본처럼.
+          아침에 시간이 없을 때 하나만 둘러도 정돈된 느낌.
+          모자보다 부피가 작아 가방에 넣고 다니기도 편한 크기.
         </p>
 
         <div class="meta reveal">
-          <span class="meta__chip">⏱ 20초</span>
-          <span class="meta__chip">💇 밴드 · 리본</span>
+          <span class="meta__chip">20초</span>
+          <span class="meta__chip">밴드 · 리본</span>
           <span class="meta__chip">난이도 ★★☆</span>
         </div>
 
         <ol class="steps reveal">
-          <li>머리띠 폭이 되도록 좁고 길게 접어요.</li>
-          <li>뒷머리에서 앞으로 둘러 올려요.</li>
-          <li>정수리 옆에서 묶고 끝자락을 정리해요.</li>
+          <li>머리띠 폭이 되도록 좁고 길게 접기</li>
+          <li>뒷머리에서 앞으로 둘러 올리기</li>
+          <li>정수리 옆에서 묶고 끝자락 정리</li>
         </ol>
 
         <div class="tip reveal">
-          <span class="tip__label">TIP</span>
-          <span>머리끈으로 한 번 고정하면 하루 종일 흘러내리지 않아요.</span>
+          <span class="tip__label">팁</span>
+          <span>머리끈으로 한 번 고정하면 하루 종일 흘러내리지 않음</span>
         </div>
       </article>
 
@@ -832,10 +862,9 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       <article class="card">
         <div class="card__head reveal">
           <span class="card__num">04</span>
-          <span class="card__icon">🍱</span>
         </div>
         <h3 class="card__title reveal">도시락 가방</h3>
-        <p class="card__sub reveal">반찬통이 기울지 않아요</p>
+        <p class="card__sub reveal">기울지 않는 반찬통</p>
 
         <!-- 일러스트 03 : 사진 준비 시 ./images/03-lunch.jpg 로 교체 -->
         <figure class="illust reveal">
@@ -843,26 +872,26 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         </figure>
 
         <p class="card__desc reveal">
-          바닥이 네모지게 잡혀 있어서 도시락통을 세워 담아도 기울지 않아요.
-          국물 있는 반찬을 싸 갈 때 특히 마음이 놓여요.
-          텀블러를 같이 넣어도 서로 부딪히지 않고 각자 자리를 잡아요.
+          바닥이 네모지게 잡혀 도시락통을 세워 담아도 기울지 않는 구조.
+          국물 있는 반찬을 쌀 때 특히 안심.
+          텀블러를 같이 넣어도 서로 부딪히지 않고 각자 자리.
         </p>
 
         <div class="meta reveal">
-          <span class="meta__chip">⏱ 20초</span>
-          <span class="meta__chip">🍱 2단 도시락</span>
+          <span class="meta__chip">20초</span>
+          <span class="meta__chip">2단 도시락</span>
           <span class="meta__chip">난이도 ★☆☆</span>
         </div>
 
         <ol class="steps reveal">
-          <li>가방을 세우고 바닥을 손으로 눌러 네모지게 펴요.</li>
-          <li>도시락통을 바닥에 딱 맞게 내려놓아요.</li>
-          <li>양쪽 끝을 짧게 묶어 입구를 오므려요.</li>
+          <li>가방을 세우고 바닥을 손으로 눌러 네모지게 펴기</li>
+          <li>도시락통을 바닥에 딱 맞게 놓기</li>
+          <li>양쪽 끝을 짧게 묶어 입구 오므리기</li>
         </ol>
 
         <div class="tip reveal">
-          <span class="tip__label">TIP</span>
-          <span>무거운 것을 아래에, 가벼운 것을 위에 올리면 덜 흔들려요.</span>
+          <span class="tip__label">팁</span>
+          <span>무거운 것은 아래, 가벼운 것은 위 — 덜 흔들리는 배치</span>
         </div>
       </article>
 
@@ -870,10 +899,9 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       <article class="card">
         <div class="card__head reveal">
           <span class="card__num">05</span>
-          <span class="card__icon">🥬</span>
         </div>
         <h3 class="card__title reveal">장바구니</h3>
-        <p class="card__sub reveal">비닐봉지를 받지 않아도 되는 날</p>
+        <p class="card__sub reveal">비닐봉지 없는 날</p>
 
         <!-- 일러스트 04 : 사진 준비 시 ./images/04-market.jpg 로 교체 -->
         <figure class="illust reveal">
@@ -881,26 +909,26 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         </figure>
 
         <p class="card__desc reveal">
-          천이 늘어나면서 부피가 큰 짐도 그대로 받아줘요.
-          편의점이나 마트에서 비닐봉지를 받지 않아도 되고,
-          물기가 묻어도 헹궈서 말리면 그만이에요.
+          천이 늘어나며 부피가 큰 짐도 그대로 수용.
+          편의점·마트에서 비닐봉지를 받지 않아도 되고,
+          물기가 묻어도 헹궈서 건조.
         </p>
 
         <div class="meta reveal">
-          <span class="meta__chip">⏱ 15초</span>
-          <span class="meta__chip">🥬 부피 큰 짐</span>
+          <span class="meta__chip">15초</span>
+          <span class="meta__chip">부피 큰 짐</span>
           <span class="meta__chip">난이도 ★☆☆</span>
         </div>
 
         <ol class="steps reveal">
-          <li>매듭을 느슨하게 풀어 입구를 최대한 넓혀요.</li>
-          <li>무거운 것부터 바닥에 차곡차곡 담아요.</li>
-          <li>양쪽 끝을 다시 묶어 입구를 잠가요.</li>
+          <li>매듭을 느슨하게 풀어 입구를 최대한 넓히기</li>
+          <li>무거운 것부터 바닥에 차곡차곡 담기</li>
+          <li>양쪽 끝을 다시 묶어 입구 잠그기</li>
         </ol>
 
         <div class="tip reveal">
-          <span class="tip__label">TIP</span>
-          <span>손잡이가 손에 배기면 매듭 아래를 한 번 더 감아 쥐면 편해요.</span>
+          <span class="tip__label">팁</span>
+          <span>손잡이가 손에 배기면 매듭 아래를 한 번 더 감아 쥐는 방법</span>
         </div>
       </article>
 
@@ -908,10 +936,9 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       <article class="card">
         <div class="card__head reveal">
           <span class="card__num">06</span>
-          <span class="card__icon">🤏</span>
         </div>
         <h3 class="card__title reveal">접어서 가방 속에</h3>
-        <p class="card__sub reveal">쓰지 않을 땐 손바닥만 해져요</p>
+        <p class="card__sub reveal">쓰지 않을 땐 손바닥 크기</p>
 
         <!-- 일러스트 05 : 사진 준비 시 ./images/05-fold.jpg 로 교체 -->
         <figure class="illust reveal">
@@ -919,26 +946,26 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         </figure>
 
         <p class="card__desc reveal">
-          다 쓰고 나면 납작하게 접어 가방 한쪽에 넣어둘 수 있어요.
-          자리를 거의 차지하지 않아서, 갑자기 짐이 늘었을 때 꺼내 쓰기 좋아요.
-          장을 보러 나갈 때마다 챙길 필요도 없어요.
+          다 쓰고 나면 납작하게 접어 가방 한쪽에 보관.
+          자리를 거의 차지하지 않아 갑자기 짐이 늘었을 때 꺼내 쓰기 좋은 크기.
+          장 보러 나갈 때마다 챙길 필요 없음.
         </p>
 
         <div class="meta reveal">
-          <span class="meta__chip">⏱ 10초</span>
-          <span class="meta__chip">🤏 손바닥 크기</span>
+          <span class="meta__chip">10초</span>
+          <span class="meta__chip">손바닥 크기</span>
           <span class="meta__chip">난이도 ★☆☆</span>
         </div>
 
         <ol class="steps reveal">
-          <li>매듭을 풀고 바닥부터 평평하게 눌러요.</li>
-          <li>양옆을 안쪽으로 접어 길쭉하게 만들어요.</li>
-          <li>아래에서 위로 두세 번 말아 올려요.</li>
+          <li>매듭을 풀고 바닥부터 평평하게 누르기</li>
+          <li>양옆을 안쪽으로 접어 길쭉하게 만들기</li>
+          <li>아래에서 위로 두세 번 말아 올리기</li>
         </ol>
 
         <div class="tip reveal">
-          <span class="tip__label">TIP</span>
-          <span>끝자락으로 한 번 묶어두면 가방 안에서 풀리지 않아요.</span>
+          <span class="tip__label">팁</span>
+          <span>끝자락으로 한 번 묶어두면 가방 안에서 풀리지 않음</span>
         </div>
       </article>
 
@@ -952,11 +979,11 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       <h2 class="verify__title reveal">한 달 동안 실제로 쓴 기록</h2>
       <p class="verify__desc reveal" data-delay="1">
         2026년 9월, <b>#자투리즘 챌린지 참여자 19명</b>이 4주 동안<br />
-        다시보자기를 쓰고 인스타그램에 올린 인증이에요.<br />
-        연출 사진이 아니라 진짜 일상이에요.
+        다시보자기를 쓰고 인스타그램에 올린 인증.<br />
+        연출 사진이 아닌 진짜 일상.
       </p>
       <a class="verify__link reveal" data-delay="1" href="#" id="captionLink" hidden>
-        아직 안 올리셨나요? 캡션 받아가기 →
+        캡션 받기 →
       </a>
 
       <a class="applink reveal" data-delay="1" href="https://minion.toss.im/DScwn2l6"
@@ -979,8 +1006,8 @@ button{ font:inherit; color:inherit; cursor:pointer; }
           </svg>
         </span>
         <span class="applink__body">
-          <b>토스 앱에서 더 편하게</b>
-          <span>활용법 6가지를 앱에서도 볼 수 있어요</span>
+          <b>토스 앱</b>
+          <span>활용법 여섯 가지를 앱에서도</span>
         </span>
         <span class="applink__go">열기</span>
       </a>
@@ -988,8 +1015,8 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       <!-- 캠페인 종료(2026-09-28). 다음 기수를 받을 때 아래 hidden 만 지우면 인증 등록이 다시 켜져요 -->
       <div class="vform reveal" data-delay="2" hidden>
         <div class="vform__kinds">
-          <button type="button" class="chip is-on" data-kind="게시글">📷 게시글</button>
-          <button type="button" class="chip" data-kind="릴스">🎬 릴스</button>
+          <button type="button" class="chip is-on" data-kind="게시글">게시글</button>
+          <button type="button" class="chip" data-kind="릴스">릴스</button>
         </div>
         <div class="vform__weeks" role="group" aria-label="참여 주차">
           <button type="button" class="wchip is-on" data-week="1">1주차</button>
@@ -1000,7 +1027,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         <input class="vform__input" id="vUrl" type="url" inputmode="url"
                autocomplete="off" placeholder="https://www.instagram.com/p/..." />
         <input class="vform__input" id="vNick" type="text" maxlength="20"
-               autocomplete="off" placeholder="이름 (오픈채팅 닉네임과 동일하게)" />
+               autocomplete="off" placeholder="이름 (오픈채팅 닉네임과 동일)" />
         <button type="button" class="btn btn--dark" id="vSubmit">인증 올리기</button>
         <p class="vform__msg" id="vMsg" role="status" aria-live="polite"></p>
       </div>
@@ -1015,26 +1042,26 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     <div class="wrap">
       <p class="cta__tag reveal">GET ONE</p>
       <h2 class="cta__title reveal" data-delay="1">
-        이번 제작분,<br />남은 수량만 판매해요
+        이번 제작분,<br />남은 수량만 판매
       </h2>
       <p class="cta__desc reveal" data-delay="2">
-        자투리 원단이라 같은 색이 두 장 없어요.<br />
-        계좌이체로 주문받고,<br />
-        고려대 인근은 직접 받으실 수 있어요.
+        자투리 원단이라 같은 색은 두 장 없음.<br />
+        계좌이체 주문,<br />
+        고려대 인근은 직접 수령 가능.
       </p>
 
       <a class="btn btn--primary reveal" data-delay="2" href="./store/">
-        25,000원에 구매하기
+        구매하기 · 25,000원
       </a>
       <button class="btn btn--ghost reveal" data-delay="3" id="shareBtn">
-        내 활용법 인스타에 올리기
+        활용법 인스타에 올리기
       </button>
       <a class="btn btn--ghost reveal" data-delay="3" href="https://minion.toss.im/DScwn2l6"
          target="_blank" rel="noopener noreferrer">
-        토스 앱에서 열기
+        토스 앱 열기
       </a>
       <a class="btn btn--ghost reveal" data-delay="3" href="#verify">
-        실제 사용 기록 보기
+        실제 사용 기록
       </a>
 
       <p class="cta__hash reveal" data-delay="3">
@@ -1047,8 +1074,8 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   <footer class="footer">
     <div class="footer__line"></div>
     <div class="wrap">
-      버려질 천으로 만든 보자기, 자투리즘<br />
-      © 2026 JATURISM. All rights reserved.
+      다시보자기 · 그린밸류 YOUTH 리본팀 · #자투리즘<br />
+      © 2026 JATURISM
     </div>
   </footer>
 
@@ -1062,26 +1089,22 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
     <!-- 선택 화면 -->
     <div id="sheetPick">
-      <h3 class="sheet__title" id="sheetTitle">어떻게 올릴까요?</h3>
+      <h3 class="sheet__title" id="sheetTitle">올리는 방법</h3>
       <p class="sheet__sub">
-        캡션과 해시태그가 통째로 복사돼요.<br />
-        인스타그램에서 붙여넣기만 하면 끝이에요.
+        캡션과 해시태그를 통째로 복사.<br />
+        인스타그램에서 붙여넣기만 하면 끝.
       </p>
 
       <button type="button" class="sheet__item" data-act="reels">
-        <span class="sheet__ico">🎬</span>
         <span><b>릴스용 캡션 복사</b><i>매듭 과정을 영상으로 찍었을 때</i></span>
       </button>
       <button type="button" class="sheet__item" data-act="card">
-        <span class="sheet__ico">🖼️</span>
         <span><b>게시글용 캡션 복사</b><i>사진이나 이미지를 올릴 때</i></span>
       </button>
       <button type="button" class="sheet__item" data-act="link">
-        <span class="sheet__ico">🔗</span>
         <span><b>페이지 링크만 복사</b><i>친구에게 이 페이지를 알려줄 때</i></span>
       </button>
       <button type="button" class="sheet__item" data-act="native" id="nativeItem" hidden>
-        <span class="sheet__ico">📤</span>
         <span><b>카카오톡·DM으로 보내기</b><i>휴대폰 기본 공유 메뉴 열기</i></span>
       </button>
 
@@ -1091,10 +1114,9 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     <!-- 복사 완료 화면 -->
     <div id="sheetDone" hidden>
       <div class="sheet__done">
-        <div class="sheet__doneIco">📋</div>
-        <h3 class="sheet__doneTitle" id="doneTitle">복사됐어요</h3>
+                <h3 class="sheet__doneTitle" id="doneTitle">복사 완료</h3>
         <p class="sheet__doneSub" id="doneSub">
-          인스타그램에서 길게 눌러 붙여넣기 하세요.
+          인스타그램에서 길게 눌러 붙여넣기.
         </p>
       </div>
       <div class="preview" id="donePreview"></div>
@@ -1260,18 +1282,18 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   }
 
   var DONE_TEXT = {
-    reels: ['릴스용 캡션이 복사됐어요', '인스타그램에서 릴스를 올릴 때<br />캡션 칸에 길게 눌러 붙여넣기 하세요.'],
-    card:  ['게시글용 캡션이 복사됐어요', '사진을 올린 뒤<br />문구 칸에 길게 눌러 붙여넣기 하세요.'],
-    link:  ['페이지 링크가 복사됐어요', '친구에게 보낼 때 붙여넣기 하세요.<br />올리실 땐 #자투리즘 도 함께 달아주세요.']
+    reels: ['릴스용 캡션 복사 완료', '인스타그램에서 릴스를 올릴 때<br />캡션 칸에 길게 눌러 붙여넣기.'],
+    card:  ['게시글용 캡션 복사 완료', '사진을 올린 뒤<br />문구 칸에 길게 눌러 붙여넣기.'],
+    link:  ['페이지 링크 복사 완료', '친구에게 보낼 때 붙여넣기.<br />올릴 땐 #자투리즘 도 함께.']
   };
 
   function showDone(kind, copied) {
     var t = DONE_TEXT[kind];
-    document.getElementById('doneTitle').textContent = copied ? t[0] : '아래 문구를 복사해 주세요';
+    document.getElementById('doneTitle').textContent = copied ? t[0] : '아래 문구를 직접 복사';
     document.getElementById('doneSub').innerHTML = copied
       ? t[1]
-      : '자동 복사가 막혀 있어요.<br />아래 상자를 길게 눌러 전체 선택 후 복사하세요.';
-    document.querySelector('.sheet__doneIco').textContent = copied ? '📋' : '✍️';
+      : '자동 복사 차단.<br />아래 상자를 길게 눌러 전체 선택 후 복사.';
+    document.querySelector('.sheet__doneIco').textContent = copied ? '' : '';
     document.getElementById('donePreview').textContent = CAPTIONS[kind];
     document.getElementById('openIg').hidden = (kind === 'link');
     sheetPick.hidden = true;
@@ -1407,7 +1429,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     renderStats(items);
     if (!items || !items.length) {
       wall.innerHTML =
-        '<div class="wall__empty">아직 인증이 없어요.<br />첫 번째 주인공이 되어주세요 🧵</div>';
+        '<div class="wall__empty">아직 인증 없음</div>';
       return;
     }
     /* 우수 인증(고정)과 나머지를 갈라요. 우수 인증은 주차별로 묶어 위에 쌓아요. */
@@ -1431,7 +1453,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     pins.forEach(function (it) {
       var wk = nickWeek(it).week;
       if (wk !== lastWeek) {
-        html += '<p class="wall__pinhead">🏆 ' + (wk ? escapeHtml(wk) + '주차 ' : '') + '우수 인증</p>';
+        html += '<p class="wall__pinhead">' + (wk ? escapeHtml(wk) + '주차 ' : '') + '우수 인증</p>';
         lastWeek = wk;
       }
       html += card(it, plainPins);
@@ -1458,7 +1480,7 @@ button{ font:inherit; color:inherit; cursor:pointer; }
              '<b class="wcard__nick">' + nick + '</b>' +
              '<span class="wcard__meta">' + whenText(it.t) + '</span>' +
            '</span>' +
-           (it.p ? '<span class="wcard__pin">🏆' + (plainPins ? '' : ' ' + pinLabel(it.p)) + '</span>' : '') +
+           (it.p ? '<span class="wcard__pin">' + (plainPins ? '' : ' ' + pinLabel(it.p)) + '</span>' : '') +
            '<span class="wcard__go">↗</span>' +
            '</a>';
   }
@@ -1470,15 +1492,15 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       .then(function (d) { renderWall(d && d.items); })
       .catch(function () {
         wall.innerHTML =
-          '<div class="wall__empty">인증 목록을 불러오지 못했어요.<br />잠시 뒤에 새로고침해 주세요.</div>';
+          '<div class="wall__empty">인증 불러오기 실패. 잠시 후 새로고침.</div>';
       });
   }
 
   if (!VERIFY_API) {
     /* 주소를 아직 넣지 않았을 때 : 방문자에게는 준비 중으로 보입니다 */
     vSubmit.disabled = true;
-    say('인증 게시판을 준비하고 있어요. 조금만 기다려 주세요.', '');
-    wall.innerHTML = '<div class="wall__empty">곧 열립니다 🧵</div>';
+    say('인증 게시판 준비 중', '');
+    wall.innerHTML = '<div class="wall__empty">준비 중</div>';
   } else {
     loadWall();
   }
@@ -1487,16 +1509,16 @@ button{ font:inherit; color:inherit; cursor:pointer; }
     var url = vUrl.value.trim();
     var nick = vNick.value.trim();
 
-    if (!url) { say('인스타그램 게시물 주소를 붙여넣어 주세요.', 'err'); vUrl.focus(); return; }
-    if (!nick) { say('이름을 입력해 주세요. 오픈채팅 닉네임(참여자_이름)의 이름과 같게요.', 'err'); vNick.focus(); return; }
+    if (!url) { say('인스타그램 게시물 주소 미입력', 'err'); vUrl.focus(); return; }
+    if (!nick) { say('이름 미입력 (오픈채팅 닉네임 참여자_이름의 이름과 동일하게)', 'err'); vNick.focus(); return; }
     if (!/^https:\/\/(www\.)?instagram\.com\/[^\s]+/.test(url)) {
-      say('인스타그램 게시물 주소만 등록할 수 있어요.', 'err');
+      say('인스타그램 게시물 주소만 등록 가능', 'err');
       vUrl.focus();
       return;
     }
 
     vSubmit.disabled = true;
-    say('등록하는 중이에요...', '');
+    say('등록 중', '');
 
     /* Content-Type을 text/plain으로 보내야 Apps Script가 별도 설정 없이 받습니다 */
     fetch(VERIFY_API, {
@@ -1507,16 +1529,16 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       .then(function (r) { return r.json(); })
       .then(function (d) {
         if (d && d.ok) {
-          say('등록됐어요. 참여해 주셔서 고마워요 🧵', 'ok');
+          say('등록 완료', 'ok');
           vUrl.value = '';
           vNick.value = '';
           loadWall();
         } else {
-          say((d && d.msg) || '등록하지 못했어요. 다시 시도해 주세요.', 'err');
+          say((d && d.msg) || '등록 실패. 다시 시도.', 'err');
         }
       })
       .catch(function () {
-        say('네트워크 문제로 등록하지 못했어요. 다시 시도해 주세요.', 'err');
+        say('네트워크 오류로 등록 실패. 다시 시도.', 'err');
       })
       .then(function () { vSubmit.disabled = false; });
   });

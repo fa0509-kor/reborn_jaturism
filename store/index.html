@@ -43,6 +43,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 img{ max-width:100%; display:block; }
+[hidden]{ display:none !important; } /* display 를 준 요소도 hidden 이 먹게 */
 button{ font-family:inherit; cursor:pointer; }
 .wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 20px; }
 
@@ -189,6 +190,15 @@ button{ font-family:inherit; cursor:pointer; }
 }
 .qty button.is-on{ background:var(--accent); color:#fff; border-color:var(--accent); }
 .qty button[disabled]{ opacity:.35; cursor:not-allowed; }
+.dlv{ display:grid; grid-template-columns:repeat(2,1fr); gap:7px; }
+.dlv button{
+  padding:10px 6px; border-radius:11px; border:1px solid var(--line);
+  background:#fff; color:var(--ink-60); line-height:1.35;
+  transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease);
+}
+.dlv button b{ display:block; font-size:13.5px; font-weight:700; }
+.dlv button small{ display:block; font-size:11px; }
+.dlv button.is-on{ background:var(--accent); color:#fff; border-color:var(--accent); }
 .total{
   display:flex; justify-content:space-between; align-items:baseline;
   margin:4px 0 14px; padding:12px 14px; border-radius:12px;
@@ -373,7 +383,7 @@ button{ font-family:inherit; cursor:pointer; }
       <p class="sec__label">PRICE</p>
       <h2 class="sec__title">이번 제작분만 판매해요</h2>
       <p class="sec__desc">
-        60장을 만들어 챌린지 참여자에게 나눠드리고 <b>남은 수량</b>이에요.
+        이번에 만든 것 중 <b>남은 수량</b>만 판매해요.
         다 나가면 다음 제작은 아직 정해지지 않았어요.
       </p>
       <div class="price">
@@ -389,7 +399,7 @@ button{ font-family:inherit; cursor:pointer; }
         <caption class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">제품 사양</caption>
         <tbody>
           <tr><th scope="row">소재</th><td>의류 생산 후 남은 자투리 원단 (면 혼방)</td></tr>
-          <tr><th scope="row">크기</th><td id="specSize">장바구니로 쓸 수 있는 크기</td></tr>
+          <tr><th scope="row">크기</th><td id="specSize">한 변 약 40cm — 장바구니로 쓸 수 있는 큰 사이즈</td></tr>
           <tr><th scope="row">색상</th><td>자투리 원단이라 <b>같은 색이 여러 장 나오지 않아요.</b> 배송 시 랜덤</td></tr>
           <tr><th scope="row">세탁</th><td>미지근한 물에 손세탁 · 그늘에서 건조</td></tr>
           <tr><th scope="row">남은 수량</th><td id="specStock">확인 중</td></tr>
@@ -406,7 +416,7 @@ button{ font-family:inherit; cursor:pointer; }
       <h2 class="sec__title">주문하기</h2>
       <p class="sec__desc">
         계좌이체로 주문받아요. 아래에 주문을 남기고 입금해 주시면
-        <b>입금 확인 후 택배로 보내드려요.</b>
+        <b>입금 확인 후 보내드려요.</b> 고려대 인근이면 직접 받으실 수도 있어요.
       </p>
 
       <div class="account" id="account"></div>
@@ -436,7 +446,16 @@ button{ font-family:inherit; cursor:pointer; }
           </div>
         </div>
 
-        <label class="field">
+        <div class="field">
+          <span class="field__label" id="dlvLabel">받는 방법</span>
+          <div class="dlv" role="group" aria-labelledby="dlvLabel" id="dlv">
+            <button type="button" class="is-on" data-dlv="택배"><b>택배</b><small id="dlvFeeText"></small></button>
+            <button type="button" data-dlv="직접수령"><b>직접 수령</b><small>고려대 인근 · 배송비 없음</small></button>
+          </div>
+          <span class="field__help" id="dlvHelp">입금 확인 후 3일 안에 보내드려요.</span>
+        </div>
+
+        <label class="field" id="addrField">
           <span class="field__label">배송 주소 <i aria-hidden="true">*</i></span>
           <input class="input" id="oAddress" type="text" maxlength="120" autocomplete="street-address"
                  placeholder="도로명 주소와 상세 주소까지" aria-label="배송 주소" />
@@ -490,7 +509,8 @@ button{ font-family:inherit; cursor:pointer; }
       <p class="sec__label">SHIPPING</p>
       <h2 class="sec__title">배송과 교환·환불</h2>
       <ul class="policy">
-        <li><b>배송비 <span id="shipFee"></span></b> 주문 금액에 더해서 입금해 주세요. 위 폼에서 합계를 계산해 드려요.</li>
+        <li><b>택배 — 배송비 <span id="shipFee"></span></b> 주문 금액에 더해서 입금해 주세요. 위 폼에서 합계를 계산해 드려요.</li>
+        <li><b>직접 수령 — 배송비 없음</b> 고려대 인근에서 만나서 드려요. 입금이 확인되면 문자로 시간과 장소를 잡아요.</li>
         <li><b>발송</b> 입금이 확인되면 3일 안에 택배로 보내드려요. 발송하면 문자로 알려드립니다.</li>
         <li><b>색과 무늬</b> 자투리 원단이라 사진과 다를 수 있어요. 이건 교환 사유가 되지 않아요.</li>
         <li><b>하자가 있을 때</b> 박음질 불량처럼 쓰기 어려운 문제가 있으면 받은 날부터 7일 안에 DM 주세요. 교환하거나 환불해 드려요.</li>
@@ -511,7 +531,8 @@ button{ font-family:inherit; cursor:pointer; }
         </details>
         <details>
           <summary>언제 받을 수 있나요?</summary>
-          <p>입금 확인 후 <b>3일 안에</b> 택배로 발송해요. 보내면 문자로 알려드립니다.</p>
+          <p>입금 확인 후 <b>3일 안에</b> 택배로 발송해요. 보내면 문자로 알려드립니다.
+             직접 수령은 고려대 인근에서 만나서 드려요. 입금 확인 후 문자로 시간을 잡아요.</p>
         </details>
         <details>
           <summary>색상을 고를 수 있나요?</summary>
@@ -557,9 +578,9 @@ button{ font-family:inherit; cursor:pointer; }
   var PRICE = 25000;           // 판매가
   var SHIPPING = 3000;         // 배송비 — 확인 후 고쳐요
   var BANK = {
-    name: '',                  // 예: '카카오뱅크'
-    number: '',                // 예: '3333-01-2345678'
-    holder: ''                 // 예: '김재영'
+    name: 'IBK기업은행',
+    number: '506-111563-01-011', // 화면 표시용. 복사 버튼은 숫자만 복사해요
+    holder: '김재영'
   };
 
   /* 인증 게시판과 같은 주소를 씁니다. 주문도 여기로 보내요. */
@@ -647,7 +668,7 @@ button{ font-family:inherit; cursor:pointer; }
                '<b class="account__num">' + escapeHtml(BANK.number) + '</b>' +
                '<span class="account__holder">예금주 ' + escapeHtml(BANK.holder) + '</span>' +
              '</div>' +
-             '<button type="button" class="copy" data-copy="' + escapeHtml(BANK.number) + '">복사</button>' +
+             '<button type="button" class="copy" data-copy="' + escapeHtml(BANK.number.replace(/\D/g, '')) + '">복사</button>' +
            '</div>';
   }
 
@@ -728,10 +749,34 @@ button{ font-family:inherit; cursor:pointer; }
   var totalEl = document.getElementById('total');
   var totalHint = document.getElementById('totalHint');
   document.getElementById('shipFee').textContent = won(SHIPPING);
+  document.getElementById('dlvFeeText').textContent = '배송비 ' + won(SHIPPING);
+
+  /* ── 받는 방법: 택배 / 직접 수령 ── */
+  var dlv = '택배';
+  var dlvButtons = Array.prototype.slice.call(document.querySelectorAll('#dlv button'));
+  var dlvHelp = document.getElementById('dlvHelp');
+  var addrField = document.getElementById('addrField');
+
+  document.getElementById('dlv').addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (!b) return;
+    dlvButtons.forEach(function (x) { x.classList.remove('is-on'); });
+    b.classList.add('is-on');
+    dlv = b.getAttribute('data-dlv');
+    addrField.hidden = dlv !== '택배'; // 직접 받으면 주소가 필요 없어요
+    dlvHelp.textContent = dlv === '택배'
+      ? '입금 확인 후 3일 안에 보내드려요.'
+      : '고려대 인근에서 만나서 드려요. 입금 확인 후 문자로 시간을 잡아요.';
+    renderTotal();
+  });
+
+  function shipFee() { return dlv === '택배' ? SHIPPING : 0; }
 
   function renderTotal() {
-    totalEl.textContent = won(qty * PRICE + SHIPPING);
-    totalHint.textContent = '(' + qty + '개 + 배송비 ' + won(SHIPPING) + ')';
+    totalEl.textContent = won(qty * PRICE + shipFee());
+    totalHint.textContent = dlv === '택배'
+      ? '(' + qty + '개 + 배송비 ' + won(SHIPPING) + ')'
+      : '(' + qty + '개 · 직접 수령)';
   }
 
   function selectQty(b) {
@@ -776,20 +821,20 @@ button{ font-family:inherit; cursor:pointer; }
 
     if (!name) { say('이름을 입력해 주세요.', 'err'); oName.focus(); return; }
     if (!looksLikePhone(contact)) { say('휴대폰 번호 형식으로 적어 주세요. 배송 연락에 필요해요.', 'err'); oContact.focus(); return; }
-    if (address.length < 5) { say('배송 주소를 적어 주세요.', 'err'); oAddress.focus(); return; }
+    if (dlv === '택배' && address.length < 5) { say('배송 주소를 적어 주세요.', 'err'); oAddress.focus(); return; }
     if (!oAgree.checked) { say('배송 정보 수집에 동의해 주셔야 접수할 수 있어요.', 'err'); return; }
 
     oSubmit.disabled = true;
     say('접수하는 중이에요...', '');
 
-    var total = qty * PRICE + SHIPPING;
+    var total = qty * PRICE + shipFee();
     var payerName = payer || name;
 
     /* Apps Script 가 별도 설정 없이 받도록 text/plain 으로 보냅니다 */
     fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ type: 'order', name: name, contact: contact, qty: qty, address: address, payer: payer, note: note })
+      body: JSON.stringify({ type: 'order', name: name, contact: contact, qty: qty, delivery: dlv, address: dlv === '택배' ? address : '', payer: payer, note: note })
     })
       .then(function (r) { return r.json(); })
       .then(function (d) {
@@ -797,7 +842,7 @@ button{ font-family:inherit; cursor:pointer; }
           say(
             '주문이 접수됐어요 🌿<br />' +
             '<b>' + won(total) + '</b>을 입금자명 <b>' + escapeHtml(payerName) + '</b>으로 입금해 주세요. ' +
-            '입금이 확인되면 보내드릴게요.' +
+            (dlv === '택배' ? '입금이 확인되면 보내드릴게요.' : '입금이 확인되면 문자로 만날 시간을 잡을게요.') +
             '<div class="account">' + accountHtml(false) + '</div>',
             'ok'
           );

@@ -679,6 +679,17 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 .sheet__item{ border-radius:var(--radius); }
 .footer{ background:var(--bg); color:var(--ink-40); border-top:1px solid var(--line); padding:28px 0 44px; }
 .footer__line{ display:none; }
+.stickybar{
+  position:fixed; left:0; right:0; bottom:0; z-index:30;
+  display:flex; align-items:center; gap:12px;
+  padding:10px 20px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.96); backdrop-filter:blur(10px);
+  border-top:1px solid var(--line); text-decoration:none; color:inherit;
+}
+.stickybar__info{ flex:1; min-width:0; font-size:12.5px; color:var(--ink-60); line-height:1.3; }
+.stickybar__info b{ display:block; font-size:16px; color:var(--ink); }
+.stickybar__btn{ flex:none; padding:13px 22px; border-radius:var(--radius); background:var(--ink); color:#fff; font-size:15px; font-weight:600; }
+.footer{ padding-bottom:110px; }
 </style>
 
 <script>document.documentElement.classList.add('js');</script>
@@ -1088,6 +1099,11 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 
 </div><!-- /.page -->
 
+<a class="stickybar" id="stickybar" href="./store/" hidden>
+  <span class="stickybar__info"><b>25,000원</b><small>이번 제작분 남은 수량 판매</small></span>
+  <span class="stickybar__btn">구매하기</span>
+</a>
+
 <!-- ══════════ 공유 시트 ══════════ -->
 <div class="sheet" id="shareSheet" hidden>
   <div class="sheet__dim" data-close></div>
@@ -1329,6 +1345,24 @@ button{ font:inherit; color:inherit; cursor:pointer; }
       showDone(act, false);
     });
   });
+
+  /* ════════════════ 아래 고정 구매 바 ════════════════ */
+  (function () {
+    var bar = document.getElementById('stickybar');
+    var heroBtn = document.querySelector('.btn--hero');
+    var ctaSec = document.querySelector('.cta');
+    if (!bar || !heroBtn || !ctaSec || !('IntersectionObserver' in window)) return;
+    var past = false, ctaSeen = false;
+    function render() { bar.hidden = !(past && !ctaSeen); }
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { past = !e.isIntersecting && e.boundingClientRect.top < 0; });
+      render();
+    }).observe(heroBtn);
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { ctaSeen = e.isIntersecting; });
+      render();
+    }).observe(ctaSec);
+  })();
 
   /* ════════════════ 인증 게시판 ════════════════ */
 

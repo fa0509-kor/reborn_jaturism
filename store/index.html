@@ -18,6 +18,7 @@
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer></script>
 
 <style>
 /* ============================================================
@@ -206,6 +207,45 @@ a{ color:inherit; }
 .footer p{ margin:0 0 6px; font-size:12.5px; line-height:1.8; }
 .footer a{ color:var(--ink-60); }
 
+/* ── 디자인 선택 ── */
+.designs{ display:grid; grid-template-columns:repeat(3,1fr); gap:6px; }
+.designs button{ padding:6px 6px 8px; border-radius:6px; border:1px solid var(--line); background:#fff; color:var(--ink-60); text-align:center; transition:border-color .15s var(--ease); }
+.designs img{ display:block; width:100%; aspect-ratio:1; object-fit:cover; border-radius:4px; margin-bottom:6px; }
+.designs b{ display:block; font-size:13px; font-weight:600; color:var(--ink); }
+.designs small{ display:block; font-size:11px; color:var(--ink-40); min-height:1.2em; }
+.designs button.is-on{ border-color:var(--ink); box-shadow:inset 0 0 0 1px var(--ink); }
+.designs button[disabled]{ opacity:.4; cursor:not-allowed; }
+
+/* ── 주소 검색 ── */
+.addr{ display:flex; gap:6px; margin-bottom:6px; }
+.addr__zip{ flex:1; }
+.addr__btn{ flex:none; padding:0 14px; border-radius:6px; border:1px solid var(--line-dark); background:#fff; font-size:13.5px; font-weight:600; color:var(--ink); }
+#oAddress{ margin-bottom:6px; }
+select.input{ appearance:none; -webkit-appearance:none; background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23555' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 13px center; padding-right:34px; }
+
+/* ── 아래 고정 주문 바 ── */
+.stickybar{
+  position:fixed; left:0; right:0; bottom:0; z-index:30;
+  display:flex; align-items:center; gap:12px;
+  padding:10px 20px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.96); backdrop-filter:blur(10px);
+  border-top:1px solid var(--line);
+}
+.stickybar__info{ flex:1; min-width:0; font-size:12.5px; color:var(--ink-60); line-height:1.3; }
+.stickybar__info b{ display:block; font-size:16px; color:var(--ink); }
+.stickybar__btn{ width:auto; flex:none; padding:13px 22px; }
+.footer{ padding-bottom:110px; }
+
+/* ── 사진 크게 보기 ── */
+img[data-lb]{ cursor:zoom-in; }
+.lb{ position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.93); display:flex; align-items:center; justify-content:center; }
+.lb__img{ max-width:100%; max-height:100%; object-fit:contain; user-select:none; -webkit-user-drag:none; }
+.lb__close,.lb__nav{ position:absolute; border:none; background:rgba(255,255,255,.12); color:#fff; font-size:26px; line-height:1; width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.lb__close{ top:calc(14px + env(safe-area-inset-top)); right:14px; }
+.lb__nav{ top:50%; transform:translateY(-50%); }
+.lb__prev{ left:10px; } .lb__next{ right:10px; }
+.lb__count{ position:absolute; bottom:calc(18px + env(safe-area-inset-bottom)); left:0; right:0; text-align:center; color:#fff; font-size:13px; opacity:.8; }
+
 @media (prefers-reduced-motion: reduce){
   *{ animation:none !important; transition:none !important; }
   html{ scroll-behavior:auto; }
@@ -234,7 +274,7 @@ a{ color:inherit; }
       </p>
 
       <figure class="hero__art">
-        <img src="../images/product-blue.jpg" alt="다시보자기를 손에 든 모습. 세 가지 파란색 데님 원단" width="1400" height="933" />
+        <img data-lb src="../images/product-blue.jpg" alt="다시보자기를 손에 든 모습. 세 가지 파란색 데님 원단" width="1400" height="933" />
       </figure>
 
       <a class="btn" href="#order" id="cta">주문하기 · 25,000원</a>
@@ -283,12 +323,12 @@ a{ color:inherit; }
     <div class="wrap">
       <h2 class="sec__title">제품 사진</h2>
       <div class="gallery">
-        <img class="gallery__wide" src="../images/product-lineup.jpg" alt="다시보자기 네 장을 펼쳐 놓은 모습" width="1249" height="747" loading="lazy" />
-        <img src="../images/product-camo.jpg" alt="베이지·카모·초록 원단 다시보자기" width="1400" height="933" loading="lazy" />
-        <img src="../images/product-plaid.jpg" alt="네이비·체크·흰색 원단 다시보자기" width="1400" height="933" loading="lazy" />
-        <img class="gallery__wide" src="../images/product-flat.jpg" alt="펼친 다시보자기. 삼각형 네 조각을 이어 붙인 구조" width="1400" height="1335" loading="lazy" />
+        <img data-lb class="gallery__wide" src="../images/product-lineup.jpg" alt="다시보자기 네 장을 펼쳐 놓은 모습" width="1249" height="747" loading="lazy" />
+        <img data-lb src="../images/product-camo.jpg" alt="베이지·카모·초록 원단 다시보자기" width="1400" height="933" loading="lazy" />
+        <img data-lb src="../images/product-plaid.jpg" alt="네이비·체크·흰색 원단 다시보자기" width="1400" height="933" loading="lazy" />
+        <img data-lb class="gallery__wide" src="../images/product-flat.jpg" alt="펼친 다시보자기. 삼각형 네 조각을 이어 붙인 구조" width="1400" height="1335" loading="lazy" />
       </div>
-      <p class="gallery__note">이번 제작분 일부. 색상은 랜덤 배송.</p>
+      <p class="gallery__note">디자인 3종 — 데님 · 밀리터리 · 체크. 사진을 누르면 크게 보기.</p>
     </div>
   </section>
 
@@ -323,9 +363,9 @@ a{ color:inherit; }
       <table class="spec" style="margin-top:20px">
         <caption style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">제품 사양</caption>
         <tbody>
-          <tr><th scope="row">소재</th><td>의류 생산 후 남은 자투리 원단 (면 혼방)</td></tr>
+          <tr><th scope="row">소재</th><td>의류 생산 후 남은 자투리 원단 (데님 · 면 혼방)</td></tr>
           <tr><th scope="row">크기</th><td id="specSize">한 변 약 40cm. 장바구니 크기</td></tr>
-          <tr><th scope="row">색상</th><td>자투리 원단 특성상 같은 색 중복 없음. 배송 시 랜덤</td></tr>
+          <tr><th scope="row">색상</th><td>데님 · 체크 · 밀리터리 3종. 같은 디자인도 원단에 따라 색감 차이 가능</td></tr>
           <tr><th scope="row">세탁</th><td>미지근한 물에 손세탁, 그늘 건조</td></tr>
           <tr><th scope="row">남은 수량</th><td id="specStock">확인 중</td></tr>
           <tr><th scope="row">만든 곳</th><td>그린밸류 YOUTH 리본팀</td></tr>
@@ -360,6 +400,16 @@ a{ color:inherit; }
         </label>
 
         <div class="field">
+          <span class="field__label" id="designLabel">디자인 <i aria-hidden="true">*</i></span>
+          <div class="designs" role="group" aria-labelledby="designLabel" id="designs">
+            <button type="button" data-design="데님"><img src="../images/design-denim.jpg" alt="" width="300" height="300" loading="lazy" /><b>데님</b><small></small></button>
+            <button type="button" data-design="체크"><img src="../images/design-check.jpg" alt="" width="300" height="300" loading="lazy" /><b>체크</b><small></small></button>
+            <button type="button" data-design="밀리터리"><img src="../images/design-military.jpg" alt="" width="300" height="300" loading="lazy" /><b>밀리터리</b><small></small></button>
+          </div>
+          <span class="field__help">같은 디자인이라도 자투리 원단이라 색감 차이 가능</span>
+        </div>
+
+        <div class="field">
           <span class="field__label" id="qtyLabel">수량</span>
           <div class="qty" role="group" aria-labelledby="qtyLabel" id="qty">
             <button type="button" class="is-on" data-qty="1">1개</button>
@@ -379,10 +429,29 @@ a{ color:inherit; }
           <span class="field__help" id="dlvHelp">입금 확인 후 3일 안에 발송</span>
         </div>
 
-        <label class="field" id="addrField">
+        <div class="field" id="addrField">
           <span class="field__label">배송 주소 <i aria-hidden="true">*</i></span>
+          <div class="addr">
+            <input class="input addr__zip" id="oZip" type="text" inputmode="numeric" maxlength="6"
+                   placeholder="우편번호" aria-label="우편번호" />
+            <button type="button" class="addr__btn" id="addrSearch">주소 검색</button>
+          </div>
           <input class="input" id="oAddress" type="text" maxlength="120" autocomplete="street-address"
-                 placeholder="도로명 주소와 상세 주소" aria-label="배송 주소" />
+                 placeholder="도로명 주소 (검색하면 자동 입력)" aria-label="기본 주소" />
+          <input class="input" id="oDetail" type="text" maxlength="60"
+                 placeholder="상세 주소 (동·호수)" aria-label="상세 주소" />
+        </div>
+
+        <label class="field" id="whenField" hidden>
+          <span class="field__label">수령 희망 시간</span>
+          <select class="input" id="oWhen" aria-label="수령 희망 시간">
+            <option value="">선택</option>
+            <option>평일 낮</option>
+            <option>평일 저녁</option>
+            <option>주말</option>
+            <option>상관없음</option>
+          </select>
+          <span class="field__help">입금 확인 후 이 시간대 안에서 문자로 정확한 시간 조율</span>
         </label>
 
         <label class="field">
@@ -435,7 +504,7 @@ a{ color:inherit; }
         <li><b>택배 — 배송비 <span id="shipFee"></span></b>주문 금액에 더해 입금. 합계는 주문 칸에서 자동 계산.</li>
         <li><b>직접 수령 — 배송비 무료</b>고려대 인근에서 전달. 입금 확인 후 문자로 시간·장소 조율.</li>
         <li><b>발송</b>입금 확인 후 3일 안에 택배 발송. 발송 시 문자 안내.</li>
-        <li><b>색과 무늬</b>자투리 원단 특성상 사진과 다를 수 있음. 교환 사유 아님.</li>
+        <li><b>색과 무늬</b>같은 디자인이라도 자투리 원단 특성상 사진과 색감이 다를 수 있음. 교환 사유 아님.</li>
         <li><b>하자</b>박음질 불량 등 사용이 어려운 문제는 수령일로부터 7일 안에 DM. 교환 또는 환불.</li>
       </ul>
     </div>
@@ -456,9 +525,9 @@ a{ color:inherit; }
              직접 수령은 고려대 인근, 입금 확인 후 문자로 시간 조율.</p>
         </details>
         <details>
-          <summary>색상 선택</summary>
-          <p>자투리 원단 특성상 같은 색 중복 없음.
-             원하는 색은 '하고 싶은 말'에 적으면 가능한 범위에서 반영.</p>
+          <summary>디자인 선택</summary>
+          <p>데님 · 체크 · 밀리터리 3종 중 선택. 디자인별 남은 수량은 주문 칸에 표시.
+             같은 디자인이라도 자투리 원단 특성상 색감 차이 가능.</p>
         </details>
         <details>
           <summary>사용 방법</summary>
@@ -486,6 +555,19 @@ a{ color:inherit; }
     <p>주문·배송 문의: 인스타그램 DM</p>
   </div>
 </footer>
+
+<div class="stickybar" id="stickybar" hidden>
+  <div class="stickybar__info"><b>25,000원</b><small id="stickyStock">계좌이체 · 고려대 인근 직접 수령 가능</small></div>
+  <a class="btn stickybar__btn" href="#order">주문하기</a>
+</div>
+
+<div class="lb" id="lb" hidden role="dialog" aria-label="사진 크게 보기">
+  <button type="button" class="lb__close" id="lbClose" aria-label="닫기">×</button>
+  <button type="button" class="lb__nav lb__prev" id="lbPrev" aria-label="이전 사진">‹</button>
+  <img class="lb__img" id="lbImg" alt="" />
+  <button type="button" class="lb__nav lb__next" id="lbNext" aria-label="다음 사진">›</button>
+  <span class="lb__count" id="lbCount"></span>
+</div>
 
 <script>
 (function () {
@@ -635,20 +717,81 @@ a{ color:inherit; }
     form.hidden = true;
     accountEl.hidden = true; // 다 나갔으면 계좌도 감춰요
     soldout.hidden = false;
+    renderBar();
+  }
+
+  /* ── 아래 고정 주문 바: 첫 화면 버튼이 지나간 뒤부터, 주문 칸이 보이기 전까지 ── */
+  var bar = document.getElementById('stickybar');
+  var stickyStock = document.getElementById('stickyStock');
+  var pastCta = false;
+  var orderSeen = false;
+
+  function renderBar() {
+    bar.hidden = !(pastCta && !orderSeen) || left === 0;
+  }
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { pastCta = !e.isIntersecting && e.boundingClientRect.top < 0; });
+      renderBar();
+    }).observe(cta);
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) { orderSeen = e.isIntersecting; });
+      renderBar();
+    }, { rootMargin: '0px 0px -30% 0px' }).observe(document.getElementById('order'));
+  }
+
+  /* ── 디자인 3종 ── */
+  var design = '';
+  var byDesign = null; // { 데님: n, 체크: n, 밀리터리: n } — 서버가 주면 채워져요
+  var designButtons = Array.prototype.slice.call(document.querySelectorAll('#designs button'));
+
+  function designLeft(name) {
+    return byDesign && typeof byDesign[name] === 'number' ? byDesign[name] : null;
+  }
+
+  function renderDesigns() {
+    designButtons.forEach(function (b) {
+      var name = b.getAttribute('data-design');
+      var l = designLeft(name);
+      b.querySelector('small').textContent = l === null ? '' : (l <= 0 ? '품절' : '남은 ' + l + '개');
+      b.disabled = l !== null && l <= 0;
+      if (b.disabled && b.classList.contains('is-on')) { b.classList.remove('is-on'); design = ''; }
+    });
+    renderQtyCaps();
+  }
+
+  document.getElementById('designs').addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (!b || b.disabled) return;
+    designButtons.forEach(function (x) { x.classList.remove('is-on'); });
+    b.classList.add('is-on');
+    design = b.getAttribute('data-design');
+    renderQtyCaps();
+  });
+
+  /* 전체 남은 수량과 고른 디자인의 남은 수량 중 작은 쪽까지만 고르게 해요 */
+  function renderQtyCaps() {
+    var cap = left;
+    var dl = design ? designLeft(design) : null;
+    if (dl !== null) cap = cap === null ? dl : Math.min(cap, dl);
+    qtyButtons.forEach(function (b) {
+      var q = Number(b.getAttribute('data-qty'));
+      b.disabled = cap !== null && q > cap;
+      if (b.disabled && b.classList.contains('is-on')) selectQty(qtyButtons[0]);
+    });
   }
 
   function renderStock(d) {
     if (!d || typeof d.left !== 'number') return; // 못 받으면 표시만 건너뛰어요
+    if (d.byDesign && typeof d.byDesign === 'object') byDesign = d.byDesign;
     if (d.left <= 0) { soldOut(); return; }
     left = d.left;
     badge.textContent = '남은 수량 ' + left + '개';
     specStock.textContent = left + '개';
-    // 남은 것보다 많은 수량은 못 고르게 잠가요
-    qtyButtons.forEach(function (b) {
-      var q = Number(b.getAttribute('data-qty'));
-      b.disabled = q > left;
-      if (b.disabled && b.classList.contains('is-on')) selectQty(qtyButtons[0]);
-    });
+    stickyStock.textContent = '남은 수량 ' + left + '개';
+    renderBar();
+    renderDesigns();
   }
 
   fetch(API + '?type=stock')
@@ -668,6 +811,7 @@ a{ color:inherit; }
   var dlvButtons = Array.prototype.slice.call(document.querySelectorAll('#dlv button'));
   var dlvHelp = document.getElementById('dlvHelp');
   var addrField = document.getElementById('addrField');
+  var whenField = document.getElementById('whenField');
 
   document.getElementById('dlv').addEventListener('click', function (e) {
     var b = e.target.closest('button');
@@ -676,6 +820,7 @@ a{ color:inherit; }
     b.classList.add('is-on');
     dlv = b.getAttribute('data-dlv');
     addrField.hidden = dlv !== '택배'; // 직접 받으면 주소가 필요 없어요
+    whenField.hidden = dlv === '택배';
     dlvHelp.textContent = dlv === '택배'
       ? '입금 확인 후 3일 안에 발송'
       : '고려대 인근에서 직접 전달. 입금 확인 후 문자로 시간 조율';
@@ -715,6 +860,37 @@ a{ color:inherit; }
   var oSubmit = document.getElementById('oSubmit');
   var oMsg = document.getElementById('oMsg');
 
+  var oZip = document.getElementById('oZip');
+  var oDetail = document.getElementById('oDetail');
+  var oWhen = document.getElementById('oWhen');
+
+  /* 숫자만 쳐도 010-1234-5678 꼴로 맞춰요 */
+  oContact.addEventListener('input', function () {
+    var d = oContact.value.replace(/\D/g, '').slice(0, 11);
+    var out = d;
+    if (d.length > 3 && d.length <= 7) out = d.slice(0, 3) + '-' + d.slice(3);
+    else if (d.length > 7) out = d.slice(0, 3) + '-' + d.slice(3, d.length - 4) + '-' + d.slice(-4);
+    if (oContact.value !== out) oContact.value = out;
+  });
+
+  /* 다음 우편번호 검색. 스크립트를 못 불러오면 직접 입력으로 넘어가요 */
+  document.getElementById('addrSearch').addEventListener('click', function () {
+    if (!window.daum || !window.daum.Postcode) {
+      oAddress.placeholder = '주소 검색 불가. 도로명 주소 직접 입력';
+      oAddress.focus();
+      return;
+    }
+    new window.daum.Postcode({
+      oncomplete: function (data) {
+        oZip.value = data.zonecode || '';
+        var base = data.roadAddress || data.jibunAddress || '';
+        if (data.buildingName) base += ' (' + data.buildingName + ')';
+        oAddress.value = base;
+        oDetail.focus();
+      }
+    }).open();
+  });
+
   function say(html, type) {
     oMsg.innerHTML = html;
     oMsg.className = 'msg' + (type ? ' is-' + type : '');
@@ -728,12 +904,19 @@ a{ color:inherit; }
     var name = oName.value.trim();
     var contact = oContact.value.trim();
     var address = oAddress.value.trim();
+    var zip = oZip.value.trim();
+    var detail = oDetail.value.trim();
     var payer = oPayer.value.trim();
     var note = oNote.value.trim();
+    var when = oWhen.value;
 
     if (!name) { say('이름 미입력', 'err'); oName.focus(); return; }
     if (!looksLikePhone(contact)) { say('휴대폰 번호 형식 확인 (배송 연락용)', 'err'); oContact.focus(); return; }
+    if (!design) { say('디자인 미선택', 'err'); document.getElementById('designs').scrollIntoView({ block: 'center' }); return; }
     if (dlv === '택배' && address.length < 5) { say('배송 주소 미입력', 'err'); oAddress.focus(); return; }
+    var fullAddress = [zip ? '(' + zip + ')' : '', address, detail].filter(Boolean).join(' ');
+    // 직접 수령이면 희망 시간을 메모 앞에 붙여요 (시트 칸은 그대로)
+    var noteOut = (dlv !== '택배' && when ? '[수령 희망: ' + when + '] ' : '') + note;
     if (!oAgree.checked) { say('개인정보 수집 동의 필요', 'err'); return; }
 
     oSubmit.disabled = true;
@@ -746,24 +929,24 @@ a{ color:inherit; }
     fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ type: 'order', name: name, contact: contact, qty: qty, delivery: dlv, address: dlv === '택배' ? address : '', payer: payer, note: note })
+      body: JSON.stringify({ type: 'order', name: name, contact: contact, qty: qty, design: design, delivery: dlv, address: dlv === '택배' ? fullAddress : '', payer: payer, note: noteOut })
     })
       .then(function (r) { return r.json(); })
       .then(function (d) {
         if (d && d.ok) {
           say(
             '주문 접수 완료.<br />' +
-            '아래 계좌로 <b>' + won(total) + '</b>, 입금자명 <b>' + escapeHtml(payerName) + '</b>. ' +
+            escapeHtml(design) + ' ' + qty + '개. 아래 계좌로 <b>' + won(total) + '</b>, 입금자명 <b>' + escapeHtml(payerName) + '</b>. ' +
             (dlv === '택배' ? '입금 확인 후 3일 안에 발송.' : '입금 확인 후 문자로 수령 시간 조율.') +
             '<div class="account">' + accountHtml(false) + '</div>',
             'ok'
           );
-          oName.value = ''; oContact.value = ''; oAddress.value = ''; oPayer.value = ''; oNote.value = '';
+          oName.value = ''; oContact.value = ''; oAddress.value = ''; oZip.value = ''; oDetail.value = ''; oPayer.value = ''; oNote.value = ''; oWhen.value = '';
           oAgree.checked = false;
-          if (typeof d.left === 'number') renderStock({ left: d.left });
+          if (typeof d.left === 'number') renderStock(d);
         } else {
           say(escapeHtml((d && d.msg) || '접수 실패. 다시 시도.'), 'err');
-          if (d && typeof d.left === 'number') renderStock({ left: d.left });
+          if (d && typeof d.left === 'number') renderStock(d);
         }
       })
       .catch(function () {
@@ -771,6 +954,49 @@ a{ color:inherit; }
       })
       .then(function () { oSubmit.disabled = false; });
   });
+
+  /* ── 사진 크게 보기 ── */
+  var lbImgs = Array.prototype.slice.call(document.querySelectorAll('img[data-lb]'));
+  var lb = document.getElementById('lb');
+  var lbImg = document.getElementById('lbImg');
+  var lbCount = document.getElementById('lbCount');
+  var lbIdx = 0;
+
+  function lbShow(i) {
+    lbIdx = (i + lbImgs.length) % lbImgs.length;
+    lbImg.src = lbImgs[lbIdx].currentSrc || lbImgs[lbIdx].src;
+    lbImg.alt = lbImgs[lbIdx].alt;
+    lbCount.textContent = (lbIdx + 1) + ' / ' + lbImgs.length;
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function lbHide() {
+    lb.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  lbImgs.forEach(function (img, i) {
+    img.addEventListener('click', function () { lbShow(i); });
+  });
+  document.getElementById('lbClose').addEventListener('click', lbHide);
+  document.getElementById('lbPrev').addEventListener('click', function () { lbShow(lbIdx - 1); });
+  document.getElementById('lbNext').addEventListener('click', function () { lbShow(lbIdx + 1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) lbHide(); });
+  document.addEventListener('keydown', function (e) {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') lbHide();
+    else if (e.key === 'ArrowLeft') lbShow(lbIdx - 1);
+    else if (e.key === 'ArrowRight') lbShow(lbIdx + 1);
+  });
+  // 손가락으로 좌우 넘기기
+  var touchX = null;
+  lb.addEventListener('touchstart', function (e) { touchX = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', function (e) {
+    if (touchX === null) return;
+    var dx = e.changedTouches[0].clientX - touchX;
+    touchX = null;
+    if (Math.abs(dx) > 40) lbShow(lbIdx + (dx < 0 ? 1 : -1));
+  }, { passive: true });
 })();
 </script>
 

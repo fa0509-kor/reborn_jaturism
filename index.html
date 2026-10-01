@@ -651,6 +651,8 @@ button{ font:inherit; color:inherit; cursor:pointer; }
   --radius:8px;
 }
 .hero::before,.hero::after{ display:none; }
+.hero__photo{ margin:0 0 20px; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--bg-soft); }
+.hero__photo img{ display:block; width:100%; height:auto; }
 .hero__title em::after{ display:none; }
 .hero__title em{ color:var(--accent); }
 .hero__eyebrow{ border-radius:4px; padding:5px 9px; }
@@ -708,6 +710,10 @@ button{ font:inherit; color:inherit; cursor:pointer; }
         <strong>접고 묶는 방법에 따라</strong> 반다나, 헤어밴드, 장바구니.<br />
         접으면 주머니 속으로.
       </p>
+
+      <figure class="hero__photo reveal" data-delay="2">
+        <img src="./images/product-camo.jpg" alt="다시보자기를 손에 든 모습. 베이지·카모·초록 원단" width="1400" height="933" />
+      </figure>
 
       <div class="hero__stats reveal" data-delay="3">
         <div class="stat"><span class="stat__num">6가지</span><span class="stat__label">활용법</span></div>

@@ -69,8 +69,12 @@ a{ color:inherit; }
 .hero__badge.is-out{ color:var(--point); border-color:var(--point); }
 .hero__title{ margin:0 0 14px; font-size:26px; font-weight:700; line-height:1.38; letter-spacing:-0.03em; }
 .hero__desc{ margin:0 0 24px; font-size:14.5px; color:var(--ink-60); line-height:1.85; }
-.hero__art{ border:1px solid var(--line); border-radius:var(--radius); padding:22px; margin-bottom:24px; background:var(--bg-soft); }
-.hero__art svg{ width:100%; height:auto; }
+.hero__art{ margin:0 0 24px; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; background:var(--bg-soft); }
+.hero__art img{ display:block; width:100%; height:auto; }
+.gallery{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.gallery img{ display:block; width:100%; height:100%; object-fit:cover; border-radius:var(--radius); border:1px solid var(--line); }
+.gallery__wide{ grid-column:1 / -1; }
+.gallery__note{ margin:10px 0 0; font-size:12px; color:var(--ink-40); }
 
 /* ── 공통 섹션 ── */
 .sec{ padding:40px 0; border-top:1px solid var(--line); }
@@ -229,27 +233,9 @@ a{ color:inherit; }
         도시락 가방, 장바구니.
       </p>
 
-      <div class="hero__art">
-        <svg viewBox="0 0 320 180" role="img" aria-label="자투리 원단이 보자기 가방으로 바뀌는 그림">
-          <rect width="320" height="180" fill="none" />
-          <g opacity=".85">
-            <rect x="14" y="52" width="46" height="34" rx="4" fill="#D9CEBB" transform="rotate(-9 37 69)" />
-            <rect x="26" y="92" width="38" height="28" rx="4" fill="#C9BCA6" transform="rotate(7 45 106)" />
-            <rect x="8" y="102" width="30" height="22" rx="4" fill="#E2D8C7" transform="rotate(-14 23 113)" />
-          </g>
-          <path d="M84 90 H120 m0 0 l-9 -7 m9 7 l-9 7" fill="none" stroke="#8A8A8A" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" />
-          <path d="M216 44c-30 4-49 21-53 48-5 38 20 62 53 62s58-24 53-62c-4-27-23-44-53-48z" fill="#2F6B4F" />
-          <path d="M205 44c-12-11-16-22-12-30 10 5 17 15 19 26z" fill="#255740" />
-          <path d="M227 44c12-11 16-22 12-30-10 5-17 15-19 26z" fill="#3F8560" />
-          <circle cx="216" cy="45" r="10" fill="#255740" />
-          <g fill="#FFFFFF" opacity=".6">
-            <circle cx="193" cy="82" r="4" /><circle cx="239" cy="82" r="4" />
-            <circle cx="182" cy="112" r="4" /><circle cx="250" cy="112" r="4" />
-            <circle cx="216" cy="128" r="4" />
-          </g>
-        </svg>
-      </div>
+      <figure class="hero__art">
+        <img src="../images/product-blue.jpg" alt="다시보자기를 손에 든 모습. 세 가지 파란색 데님 원단" width="1400" height="933" />
+      </figure>
 
       <a class="btn" href="#order" id="cta">주문하기 · 25,000원</a>
     </div>
@@ -289,6 +275,20 @@ a{ color:inherit; }
           </span>
         </li>
       </ol>
+    </div>
+  </section>
+
+  <!-- ══════════ 제품 사진 ══════════ -->
+  <section class="sec">
+    <div class="wrap">
+      <h2 class="sec__title">제품 사진</h2>
+      <div class="gallery">
+        <img class="gallery__wide" src="../images/product-lineup.jpg" alt="다시보자기 네 장을 펼쳐 놓은 모습" width="1249" height="747" loading="lazy" />
+        <img src="../images/product-camo.jpg" alt="베이지·카모·초록 원단 다시보자기" width="1400" height="933" loading="lazy" />
+        <img src="../images/product-plaid.jpg" alt="네이비·체크·흰색 원단 다시보자기" width="1400" height="933" loading="lazy" />
+        <img class="gallery__wide" src="../images/product-flat.jpg" alt="펼친 다시보자기. 삼각형 네 조각을 이어 붙인 구조" width="1400" height="1335" loading="lazy" />
+      </div>
+      <p class="gallery__note">이번 제작분 일부. 색상은 랜덤 배송.</p>
     </div>
   </section>
 

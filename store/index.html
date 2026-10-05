@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>다시보자기 구매 : 자투리 원단으로 만든 보자기</title>
 
-<meta name="description" content="버려질 자투리 원단으로 만든 다시보자기. 반다나부터 장바구니까지 여섯 가지로 쓰는 보자기. 데님 · 체크 · 밀리터리 3종. #자투리즘" />
+<meta name="description" content="버려질 자투리 원단으로 만든 다시보자기. 반다나부터 장바구니까지 여러 가지로 쓰는 보자기. 데님 · 체크 · 밀리터리 3종. #자투리즘" />
 <meta name="theme-color" content="#FFFFFF" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="다시보자기 구매" />
-<meta property="og:description" content="자투리 원단으로 만든 보자기 하나로 여섯 가지. 데님 · 체크 · 밀리터리 3종, 20,000원." />
+<meta property="og:description" content="자투리 원단으로 만든 보자기, 여러 가지 활용. 데님 · 체크 · 밀리터리 3종, 20,000원." />
 <meta property="og:url" content="https://jaturism.vercel.app/store/" />
 <meta property="og:image" content="https://jaturism.vercel.app/images/og-cover.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -265,7 +265,7 @@ img[data-lb]{ cursor:zoom-in; }
     <div class="wrap">
       <span class="hero__badge" id="badge">판매 중</span>
       <h1 class="hero__title">
-        버려질 천으로 만든 보자기,<br />하나로 여섯 가지
+        버려질 천으로 만든 보자기,<br />여러 가지 활용
       </h1>
       <p class="hero__desc">
         옷을 만들고 남은 자투리 원단으로 만든 보자기.<br />
@@ -364,7 +364,7 @@ img[data-lb]{ cursor:zoom-in; }
           <tr><th scope="row">크기</th><td id="specSize">한 변 약 40cm. 장바구니 크기</td></tr>
           <tr><th scope="row">색상</th><td>데님 · 체크 · 밀리터리 3종</td></tr>
           <tr><th scope="row">세탁</th><td>기계 세탁 가능</td></tr>
-          <tr><th scope="row">남은 수량</th><td id="specStock">확인 중</td></tr>
+          <tr><th scope="row">재고</th><td id="specStock">확인 중</td></tr>
           <tr><th scope="row">만든 곳</th><td>그린밸류 YOUTH 리본팀</td></tr>
         </tbody>
       </table>
@@ -403,7 +403,6 @@ img[data-lb]{ cursor:zoom-in; }
             <button type="button" data-design="체크"><img src="../images/design-check.jpg" alt="" width="300" height="300" loading="lazy" /><b>체크</b><small></small></button>
             <button type="button" data-design="밀리터리"><img src="../images/design-military.jpg" alt="" width="300" height="300" loading="lazy" /><b>밀리터리</b><small></small></button>
           </div>
-          <span class="field__help">같은 디자인이라도 자투리 원단이라 색감 차이 가능</span>
         </div>
 
         <div class="field">
@@ -784,9 +783,9 @@ img[data-lb]{ cursor:zoom-in; }
     if (d.byDesign && typeof d.byDesign === 'object') byDesign = d.byDesign;
     if (d.left <= 0) { soldOut(); return; }
     left = d.left;
-    badge.textContent = '남은 수량 ' + left + '개';
+    badge.textContent = '재고: ' + left + '개';
     specStock.textContent = left + '개';
-    stickyStock.textContent = '남은 수량 ' + left + '개';
+    stickyStock.textContent = '재고: ' + left + '개';
     renderBar();
     renderDesigns();
   }

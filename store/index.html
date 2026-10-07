@@ -341,7 +341,7 @@ img[data-lb]{ cursor:zoom-in; }
         (인스타그램 게시물로 연결됩니다.)
       </p>
       <div class="proof" id="proof"></div>
-      <p class="proof__note">챌린지 인증 게시판과 자동 연동.</p>
+      <p class="proof__note">챌린지 인증 게시판과 자동으로 연동됩니다.</p>
     </div>
   </section>
 
@@ -620,7 +620,7 @@ img[data-lb]{ cursor:zoom-in; }
       return /^https:\/\/(www\.)?instagram\.com\//.test(String(it.u || ''));
     });
     if (!list.length) {
-      proof.innerHTML = '<div class="proof__empty">인증 불러오기 실패. 잠시 후 새로고침.</div>';
+      proof.innerHTML = '<div class="proof__empty">인증을 불러오지 못했습니다. 잠시 후 새로고침해 주세요.</div>';
       return;
     }
     proof.innerHTML = list.slice(0, 5).map(function (it) {
@@ -641,7 +641,7 @@ img[data-lb]{ cursor:zoom-in; }
     .then(function (r) { return r.json(); })
     .then(function (d) { renderProof(d && d.items); })
     .catch(function () {
-      proof.innerHTML = '<div class="proof__empty">인증 불러오기 실패. 잠시 후 새로고침.</div>';
+      proof.innerHTML = '<div class="proof__empty">인증을 불러오지 못했습니다. 잠시 후 새로고침해 주세요.</div>';
     });
 
   /* ── 입금 계좌 카드 ── */
